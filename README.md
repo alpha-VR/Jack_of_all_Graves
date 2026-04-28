@@ -56,7 +56,7 @@ python -m jack.rl.train --timesteps 5_000_000
 
 ## Credits
 
-Built by **KVR-ADITYA**, vibe coded with **[Claude Sonnet](https://claude.ai)** by Anthropic.
+Vibe coded with **[Claude Sonnet](https://claude.ai)** by Anthropic.
 
 The RL agent was trained via self-play on a Python simulation of the bingo ruleset, reaching ~5M timesteps.
 
