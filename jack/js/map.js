@@ -3,6 +3,10 @@
 
 const MapView = (() => {
 
+  const _UG_ZONE_IDS = new Set(['siofra', 'ainsel', 'deeproot', 'mohgwyn']);
+  // level field may be absent on older saves — fall back to zone name
+  const _isUG = loc => loc.level === 2 || _UG_ZONE_IDS.has(loc.zone);
+
   // ── Calibrated bounds (verified from original app) ─────────────────────────
   const SURFACE_BOUNDS    = [[-235.7096, 33.4688], [-23.0207, 237.1583]];
 
@@ -247,7 +251,7 @@ const MapView = (() => {
 
     // Filter to only stops visible on this layer (skip _start and no-location stops)
     const visibleStops = stops.filter(s =>
-      s.location?.x && ((s.location.level === 2) === isUGLayer)
+      s.location?.x && (_isUG(s.location) === isUGLayer)
     );
 
     // Draw sequential path lines: prev stop → next stop
@@ -323,7 +327,7 @@ const MapView = (() => {
   function _onStepChanged({ idx, stop }) {
     if (!stop?.location?.x) return;
     // Auto-switch layer if the stop is on a different layer
-    const stopIsUG = stop.location.level === 2;
+    const stopIsUG = _isUG(stop.location);
     if (stopIsUG && _layer !== 'underground') {
       State.emit('map:requestLayerSwitch', 'underground');
     } else if (!stopIsUG && _layer !== 'surface') {
@@ -354,7 +358,7 @@ const MapView = (() => {
 
     locs.forEach(loc => {
       if (!loc.x) return;
-      const isUG = loc.level === 2;
+      const isUG = _isUG(loc);
 
       // Switch to the right layer if needed
       if (isUG && _layer !== 'underground') State.emit('map:requestLayerSwitch', 'underground');
