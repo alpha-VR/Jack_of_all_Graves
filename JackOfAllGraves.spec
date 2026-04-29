@@ -5,6 +5,7 @@
 # Requires PyInstaller >= 6.0
 
 import sys ; sys.setrecursionlimit(sys.getrecursionlimit() * 5)
+from PyInstaller.utils.hooks import collect_data_files
 
 a = Analysis(
     ['jack/server.py'],
@@ -19,6 +20,10 @@ a = Analysis(
         ('jack/data',         'jack/data'),
         # Trained RL model only — skip training checkpoints
         ('jack/rl/checkpoints/bingo_agent_final.zip', 'jack/rl/checkpoints'),
+        # Package data files (version.txt etc.)
+        *collect_data_files('stable_baselines3'),
+        *collect_data_files('sb3_contrib'),
+        *collect_data_files('gymnasium'),
     ],
     hiddenimports=[
         # RL stack
