@@ -116,13 +116,13 @@ class SelfPlayCallback(BaseCallback):
 def train(
     total_timesteps:          int   = 1_000_000,
     save_dir:                 str   = DEFAULT_SAVE_DIR,
-    opponent_update_interval: int   = 50_000,
+    opponent_update_interval: int   = 100_000,
     n_envs:                   int   = 4,
-    learning_rate:            float = 3e-4,
+    learning_rate:            float = 1e-4,
     batch_size:               int   = 512,
     n_epochs:                 int   = 10,
     gamma:                    float = 0.99,
-    ent_coef:                 float = 0.01,
+    ent_coef:                 float = 0.05,
     resume_from:              str   = None,
 ):
     os.makedirs(save_dir, exist_ok=True)
@@ -150,6 +150,7 @@ def train(
             gamma=gamma,
             ent_coef=ent_coef,
             verbose=1,
+            policy_kwargs=dict(net_arch=[256, 256]),
         )
 
     callback = SelfPlayCallback(

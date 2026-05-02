@@ -49,6 +49,11 @@
         <div id="marker-detail">
           <button class="detail-close" id="btn-close-detail">✕</button>
         </div>
+        <!-- Board POI tier toggles -->
+        <div id="poi-tier-controls">
+          <button class="poi-tier-btn" id="btn-poi-t1">T1 Objectives</button>
+          <button class="poi-tier-btn" id="btn-poi-t2">T2 Resources</button>
+        </div>
       </div>
 
       <div id="route-panel">
@@ -117,6 +122,7 @@
 <script src="/js/router.js"></script>
 <script src="/js/map.js"></script>
 <script src="/js/board.js"></script>
+<script src="/js/poi.js"></script>
 <script src="/js/ui.js"></script>
 <script>
 (async () => {
@@ -124,6 +130,7 @@
   UI.init();
   MapView.init(document.getElementById('map'));
   Board.init(document.getElementById('board-grid'));
+  POI.init();
 
   // ── Layer switch buttons ─────────────────────────────────────────────────
   const btnSurface = document.getElementById('btn-surface');
@@ -194,6 +201,16 @@
     MapView.setRouteVisible(on);
     this.classList.toggle('active', on);
     this.classList.toggle('inactive', !on);
+  });
+
+  // POI tier toggles
+  document.getElementById('btn-poi-t1')?.addEventListener('click', function() {
+    const on = this.classList.toggle('active');
+    MapView.toggleBoardPoiTier(1, on);
+  });
+  document.getElementById('btn-poi-t2')?.addEventListener('click', function() {
+    const on = this.classList.toggle('active');
+    MapView.toggleBoardPoiTier(2, on);
   });
 
   // Build panel toggle

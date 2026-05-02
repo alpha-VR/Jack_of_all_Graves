@@ -7935,11 +7935,11 @@
           "zone": "limgrave"
         },
         {
-          "name": "Demi-Human Chief",
-          "x": -195.601562,
-          "y": 95.910563,
+          "name": "Demi-Human Chief Duo (Coastal Cave)",
+          "x": -212.09375,
+          "y": 108.671576,
           "level": 1,
-          "zone": null
+          "zone": "limgrave"
         },
         {
           "name": "Runebear",
@@ -8040,13 +8040,6 @@
           "zone": "liurnia"
         },
         {
-          "name": "Great Wyrm Theodorix",
-          "x": -68.335937,
-          "y": 149.168542,
-          "level": 1,
-          "zone": null
-        },
-        {
           "name": "Misbegotten Crusader",
           "x": -69.26997,
           "y": 148.35371,
@@ -8136,20 +8129,6 @@
           "y": 75.798981,
           "level": 1,
           "zone": "altus_plateau"
-        },
-        {
-          "name": "Demi-Human Chief Duo (Coastal Cave)",
-          "x": -212.09375,
-          "y": 108.671576,
-          "level": 1,
-          "zone": "limgrave"
-        },
-        {
-          "name": "Beastman of Farum Azula (Groveside Cave)",
-          "x": -190.195312,
-          "y": 108.546562,
-          "level": 1,
-          "zone": "limgrave"
         }
       ],
       "prerequisites": [],
@@ -8928,21 +8907,21 @@
           "x": -106.453125,
           "y": 57.44045,
           "level": 1,
-          "zone": null
+          "zone": "liurnia"
         },
         {
           "name": "Cracked Pot - 2x Stormveil Castle",
           "x": -175.664062,
           "y": 85.62142,
           "level": 1,
-          "zone": null
+          "zone": "limgrave"
         },
         {
           "name": "Cracked Pot - Raya Lucaria Academy",
           "x": -138.320312,
           "y": 57.918507,
           "level": 1,
-          "zone": null
+          "zone": "liurnia"
         },
         {
           "name": "Cracked Pot - Groveside Cave",
@@ -8952,32 +8931,39 @@
           "zone": "limgrave"
         },
         {
+          "name": "Cracked Pot - x3 - Merchant Kale (Church of Elleh)",
+          "x": -191.1875,
+          "y": 100.041878,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
           "name": "Cracked Pot - x3 - Jarburg",
           "x": -145.120312,
           "y": 84.33062,
           "level": 1,
-          "zone": null
+          "zone": "liurnia"
         },
         {
           "name": "Cracked Pot - x2 - Auriza Side Tomb",
           "x": -95.289062,
           "y": 122.700222,
           "level": 1,
-          "zone": null
+          "zone": "leyndell"
         },
         {
           "name": "Cracked Pot - Minor Erdtree (Caelid)",
           "x": -165.71875,
           "y": 129.143472,
           "level": 1,
-          "zone": null
+          "zone": "caelid"
         },
         {
           "name": "Cracked Pot - Leyndell, Royal Capital",
           "x": -101.554687,
           "y": 115.023978,
           "level": 1,
-          "zone": null
+          "zone": "leyndell"
         }
       ],
       "prerequisites": [],

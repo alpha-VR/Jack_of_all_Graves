@@ -21,7 +21,7 @@ from typing import List, Dict, Any, Optional
 from .constants import (
     ZONE_PENALTY, ZONE_SPEED_MULT, ZONE_TIER,
     BOSS_HP, compute_kill_time, compute_travel_time,
-    WEAPON_CLASSES, S6_GRACES, STONE_NODES, ROUNDTABLE,
+    WEAPON_CLASSES, S6_GRACES, STONE_NODES, ROUNDTABLE, PREREQ_LOCS,
     OVERHEAD_GRACE_SEC, OVERHEAD_BOSS_SEC, OVERHEAD_PICKUP_SEC,
     OVERHEAD_DUNGEON_SEC, dungeon_overhead, BINGO_LINES, N_SQUARES,
 )
@@ -252,6 +252,15 @@ def _build_global_universe():
         'loc':   ROUNDTABLE,
         'key':   'roundtable',
     })
+    # Prerequisite-only locations (not in any square's locations list)
+    for ploc in PREREQ_LOCS:
+        loc = _resolve_loc(ploc)
+        universe.append({
+            'type':       'prereq',
+            'loc':         loc,
+            'prereq_key':  ploc['prereq_key'],
+            'key':         _loc_key(loc),
+        })
     return universe
 
 

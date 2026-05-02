@@ -21,10 +21,22 @@ from .constants import (
     OVERHEAD_GRACE_SEC, OVERHEAD_BOSS_SEC, OVERHEAD_PICKUP_SEC,
     OVERHEAD_DUNGEON_SEC, OVERHEAD_ROUNDTABLE_SEC, SQUARE_ACTION_SEC,
     compute_kill_time, compute_travel_time, compute_rune_level,
-    compute_death_probability,
+    compute_death_probability, get_boss_difficulty,
     max_upgrade_level, stones_needed, dungeon_overhead, BINGO_LINES, N_SQUARES,
+    PREREQ_LOCS,
 )
 from .board import Square, UNIVERSE, UNIVERSE_SIZE, UNIVERSE_KEY_TO_IDX, _loc_key
+
+
+# Prereq keys → the universe locKey that satisfies them when visited.
+# Keys matching 'nokron_access'/'radahn'/boss kills use warp_pool (boss grace added
+# on kill); these keys use visited_keys instead.
+_PREREQ_VISITED: dict = {
+    'capital_access':  '-936_1202_1',   # Draconic Tree Sentinel, leyndell entrance
+    'Kill Fell Twins': '-1040_1321_1',  # Fell Twins, mountaintops
+    'kill_loretta':    '-1046_568_1',   # Royal Knight Loretta, Caria Manor
+    **{ploc['prereq_key']: _loc_key(ploc) for ploc in PREREQ_LOCS},
+}
 
 
 # ── Agent state ────────────────────────────────────────────────────────────────
@@ -140,14 +152,69 @@ class BingoGame:
         # Build per-game universe mask: which UNIVERSE entries are relevant
         # to this specific board.  Stone nodes and roundtable are always relevant.
         board_raw_names = {sq.raw_name for sq in board}
-        self.relevant_mask = [
-            (entry['type'] != 'objective' or bool(entry['sq_names'] & board_raw_names))
-            for entry in UNIVERSE
-        ]
+        board_prereqs   = {p for sq in board for p in (sq.prereqs or [])}
+        self.relevant_mask = []
+        for entry in UNIVERSE:
+            t = entry['type']
+            if t == 'objective':
+                self.relevant_mask.append(bool(entry['sq_names'] & board_raw_names))
+            elif t == 'prereq':
+                self.relevant_mask.append(entry['prereq_key'] in board_prereqs)
+            else:
+                self.relevant_mask.append(True)
 
         # Map square raw_name → board square
         self.sq_by_name  = {sq.raw_name: sq for sq in board}
         self.sq_by_idx   = {sq.idx: sq for sq in board}
+
+        # ── POI-derived synergy maps (precomputed once per episode) ────────────
+        # Co-location: sq_idx → set of other sq_idx sharing at least one loc key
+        loc_to_sq: Dict[str, Set[int]] = {}
+        for sq in board:
+            for loc in sq.locations:
+                k = _loc_key(loc)
+                loc_to_sq.setdefault(k, set()).add(sq.idx)
+        self._coloc_partners: List[Set[int]] = []
+        for sq in board:
+            partners: Set[int] = set()
+            for loc in sq.locations:
+                for other in loc_to_sq.get(_loc_key(loc), set()):
+                    if other != sq.idx:
+                        partners.add(other)
+            self._coloc_partners.append(partners)
+
+        # Primary zone per square (mode of location zones)
+        self._sq_zone: List[str] = []
+        for sq in board:
+            zc: Dict[str, int] = {}
+            for loc in sq.locations:
+                z = loc.get('zone') or 'unknown'
+                zc[z] = zc.get(z, 0) + 1
+            self._sq_zone.append(max(zc, key=zc.get) if zc else 'unknown')
+
+        # Zone → list of sq_idx on this board
+        self._zone_sq: Dict[str, List[int]] = {}
+        for sq in board:
+            self._zone_sq.setdefault(self._sq_zone[sq.idx], []).append(sq.idx)
+
+        # Stone proximity: stone universe entry index → T1 objective loc keys nearby.
+        # Used for reward shaping when agent picks up a stone near an open objective.
+        _T2_RADIUS_SQ = 1.0 ** 2  # squared distance threshold (mirrors JS TIER2_RADIUS=1)
+        self._stone_near_obj: List[bool] = []  # parallel to UNIVERSE, True = near T1 loc
+        obj_locs = [
+            entry['loc'] for entry in UNIVERSE
+            if entry['type'] == 'objective' and entry['loc'].get('x')
+        ]
+        for entry in UNIVERSE:
+            if entry['type'] != 'stone':
+                self._stone_near_obj.append(False)
+                continue
+            lx, ly = entry['loc'].get('x', 0), entry['loc'].get('y', 0)
+            near = any(
+                (lx - o['x']) ** 2 + (ly - o['y']) ** 2 <= _T2_RADIUS_SQ
+                for o in obj_locs if o.get('x')
+            )
+            self._stone_near_obj.append(near)
 
         # Initialise both agents
         self.agents = [self._init_agent(i) for i in range(2)]
@@ -249,7 +316,8 @@ class BingoGame:
             # Reward useful stone pickups; tier closest to current need scores highest
             cur_tier = (agent.weapon_level + 1) if somber else (agent.weapon_level // 3 + 1)
             usefulness = max(0.0, 1.0 - abs(tier - cur_tier) * 0.25)
-            stone_reward = 0.04 * max(usefulness, 0.1)
+            proximity_bonus = 0.015 if self._stone_near_obj[action_idx] else 0.0
+            stone_reward = 0.04 * max(usefulness, 0.1) + proximity_bonus
 
         elif entry['type'] == 'objective':
             # Determine which board squares this location contributes to
@@ -287,6 +355,7 @@ class BingoGame:
                 kill_result = compute_kill_time(
                     loc.get('name', ''), agent.weapon_class, agent.weapon_level,
                     agent.is_somber, agent.primary_stat, agent.rune_level,
+                    loc.get('zone', 'unknown'),
                 )
                 if kill_result:
                     kill_sec      = kill_result['kill_sec']
@@ -300,17 +369,20 @@ class BingoGame:
                 bg = BOSS_GRACES.get(boss_name)
                 if bg and not any(g.get('id') == bg['id'] for g in agent.warp_pool):
                     agent.warp_pool.append(dict(bg))
-                # Death probability: underleveled agents lose runes and spend recovery time
+                # Death probability: underleveled agents lose runes and spend recovery time.
+                # Death overhead scales with boss difficulty — hard boss = longer corpse run.
                 p_death = compute_death_probability(
                     loc.get('zone', 'unknown'), agent.weapon_level, agent.is_somber
                 )
                 if p_death > 0:
+                    difficulty   = get_boss_difficulty(loc.get('name', ''))
+                    death_time   = int(120 + 60 * math.sqrt(difficulty))
                     if self.rng.random() < p_death:
-                        agent.rune_balance = 0   # drop all held runes
-                        agent.time += 150         # death + corpse run overhead
+                        agent.rune_balance = 0
+                        agent.time += death_time
                         death_penalty = 0.20
                     else:
-                        death_penalty = p_death * 0.05  # survived but risky
+                        death_penalty = p_death * 0.05
             else:
                 # Pickup / NPC / dungeon overhead — use per-type cost where available
                 sq_type = (relevant_squares[0].sq_type if relevant_squares else '')
@@ -326,6 +398,16 @@ class BingoGame:
             # Unlock this location as a warp point if it's a named grace
             if loc.get('name') and not any(
                 abs(g.get('x',0)-loc['x'])<0.5 for g in agent.warp_pool
+            ):
+                agent.warp_pool.append(dict(loc))
+
+        elif entry['type'] == 'prereq':
+            # Prerequisite-only stop: pay travel + pickup overhead, no square credit
+            overhead = OVERHEAD_PICKUP_SEC
+            agent.visited_keys.add(key)
+            agent.pos = dict(loc)
+            if loc.get('name') and not any(
+                abs(g.get('x', 0) - loc['x']) < 0.5 for g in agent.warp_pool
             ):
                 agent.warp_pool.append(dict(loc))
 
@@ -393,26 +475,22 @@ class BingoGame:
             if p in ('nokron_access', 'radahn', 'Kill Starscourge Radahn'):
                 if not any(g.get('id') == 'bg_radahn' for g in agent.warp_pool):
                     return False
-            elif p == 'capital_access':
-                if not any(g.get('id') == 'bg_morgott' for g in agent.warp_pool):
-                    return False
             elif p == 'mohgwyn_access':
                 if not any(g.get('id') == 'bg_mohg' for g in agent.warp_pool):
                     return False
-            elif p in ('Kill Godrick the Grafted',):
+            elif p == 'Kill Godrick the Grafted':
                 if not any(g.get('id') == 'bg_godrick' for g in agent.warp_pool):
                     return False
-            elif p in ('Kill Morgott, The Omen King',):
+            elif p == 'Kill Morgott, The Omen King':
                 if not any(g.get('id') == 'bg_morgott' for g in agent.warp_pool):
                     return False
-            elif p in ('Kill Rykard, Lord of Blasphemy',):
+            elif p == 'Kill Rykard, Lord of Blasphemy':
                 if not any(g.get('id') == 'bg_rykard' for g in agent.warp_pool):
                     return False
-            elif p in ('Kill Starscourge Radahn', 'Kill Fell Twins'):
-                if not any(g.get('id') == 'bg_radahn' for g in agent.warp_pool):
+            elif p in _PREREQ_VISITED:
+                if _PREREQ_VISITED[p] not in agent.visited_keys:
                     return False
-            # Unknown prereqs (incl. physick_flask, explosive_tear, kill_loretta):
-            # optimistically allow — these locations aren't always in the action mask
+            # Truly unknown prereqs: optimistically allow
         return True
 
     def _count_needed(self, sq: Square, agent: AgentState) -> int:
@@ -510,6 +588,19 @@ class BingoGame:
                     mask[i] = True
                     break
 
+            elif entry['type'] == 'prereq':
+                # Valid if any board square still needs this prereq and isn't yet done
+                prereq_key = entry['prereq_key']
+                for sq in self.board:
+                    if prereq_key not in (sq.prereqs or []):
+                        continue
+                    if agent.marks[sq.idx]:
+                        continue
+                    if self._is_blocked_by_opp(sq.idx, agent_id):
+                        continue
+                    mask[i] = True
+                    break
+
         mask_arr = np.array(mask, dtype=bool)
         # Safety: always have at least one valid action (Roundtable is last)
         if not mask_arr.any():
@@ -554,21 +645,37 @@ class BingoGame:
         # Time (normalised to 3600s)
         obs.append(min(agent.time / 3600.0, 2.0))
 
-        # Square-level features (25 squares × 4 features)
+        # Square-level features (25 squares × 7 features)
         for sq in self.board:
+            available = not agent.marks[sq.idx] and not opp.marks[sq.idx]
+            # Co-location: other open squares sharing a visit location with this one
+            coloc = sum(
+                1 for idx in self._coloc_partners[sq.idx]
+                if not agent.marks[idx] and not opp.marks[idx]
+            )
+            # Zone density: other open squares in same primary zone
+            zone = self._sq_zone[sq.idx]
+            zone_density = sum(
+                1 for idx in self._zone_sq.get(zone, [])
+                if idx != sq.idx and not agent.marks[idx] and not opp.marks[idx]
+            )
+            prereq_ok = float(self._prereqs_satisfied(sq, agent))
             obs += [
                 float(agent.marks[sq.idx]),
                 float(opp.marks[sq.idx]),
-                float(not agent.marks[sq.idx] and not opp.marks[sq.idx]),  # available
+                float(available),
                 ZONE_TIER.get(sq.locations[0].get('zone', 'unknown') if sq.locations else 'unknown', 5) / 10.0,
+                min(coloc, 4) / 4.0,          # co-location synergy (capped at 4)
+                min(zone_density, 8) / 8.0,   # zone cluster density (capped at 8)
+                prereq_ok,                    # prereq gate: 1.0 = reachable now
             ]
 
         return np.array(obs, dtype=np.float32)
 
     @property
     def obs_size(self) -> int:
-        # 50 (marks) + 36 (line × 3) + 8 (state) + 17 (stones) + 1 (time) + 100 (squares × 4)
-        return 50 + 12 * 3 + 8 + 17 + 1 + N_SQUARES * 4
+        # 50 (marks) + 36 (line × 3) + 8 (state) + 17 (stones) + 1 (time) + 175 (squares × 7)
+        return 50 + 12 * 3 + 8 + 17 + 1 + N_SQUARES * 7
 
     # ── Route export (for map visualisation) ─────────────────────────────────────
     def export_route(self, agent_id: int) -> list:

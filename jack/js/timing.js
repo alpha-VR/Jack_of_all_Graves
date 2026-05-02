@@ -18,6 +18,7 @@ const Timing = (() => {
     'astel, naturalborn of the void':           { hp:11170, def:114, runes:80000  },
     'astel, stars of darkness':                 { hp:18617, def:120, runes:120000 },
     'beast clergyman':                          { hp:16461, def:120, runes:220000 },
+    'maliketh, the black blade':               { hp:16461, def:120, runes:220000 },
     'bell bearing hunter':                      { hp:2495,  def:103, runes:2700   },
     'black blade kindred':                      { hp:12297, def:121, runes:88000  },
     'bloodhound knight darriwil':               { hp:1450,  def:103, runes:1900   },
@@ -212,7 +213,138 @@ const Timing = (() => {
   const OVERHEAD_GRACE_SEC   = 10;   // opening map, resting, loading
   const OVERHEAD_BOSS_SEC    = 25;   // fog gate load + boss death animation
   const OVERHEAD_DUNGEON_SEC = 40;   // dungeon load in + load out
-  const BOSS_UPTIME          = 0.60; // fraction of fight actually attacking
+
+  // Baseline attack uptime for an average-difficulty boss.
+  // Divided by BOSS_DIFFICULTY to get per-boss effective uptime.
+  const BOSS_UPTIME = 0.60;
+
+  // Per-boss difficulty: how many safe attack windows the boss gives.
+  // effective_uptime = BOSS_UPTIME / difficulty
+  const BOSS_DIFFICULTY = {
+    // Very easy
+    'soldier of godrick':                          0.6,
+    'tibia mariner':                               0.7,
+    'guardian golem':                              0.7,
+    'spiritcaller snail':                          0.7,
+    'erdtree burial watchdog':                     0.8,
+    'cemetery shade':                              0.8,
+    'stonedigger troll':                           0.8,
+    'mad pumpkin head':                            0.8,
+    'beastman of farum azula':                     0.8,
+    'grafted scion':                               0.9,
+    'ancestor spirit':                             0.9,
+    'regal ancestor spirit':                       0.9,
+    'erdtree avatar':                              0.9,
+    'mimic tear':                                  0.9,
+    // Easy
+    'rennala, queen of the full moon':             1.0,
+    'godrick the grafted':                         1.1,
+    'leonine misbegotten':                         1.0,
+    'runebear':                                    1.1,
+    'omenkiller':                                  1.1,
+    'royal revenant':                              1.1,
+    'wormface':                                    1.1,
+    'demi-human queen':                            1.1,
+    'sanguine noble':                              1.1,
+    'frenzied duelist':                            1.1,
+    "bols, carian knight":                         1.1,
+    'grave warden duelist':                        1.0,
+    'putrid grave warden duelist':                 1.1,
+    'black knife assassin':                        1.2,
+    'cleanrot knight':                             1.2,
+    'deathbird':                                   1.2,
+    'onyx lord':                                   1.2,
+    "commander o'neil":                            1.2,
+    'magma wyrm':                                  1.2,
+    'flying dragon agheel':                        1.2,
+    'glintstone dragon smarag':                    1.2,
+    'rykard, lord of blasphemy':                   1.2,
+    'god-devouring serpent':                       1.2,
+    'dragonkin soldier':                           1.2,
+    'dragonkin soldier of nokstella':              1.2,
+    'godefroy the grafted':                        1.2,
+    // Medium
+    'margit, the fell omen':                       1.5,
+    'red wolf of radagon':                         1.3,
+    'red wolf of the champion':                    1.4,
+    'fallingstar beast':                           1.3,
+    "night's cavalry":                             1.3,
+    'death rite bird':                             1.4,
+    'battlemage hugues':                           1.3,
+    'ulcerated tree spirit':                       1.3,
+    'putrid avatar':                               1.3,
+    'ancient hero of zamor':                       1.3,
+    'dragonkin soldier (lake of rot)':             1.3,
+    'magma wyrm makar':                            1.3,
+    'tree sentinel':                               1.4,
+    'full-grown fallingstar beast':                1.5,
+    'elemer of the briar':                         1.5,
+    'borealis the freezing fog':                   1.5,
+    'godskin noble':                               1.5,
+    'putrid tree spirit':                          1.5,
+    'ancient dragon lansseax':                     1.4,
+    'glintstone dragon adula':                     1.4,
+    'flying dragon greyll':                        1.3,
+    'decaying ekzykes':                            1.3,
+    'great wyrm theodorix':                        1.5,
+    'lichdragon fortissax':                        1.4,
+    'dragonlord placidusax':                       1.4,
+    'astel, naturalborn of the void':              1.5,
+    'astel, stars of darkness':                    1.6,
+    // Hard-medium
+    'crucible knight':                             1.8,
+    'crucible knight and crucible knight ordovis': 2.0,
+    'crucible knight siluria':                     1.8,
+    'bloodhound knight darriwil':                  1.7,
+    'bloodhound knight':                           1.6,
+    'black blade kindred':                         1.8,
+    'black blade kindred (forbidden lands)':       1.9,
+    "night's cavalry duo":                         1.7,
+    'night cavalry (forbidden lands)':             1.6,
+    'misbegotten warrior and crucible knight':     1.8,
+    'misbegotten crusader':                        1.7,
+    'godskin apostle':                             1.6,
+    'draconic tree sentinel':                      1.7,
+    'royal knight loretta':                        1.5,
+    'loretta, knight of the haligtree':            1.8,
+    'godfrey, first elden lord':                   1.8,
+    'fell twins':                                  1.7,
+    'bell bearing hunter':                         1.7,
+    'roundtable knight vyke':                      1.9,
+    'tree sentinel duo':                           1.8,
+    'starscourge radahn':                          1.7,
+    "fia's champions":                             2.0,
+    'fire giant':                                  1.8,
+    'mohg, the omen':                              1.7,
+    // Hard
+    'morgott, the omen king':                      2.0,
+    'godskin duo':                                 2.1,
+    'commander niall':                             2.0,
+    'alecto, black knife ringleader':              2.0,
+    'godfrey (ashen capital)':                     2.0,
+    'mohg, lord of blood':                         2.1,
+    'beast clergyman':                             2.2,
+    'maliketh, the black blade':                   2.2,
+    // Very hard
+    'malenia, blade of miquella':                  3.0,
+  };
+
+  // Flat extra seconds for phase transitions, cutscenes, and repositioning.
+  const BOSS_PHASE_OVERHEAD = {
+    'godrick the grafted':               20,
+    'rennala, queen of the full moon':   35,
+    'starscourge radahn':                15,
+    'morgott, the omen king':            10,
+    'fire giant':                        20,
+    'beast clergyman':                   10,
+    'maliketh, the black blade':         10,
+    'malenia, blade of miquella':        20,
+    'mohg, lord of blood':               35,
+    'godskin duo':                       20,
+    'dragonlord placidusax':             10,
+    'astel, naturalborn of the void':    10,
+    'astel, stars of darkness':          10,
+  };
 
   // ── Rune level formula ─────────────────────────────────────────────────────
   function runesForLevel(level) {
@@ -254,38 +386,41 @@ const Timing = (() => {
   }
 
   // ── Core: compute boss kill time ──────────────────────────────────────────
+  // Three factors beyond raw DPS:
+  //   1. Boss difficulty  — harder bosses give fewer safe attack windows
+  //   2. Phase overhead   — cutscenes / repositioning between phases
+  //   3. +0 struggle      — low weapon = cautious play; ~2× longer at +0
   function computeKillTime(bossName, weaponClass, weaponLevel, isSomber, primaryStat, runeLevel) {
-    // Find boss data (fuzzy match)
-    const key  = bossName.toLowerCase();
+    let key = bossName.toLowerCase().trim();
     let bossData = BOSS_HP[key];
     if (!bossData) {
-      // Try partial match
       for (const [k, v] of Object.entries(BOSS_HP)) {
         if (key.includes(k) || k.includes(key.split('(')[0].trim())) {
-          bossData = v; break;
+          bossData = v; key = k; break;
         }
       }
     }
-    if (!bossData) return null; // unknown boss
+    if (!bossData) return null;
 
-    const ar         = computeAR(weaponClass, weaponLevel, isSomber, primaryStat, runeLevel);
-    const dpsFactor  = WEAPON_DPS_FACTOR[weaponClass] || 1.4;
-    const rawDPS     = ar * dpsFactor;
+    const ar        = computeAR(weaponClass, weaponLevel, isSomber, primaryStat, runeLevel);
+    const dpsFactor = WEAPON_DPS_FACTOR[weaponClass] || 1.4;
+    const hps       = dpsFactor / 1.032;
+    const dmgPerHit = (ar * ar) / (ar + bossData.def);
 
-    // Apply boss physical defense
-    // Elden Ring damage formula (simplified): damage = AR * (1 - def_negation/100)
-    // def_negation comes from the Defense stat via absorption curve
-    // For def 100-125 range: roughly (def-50)/def gives absorption %
-    // Real Elden Ring damage formula: damage_per_hit = AR² / (AR + defense)
-    // This replaces the incorrect linear absorption model
-    const arVal         = ar;
-    const defVal        = bossData.def;
-    const hps           = dpsFactor / 1.032; // extract hits/sec (MV≈103.2, so dpsFactor=MV/100×hps)
-    const dmgPerHit     = (arVal * arVal) / (arVal + defVal);
-    const effectiveDPS  = dmgPerHit * hps * BOSS_UPTIME;
+    const difficulty      = BOSS_DIFFICULTY[key] ?? 1.3;
+    const effectiveUptime = BOSS_UPTIME / difficulty;
+    const effectiveDPS    = dmgPerHit * hps * effectiveUptime;
 
-    const killSec = Math.ceil(bossData.hp / effectiveDPS);
-    return { killSec, hp: bossData.hp, ar, effectiveDPS: Math.round(effectiveDPS) };
+    const baseKillSec   = Math.ceil(bossData.hp / effectiveDPS);
+    const phaseOverhead = BOSS_PHASE_OVERHEAD[key] ?? 0;
+
+    // Underleveled struggle: quadratic penalty, 2× longer at +0, 1× at max level
+    const maxLv       = isSomber ? 9 : 24;
+    const progress    = weaponLevel / maxLv;
+    const struggleMult = 1.0 + 1.0 * Math.pow(1.0 - progress, 2);
+
+    const killSec = Math.ceil((baseKillSec + phaseOverhead) * struggleMult);
+    return { killSec, hp: bossData.hp, ar, effectiveDPS: Math.round(effectiveDPS), difficulty };
   }
 
   // ── Core: compute travel time ─────────────────────────────────────────────

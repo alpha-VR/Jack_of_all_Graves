@@ -84,7 +84,12 @@ const MapView = (() => {
   let _markers      = [];          // all data markers (both layers)
   let _s6Layer      = null;        // LayerGroup for S6 starting graces
   let _routeLayer   = null;
-  let _poiLayer     = null;
+  let _poiLayer     = null;        // single-square POI focus (📍 button)
+  let _t1PoiLayer   = null;        // board Tier 1 POIs (objectives + prereqs)
+  let _t2PoiLayer   = null;        // board Tier 2 POIs (stones + runes)
+  let _t1Visible    = false;
+  let _t2Visible    = false;
+  let _lastPOIs     = null;        // {tier1, tier2} cache for re-draws on layer switch
   let _filters      = new Set(DEFAULT_VISIBLE);
   let _searchTerm   = '';
   let _allData      = [];
@@ -113,8 +118,10 @@ const MapView = (() => {
     // fitBounds lets Leaflet auto-calculate zoom to fill the panel
     _map.fitBounds(SURFACE_BOUNDS, { padding: [10, 10] });
 
-    // Layer groups
+    // Layer groups (order = draw order, last = on top)
     _s6Layer    = L.layerGroup().addTo(_map);
+    _t2PoiLayer = L.layerGroup().addTo(_map);  // T2 below T1 and route
+    _t1PoiLayer = L.layerGroup().addTo(_map);
     _routeLayer = L.layerGroup().addTo(_map);
     _poiLayer   = L.layerGroup().addTo(_map);
 
@@ -122,11 +129,12 @@ const MapView = (() => {
     _drawS6Graces();
 
     // State events
-    State.on('data:loaded',       _onDataLoaded);
-    State.on('route:ready',       _onRouteReady);
-    State.on('route:stepChanged', _onStepChanged);
-    State.on('map:focusStop',     _onFocusStop);
-    State.on('map:poiFocus',      _onPoiFocus);
+    State.on('data:loaded',        _onDataLoaded);
+    State.on('route:ready',        _onRouteReady);
+    State.on('route:stepChanged',  _onStepChanged);
+    State.on('map:focusStop',      _onFocusStop);
+    State.on('map:poiFocus',       _onPoiFocus);
+    State.on('board:poisReady',    _onBoardPOIsReady);
   }
 
   // ── S6 Starting Graces (always visible, prominent) ─────────────────────────
@@ -238,8 +246,9 @@ const MapView = (() => {
     // Reapply marker visibility
     _applyLayerVisibility();
 
-    // Re-render route markers for the new layer
+    // Re-render route + board POIs for the new layer
     if (State.route?.computed) _onRouteReady(State.route);
+    if (_lastPOIs) _drawBoardPOIs(_lastPOIs.tier1, _lastPOIs.tier2);
   }
 
   // ── Route overlay ──────────────────────────────────────────────────────────
@@ -405,6 +414,82 @@ const MapView = (() => {
     return locs;
   }
 
+  // ── Board POI layers (Tier 1 / Tier 2) ────────────────────────────────────
+  const _T1_KIND_COLOR = {
+    boss:    '#e05a2a',
+    dungeon: '#aa88cc',
+    npc:     '#6acea0',
+    pickup:  '#aaaacc',
+    prereq:  '#f0c040',
+  };
+
+  function _onBoardPOIsReady({ tier1, tier2 }) {
+    _lastPOIs = { tier1, tier2 };
+    _drawBoardPOIs(tier1, tier2);
+  }
+
+  function _drawBoardPOIs(tier1, tier2) {
+    _t1PoiLayer.clearLayers();
+    _t2PoiLayer.clearLayers();
+    const isUGLayer = _layer === 'underground';
+
+    if (_t1Visible) {
+      tier1
+        .filter(p => _isUG(p) === isUGLayer)
+        .forEach(p => {
+          const color    = _T1_KIND_COLOR[p.kind] || '#c8a96e';
+          const multi    = p.squareIdxes?.length > 1;
+          const ringR    = multi ? 15 : 10;
+          const dotR     = multi ? 8  : 5;
+
+          const ring = L.circleMarker([p.x, p.y], {
+            radius: ringR, fillColor: color, color: '#fff',
+            weight: multi ? 2.5 : 1.5, fillOpacity: multi ? 0.40 : 0.25,
+          });
+          const dot = L.circleMarker([p.x, p.y], {
+            radius: dotR, fillColor: color, color: '#000',
+            weight: 1, fillOpacity: 0.9, interactive: false,
+          });
+
+          const tipLines = [p.name];
+          if (p.squareNames?.length) tipLines.push(...p.squareNames.map(n => `· ${n}`));
+          if (multi) tipLines[0] = `★ ${tipLines[0]}`;
+          if (p.kind === 'prereq') tipLines.push(`(prereq: ${p.prereqKey})`);
+          const tip = tipLines.join('\n');
+
+          ring.bindTooltip(tip, { permanent: false, direction: 'top', className: 'map-tip poi-tip' });
+          _t1PoiLayer.addLayer(ring);
+          _t1PoiLayer.addLayer(dot);
+        });
+    }
+
+    if (_t2Visible) {
+      tier2
+        .filter(p => _isUG(p) === isUGLayer)
+        .forEach(p => {
+          const color = p.kind === 'stone' ? '#bb9977' : '#ddcc44';
+          const dot = L.circleMarker([p.x, p.y], {
+            radius: 4, fillColor: color, color: '#000',
+            weight: 0.5, fillOpacity: 0.80,
+          });
+          dot.bindTooltip(p.name, { permanent: false, direction: 'top', className: 'map-tip' });
+          _t2PoiLayer.addLayer(dot);
+        });
+    }
+  }
+
+  function toggleBoardPoiTier(tier, on) {
+    if (tier === 1) {
+      _t1Visible = on;
+      if (!on) _t1PoiLayer.clearLayers();
+      else if (_lastPOIs) _drawBoardPOIs(_lastPOIs.tier1, _lastPOIs.tier2);
+    } else if (tier === 2) {
+      _t2Visible = on;
+      if (!on) _t2PoiLayer.clearLayers();
+      else if (_lastPOIs) _drawBoardPOIs(_lastPOIs.tier1, _lastPOIs.tier2);
+    }
+  }
+
   // ── Public API ─────────────────────────────────────────────────────────────
   function setFilter(cat, on) {
     if (on) _filters.add(cat); else _filters.delete(cat);
@@ -462,6 +547,7 @@ const MapView = (() => {
     init, setLayer, getLayer,
     setFilter, toggleFilter, setSearch, clearPoi,
     setRouteVisible, getRouteVisible,
+    toggleBoardPoiTier,
     panTo, drawPolyline, drawCircleMarker, removeLayer,
     CAT_CONFIG, DEFAULT_VISIBLE,
   };
