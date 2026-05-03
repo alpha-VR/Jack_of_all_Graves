@@ -23,11 +23,13 @@ class BingoEnv(gym.Env):
     def __init__(self, opponent_policy=None, board_seed=None, noise_scale=0.05,
                  max_steps=300):
         super().__init__()
-        self._opponent_policy = opponent_policy
-        self._board_seed      = board_seed
-        self._noise_scale     = noise_scale
-        self._max_steps       = max_steps
-        self._steps           = 0
+        self._opponent_latest  = opponent_policy
+        self._opponent_pool    = []          # past snapshots (max 10)
+        self._current_opponent = None        # sampled once per episode
+        self._board_seed       = board_seed
+        self._noise_scale      = noise_scale
+        self._max_steps        = max_steps
+        self._steps            = 0
 
         # Temporary game to get obs size
         _tmp_board = generate_board(seed=0)
@@ -52,7 +54,8 @@ class BingoEnv(gym.Env):
         board      = generate_board(seed=board_seed)
         self.game  = BingoGame(board, rng=random.Random(board_seed + 1))
 
-        self._steps = 0
+        self._steps            = 0
+        self._current_opponent = self._sample_opponent()
         obs  = self.game.get_obs(0)
         info = {'action_mask': self.game.get_action_mask(0)}
         return obs, info
@@ -81,6 +84,11 @@ class BingoEnv(gym.Env):
                 reward += 0.5
             elif opp_c > my_c:
                 reward -= 0.5
+            else:
+                # Time tiebreak — lower game time wins
+                t0 = self.game.agents[0].time
+                t1 = self.game.agents[1].time
+                reward += 0.3 if t0 <= t1 else -0.3
 
         obs = self.game.get_obs(0)
         if done:
@@ -103,8 +111,20 @@ class BingoEnv(gym.Env):
         return self.game.get_action_mask(0)
 
     def set_opponent(self, policy):
-        """Swap in a new opponent policy (called periodically during training)."""
-        self._opponent_policy = policy
+        """Add policy to pool and set as latest opponent."""
+        self._opponent_latest = policy
+        self._opponent_pool.append(policy)
+        if len(self._opponent_pool) > 10:
+            self._opponent_pool.pop(0)
+
+    def _sample_opponent(self):
+        """Sample an opponent policy for the current episode (70/20/10 mix)."""
+        r = self._ep_rng.random()
+        if r < 0.70 and self._opponent_latest is not None:
+            return self._opponent_latest
+        if r < 0.90 and self._opponent_pool:
+            return self._ep_rng.choice(self._opponent_pool)
+        return None  # pure random
 
     # ── Opponent loop ─────────────────────────────────────────────────────────
     def _run_opponent(self) -> bool:
@@ -126,9 +146,9 @@ class BingoEnv(gym.Env):
         return self.game.done
 
     def _opponent_action(self, obs, mask):
-        if self._opponent_policy is not None:
+        if self._current_opponent is not None:
             try:
-                action, _ = self._opponent_policy.predict(obs, action_masks=mask, deterministic=False)
+                action, _ = self._current_opponent.predict(obs, action_masks=mask, deterministic=False)
                 return int(action)
             except Exception:
                 pass

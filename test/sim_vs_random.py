@@ -4,7 +4,7 @@ Runs for ~5 minutes worth of wall-clock time.
 
 Usage:
     python -m test.sim_vs_random
-    python -m test.sim_vs_random --model jack/rl/checkpoints/bingo_agent_final.zip
+    python -m test.sim_vs_random --model jack/rl/models/bingo_agent.zip
     python -m test.sim_vs_random --minutes 5
 """
 import argparse
@@ -86,13 +86,7 @@ def run_game(model, seed: int, model_plays_as: int = 0) -> dict:
 
     marks = [sum(a.marks) for a in game.agents]
     winner = game.winner
-    # Map winner back to model/random labels
-    if winner == model_plays_as:
-        result = 'model'
-    elif winner == 1 - model_plays_as:
-        result = 'random'
-    else:
-        result = 'draw'
+    result = 'model' if winner == model_plays_as else 'random'
 
     return {
         'winner':       result,
@@ -121,11 +115,10 @@ def simulate(model_path: str, minutes: float = 5.0):
         results.append(r)
         game_seed += 1
 
-        n      = len(results)
-        wins   = sum(1 for x in results if x['winner'] == 'model')
-        draws  = sum(1 for x in results if x['winner'] == 'draw')
-        wr     = wins / n
-        mt     = r['model_time'] / 60
+        n    = len(results)
+        wins = sum(1 for x in results if x['winner'] == 'model')
+        wr   = wins / n
+        mt   = r['model_time'] / 60
 
         print(
             f"{n:>5}  {r['winner']:>6}  {r['model_marks']:>5}  "
@@ -135,8 +128,7 @@ def simulate(model_path: str, minutes: float = 5.0):
     # ── Summary ───────────────────────────────────────────────────────────────
     n      = len(results)
     wins   = sum(1 for x in results if x['winner'] == 'model')
-    losses = sum(1 for x in results if x['winner'] == 'random')
-    draws  = sum(1 for x in results if x['winner'] == 'draw')
+    losses = n - wins
 
     avg_model_marks  = np.mean([x['model_marks']  for x in results])
     avg_random_marks = np.mean([x['random_marks'] for x in results])
@@ -146,7 +138,6 @@ def simulate(model_path: str, minutes: float = 5.0):
     print(f"  Games played : {n}")
     print(f"  Model wins   : {wins}  ({wins/n:.1%})")
     print(f"  Random wins  : {losses}  ({losses/n:.1%})")
-    print(f"  Draws        : {draws}  ({draws/n:.1%})")
     print(f"  Avg marks    : model {avg_model_marks:.1f}  /  random {avg_random_marks:.1f}")
     print(f"  Avg game time: {avg_model_time:.1f} min  (model side)")
     print("=" * 60)
@@ -156,7 +147,7 @@ def simulate(model_path: str, minutes: float = 5.0):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model',   default='jack/rl/checkpoints/bingo_agent_final.zip')
+    parser.add_argument('--model',   default='jack/rl/models/bingo_agent.zip')
     parser.add_argument('--minutes', type=float, default=5.0)
     args = parser.parse_args()
     simulate(args.model, args.minutes)

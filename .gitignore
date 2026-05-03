@@ -7,9 +7,10 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Training checkpoints (large — keep only the final model)
-jack/rl/checkpoints/ckpt_*.zip
-jack/rl/checkpoints/train*.log
+# Training output — nothing in checkpoints/ is committed
+jack/rl/checkpoints/
+
+# Confirmed release models (jack/rl/models/) are tracked — do not ignore
 
 # Local game saves (personal data)
 jack/saves/

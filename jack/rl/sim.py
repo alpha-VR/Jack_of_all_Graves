@@ -456,7 +456,15 @@ class BingoGame:
                 self.winner = 1 - agent_id
                 reward -= 1.0
             else:
-                self.winner = -1  # draw
+                # Tie-break by game time — lower time = more efficient routing wins
+                t0 = self.agents[0].time
+                t1 = self.agents[1].time
+                winner_id = 0 if t0 <= t1 else 1
+                self.winner = winner_id
+                if winner_id == agent_id:
+                    reward += 0.5
+                else:
+                    reward -= 0.5
             done = True
 
         return reward, done, {

@@ -18,8 +18,8 @@ a = Analysis(
         ('jack/js',           'jack/js'),
         # Game data (JSON, CSV, map images)
         ('jack/data',         'jack/data'),
-        # Trained RL model only — skip training checkpoints
-        ('jack/rl/checkpoints/bingo_agent_final.zip', 'jack/rl/checkpoints'),
+        # Confirmed release model
+        ('jack/rl/models/bingo_agent.zip', 'jack/rl/models'),
         # Package data files (version.txt etc.)
         *collect_data_files('stable_baselines3'),
         *collect_data_files('sb3_contrib'),

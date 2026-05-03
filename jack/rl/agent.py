@@ -16,9 +16,9 @@ from .constants import (
 )
 
 if getattr(sys, 'frozen', False):
-    _DEFAULT_MODEL = os.path.join(sys._MEIPASS, 'jack', 'rl', 'checkpoints', 'bingo_agent_final.zip')
+    _DEFAULT_MODEL = os.path.join(sys._MEIPASS, 'jack', 'rl', 'models', 'bingo_agent.zip')
 else:
-    _DEFAULT_MODEL = os.path.join(os.path.dirname(__file__), 'checkpoints', 'bingo_agent_final.zip')
+    _DEFAULT_MODEL = os.path.join(os.path.dirname(__file__), 'models', 'bingo_agent.zip')
 
 
 def _load_model(model_path: Optional[str] = None):

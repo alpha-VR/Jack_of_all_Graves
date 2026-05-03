@@ -85,6 +85,10 @@ class SelfPlayCallback(BaseCallback):
         self._snapshot = MaskablePPO.load(buf)
         self._env.set_opponent(self._snapshot)
 
+        # Push new snapshot to all training envs via opponent pool
+        if isinstance(self.training_env, VecEnv):
+            self.training_env.env_method('set_opponent', self._snapshot)
+
         # Save checkpoint to disk
         ckpt_path = os.path.join(self._save_dir, f'ckpt_{self.num_timesteps:09d}')
         self.model.save(ckpt_path)
