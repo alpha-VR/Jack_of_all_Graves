@@ -123,6 +123,17 @@
     </div>
 
   </div>
+
+  <!-- Cell picker — shown when user clicks a preview cell -->
+  <div id="cell-picker">
+    <div id="cell-picker-hdr">
+      <span>Pick a square</span>
+      <button id="btn-close-picker">✕</button>
+    </div>
+    <input id="cell-picker-search" type="text" placeholder="Search…" autocomplete="off" spellcheck="false">
+    <div id="cell-picker-list"></div>
+  </div>
+
 </div>
 
 <!-- Board overlay -->
@@ -288,9 +299,16 @@
     const $confirm   = document.getElementById('btn-import-confirm');
 
     let _pendingMatches = null;
+    let _variantIndex   = null;  // built lazily from pool
+
+    // ── Cell picker refs ────────────────────────────────────────────────────
+    const $picker       = document.getElementById('cell-picker');
+    const $pickerSearch = document.getElementById('cell-picker-search');
+    const $pickerList   = document.getElementById('cell-picker-list');
+    let   _pickerIdx    = -1;    // which preview cell is being edited
 
     function openImport()  { _reset(); $overlay.classList.add('open'); }
-    function closeImport() { $overlay.classList.remove('open'); }
+    function closeImport() { $overlay.classList.remove('open'); _closePicker(); }
 
     function _reset() {
       $dropzone.style.display = '';
@@ -326,20 +344,9 @@
         $prevGrid.innerHTML = '';
         matches.forEach((m, i) => {
           const cell = document.createElement('div');
-          const conf = m.confidence;
-          cell.className = 'ipr-cell ' + (conf > 0.55 ? 'ipr-good' : conf > 0.28 ? 'ipr-med' : 'ipr-low');
-          cell.title = `OCR: "${m.rawOcr}"  |  Confidence: ${(conf * 100).toFixed(0)}%`;
-
-          const label = document.createElement('div');
-          label.className   = 'ipr-text';
-          label.textContent = m.entry ? m.text.replace(/%\w+%/g, '?') : m.rawOcr || '???';
-          cell.appendChild(label);
-
-          const badge = document.createElement('div');
-          badge.className   = 'ipr-conf';
-          badge.textContent = (conf * 100).toFixed(0) + '%';
-          cell.appendChild(badge);
-
+          cell.dataset.idx = i;
+          _fillPreviewCell(cell, m);
+          cell.addEventListener('click', () => _openPicker(i));
           $prevGrid.appendChild(cell);
         });
 
@@ -358,6 +365,91 @@
         console.error('[OCR]', err);
       }
     }
+
+    // ── Preview cell renderer ───────────────────────────────────────────────
+    function _fillPreviewCell(cell, m) {
+      const conf = m.confidence;
+      cell.className = 'ipr-cell ' + (conf >= 1 ? 'ipr-good' : conf > 0.55 ? 'ipr-good' : conf > 0.28 ? 'ipr-med' : 'ipr-low');
+      cell.title = m.rawOcr ? `OCR: "${m.rawOcr}"  |  ${(conf*100).toFixed(0)}% — click to edit` : 'Click to change';
+      cell.innerHTML = '';
+
+      const label = document.createElement('div');
+      label.className   = 'ipr-text';
+      label.textContent = m.entry ? m.text : (m.rawOcr || '???');
+      cell.appendChild(label);
+
+      const badge = document.createElement('div');
+      badge.className   = 'ipr-conf';
+      badge.textContent = conf >= 1 ? '✎' : (conf * 100).toFixed(0) + '%';
+      cell.appendChild(badge);
+    }
+
+    // ── Cell picker ─────────────────────────────────────────────────────────
+    function _openPicker(idx) {
+      _pickerIdx = idx;
+      if (!_variantIndex) _variantIndex = OCR.buildVariants(State.data.pool);
+      $pickerSearch.value = '';
+      _renderPickerList('');
+      $picker.classList.add('open');
+      $pickerSearch.focus();
+    }
+
+    function _closePicker() {
+      $picker.classList.remove('open');
+      _pickerIdx = -1;
+    }
+
+    function _renderPickerList(query) {
+      const q = query.toLowerCase().trim();
+      const items = q
+        ? _variantIndex.filter(v => v.text.includes(q))
+        : _variantIndex;
+
+      $pickerList.innerHTML = '';
+      items.slice(0, 120).forEach(v => {
+        const li = document.createElement('div');
+        li.className   = 'cp-item';
+        // Display the rendered text (with template values already substituted)
+        let display = v.entry.name;
+        for (const [k, val] of Object.entries(v.rolled)) display = display.replace(`%${k}%`, val);
+        li.textContent = display;
+        li.addEventListener('click', () => _selectVariant(v));
+        $pickerList.appendChild(li);
+      });
+
+      if (items.length === 0) {
+        const empty = document.createElement('div');
+        empty.className   = 'cp-empty';
+        empty.textContent = 'No matches';
+        $pickerList.appendChild(empty);
+      }
+    }
+
+    function _selectVariant(variant) {
+      if (_pickerIdx < 0 || !_pendingMatches) return;
+      // Build rendered text for the selected variant
+      let text = variant.entry.name;
+      for (const [k, v] of Object.entries(variant.rolled)) text = text.replace(`%${k}%`, v);
+
+      _pendingMatches[_pickerIdx] = {
+        entry:      variant.entry,
+        rolled:     variant.rolled,
+        text,
+        confidence: 1.0,   // manually chosen = 100%
+        rawOcr:     _pendingMatches[_pickerIdx]?.rawOcr || '',
+      };
+
+      // Re-render the cell
+      const cell = $prevGrid.querySelector(`[data-idx="${_pickerIdx}"]`);
+      if (cell) _fillPreviewCell(cell, _pendingMatches[_pickerIdx]);
+
+      _closePicker();
+    }
+
+    $pickerSearch.addEventListener('input', e => _renderPickerList(e.target.value));
+    document.getElementById('btn-close-picker').addEventListener('click', _closePicker);
+    // Click outside picker panel closes it
+    $picker.addEventListener('click', e => { if (e.target === $picker) _closePicker(); });
 
     // Open / close
     document.getElementById('btn-import').addEventListener('click', openImport);

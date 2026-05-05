@@ -184,5 +184,8 @@ const OCR = (() => {
     });
   }
 
-  return { extractCells, matchAll };
+  // Exposed so the cell picker can reuse the variant index
+  function buildVariants(pool) { return _buildIndex(pool); }
+
+  return { extractCells, matchAll, buildVariants };
 })();
