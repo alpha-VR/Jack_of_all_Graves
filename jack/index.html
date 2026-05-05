@@ -33,6 +33,7 @@
 
     <!-- Game controls -->
     <button id="btn-generate" class="hdr-btn primary">⊞ New Board</button>
+    <button id="btn-import"   class="hdr-btn">📷 Import</button>
     <button id="btn-board"    class="hdr-btn" disabled>⊟ Board</button>
     <button id="btn-route"    class="hdr-btn" disabled>⚔ Compute Route</button>
     <button id="btn-save"     class="hdr-btn">💾 Save</button>
@@ -82,6 +83,48 @@
   </div>
 </div>
 
+<!-- Import overlay -->
+<div id="import-overlay">
+  <div id="import-panel">
+
+    <div id="import-header">
+      <span id="import-title">Import Board from Screenshot</span>
+      <button id="btn-close-import">✕</button>
+    </div>
+    <p id="import-hint">Crop your screenshot to just the bingo grid, then paste (Ctrl+V) or drop the image below.</p>
+
+    <!-- Step 1: drop zone -->
+    <div id="import-dropzone" tabindex="0">
+      <div id="import-dz-icon">📷</div>
+      <div id="import-dz-text">Paste or drop screenshot here</div>
+      <div id="import-dz-sub">Ctrl+V · drag &amp; drop · click to browse</div>
+      <input id="import-file-input" type="file" accept="image/*" style="display:none">
+    </div>
+
+    <!-- Step 2: progress -->
+    <div id="import-progress" style="display:none">
+      <div id="import-progress-bar"><div id="import-progress-fill"></div></div>
+      <div id="import-progress-text">Initialising…</div>
+    </div>
+
+    <!-- Step 3: preview grid -->
+    <div id="import-preview" style="display:none">
+      <div id="import-preview-grid"></div>
+      <div id="import-legend">
+        <span class="leg-good">■ Good match</span>
+        <span class="leg-med">■ Uncertain</span>
+        <span class="leg-low">■ Poor match — consider re-cropping</span>
+      </div>
+    </div>
+
+    <div id="import-actions" style="display:none">
+      <button id="btn-import-retry" class="modal-btn">↺ Try Again</button>
+      <button id="btn-import-confirm" class="modal-btn primary" disabled>Import Board</button>
+    </div>
+
+  </div>
+</div>
+
 <!-- Board overlay -->
 <div id="board-overlay">
   <div id="board-panel">
@@ -123,6 +166,7 @@
 
 <!-- Scripts -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="/js/timing.js"></script>
 <script src="/js/state.js"></script>
 <script src="/js/router.js"></script>
@@ -130,6 +174,7 @@
 <script src="/js/board.js"></script>
 <script src="/js/poi.js"></script>
 <script src="/js/ui.js"></script>
+<script src="/js/ocr.js"></script>
 <script>
 (async () => {
   // Init modules
@@ -228,6 +273,153 @@
     panel.style.display = open ? 'block' : 'none';
     btn.textContent = open ? '⚒ Build ▴' : '⚒ Build ▾';
   });
+
+  // ── Import board (screenshot OCR) ────────────────────────────────────────
+  (() => {
+    const $overlay   = document.getElementById('import-overlay');
+    const $dropzone  = document.getElementById('import-dropzone');
+    const $fileInput = document.getElementById('import-file-input');
+    const $progress  = document.getElementById('import-progress');
+    const $progFill  = document.getElementById('import-progress-fill');
+    const $progText  = document.getElementById('import-progress-text');
+    const $preview   = document.getElementById('import-preview');
+    const $prevGrid  = document.getElementById('import-preview-grid');
+    const $actions   = document.getElementById('import-actions');
+    const $confirm   = document.getElementById('btn-import-confirm');
+
+    let _pendingMatches = null;
+
+    function openImport()  { _reset(); $overlay.classList.add('open'); }
+    function closeImport() { $overlay.classList.remove('open'); }
+
+    function _reset() {
+      $dropzone.style.display = '';
+      $progress.style.display = 'none';
+      $preview.style.display  = 'none';
+      $actions.style.display  = 'none';
+      $progFill.style.width   = '0%';
+      $progText.textContent   = '';
+      $prevGrid.innerHTML     = '';
+      $confirm.disabled       = true;
+      _pendingMatches         = null;
+    }
+
+    async function _processImage(src) {
+      if (!State.data.loaded) return UI.toast('Data not loaded yet', 'warn');
+
+      $dropzone.style.display = 'none';
+      $progress.style.display = '';
+      $preview.style.display  = 'none';
+      $actions.style.display  = 'none';
+
+      try {
+        const cellTexts = await OCR.extractCells(
+          src,
+          pct => { $progFill.style.width = Math.round(pct * 100) + '%'; $progText.textContent = `Reading cell ${Math.round(pct * 25)}/25…`; },
+          msg => { $progText.textContent = msg; }
+        );
+
+        const matches = OCR.matchAll(cellTexts, State.data.pool);
+        _pendingMatches = matches;
+
+        // Build preview grid
+        $prevGrid.innerHTML = '';
+        matches.forEach((m, i) => {
+          const cell = document.createElement('div');
+          const conf = m.confidence;
+          cell.className = 'ipr-cell ' + (conf > 0.55 ? 'ipr-good' : conf > 0.28 ? 'ipr-med' : 'ipr-low');
+          cell.title = `OCR: "${m.rawOcr}"  |  Confidence: ${(conf * 100).toFixed(0)}%`;
+
+          const label = document.createElement('div');
+          label.className   = 'ipr-text';
+          label.textContent = m.entry ? m.text.replace(/%\w+%/g, '?') : m.rawOcr || '???';
+          cell.appendChild(label);
+
+          const badge = document.createElement('div');
+          badge.className   = 'ipr-conf';
+          badge.textContent = (conf * 100).toFixed(0) + '%';
+          cell.appendChild(badge);
+
+          $prevGrid.appendChild(cell);
+        });
+
+        $progress.style.display = 'none';
+        $preview.style.display  = '';
+        $actions.style.display  = '';
+
+        const poorCount = matches.filter(m => m.confidence < 0.28).length;
+        $confirm.disabled = false;
+        if (poorCount > 0) UI.toast(`${poorCount} cell${poorCount > 1 ? 's' : ''} matched poorly — try a cleaner crop`, 'warn');
+
+      } catch (err) {
+        $progress.style.display = 'none';
+        $dropzone.style.display = '';
+        UI.toast('OCR failed: ' + err.message, 'err');
+        console.error('[OCR]', err);
+      }
+    }
+
+    // Open / close
+    document.getElementById('btn-import').addEventListener('click', openImport);
+    document.getElementById('btn-close-import').addEventListener('click', closeImport);
+    $overlay.addEventListener('click', e => { if (e.target === $overlay) closeImport(); });
+    document.getElementById('btn-import-retry').addEventListener('click', _reset);
+
+    // Confirm → load board
+    $confirm.addEventListener('click', () => {
+      if (!_pendingMatches) return;
+      const valid = _pendingMatches.filter(m => m.entry);
+      if (valid.length < 25) {
+        if (!confirm(`${25 - valid.length} square(s) could not be matched and will use fallback entries. Continue?`)) return;
+        // Fill unmatched slots with random pool entries not already used
+        const used = new Set(_pendingMatches.filter(m => m.entry).map(m => m.entry.name));
+        const spare = State.data.pool.filter(e => !used.has(e.name));
+        let si = 0;
+        _pendingMatches = _pendingMatches.map(m => m.entry ? m : { entry: spare[si++] || spare[0], rolled: {}, confidence: 0, rawOcr: m.rawOcr });
+      }
+      try {
+        State.importBoard(_pendingMatches);
+        closeImport();
+        document.getElementById('btn-board').disabled = false;
+        // Trigger board open
+        State.emit('board:imported');
+        UI.toast('Board imported!', 'ok');
+        document.getElementById('btn-route').disabled = false;
+        // Open the board overlay via the board button
+        document.getElementById('btn-board').click();
+      } catch(e) {
+        UI.toast('Import failed: ' + e.message, 'err');
+      }
+    });
+
+    // Paste via Ctrl+V anywhere while overlay is open
+    document.addEventListener('paste', e => {
+      if (!$overlay.classList.contains('open')) return;
+      const item = [...e.clipboardData.items].find(i => i.type.startsWith('image/'));
+      if (item) _processImage(item.getAsFile());
+    });
+
+    // Drop onto drop zone
+    $dropzone.addEventListener('dragover',  e => { e.preventDefault(); $dropzone.classList.add('drag-over'); });
+    $dropzone.addEventListener('dragleave', () => $dropzone.classList.remove('drag-over'));
+    $dropzone.addEventListener('drop', e => {
+      e.preventDefault();
+      $dropzone.classList.remove('drag-over');
+      const file = [...e.dataTransfer.files].find(f => f.type.startsWith('image/'));
+      if (file) _processImage(file);
+    });
+
+    // Click to browse
+    $dropzone.addEventListener('click', () => $fileInput.click());
+    $fileInput.addEventListener('change', e => {
+      if (e.target.files[0]) _processImage(e.target.files[0]);
+    });
+
+    // Escape closes
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && $overlay.classList.contains('open')) closeImport();
+    });
+  })();
 
 
 })();

@@ -164,6 +164,28 @@ const State = (() => {
       emit('scores:updated', { scores: game.scores, bingoLines: game.bingoLines, threats: [], noBingo: noBingoPossible() });
     },
 
+    // ── Import a board from OCR matches ──
+    // squares: array of 25 { entry, rolled } from OCR.matchAll()
+    importBoard(squares) {
+      if (!data.loaded) throw new Error('Data not loaded yet');
+      if (squares.length !== 25) throw new Error('Need exactly 25 squares');
+      game.board = squares.map(({ entry, rolled }) => {
+        let text = entry.name;
+        for (const [k, v] of Object.entries(rolled)) text = text.replace(`%${k}%`, v);
+        return { raw: entry, text, rolled };
+      });
+      game.marks      = new Array(25).fill(-1);
+      game.scores     = [0, 0];
+      game.bingoLines = [[], []];
+      game.createdAt  = new Date().toISOString();
+      game.id         = null;
+      route.computed  = false;
+      route.stops     = [];
+      route.completedPrereqs = new Set();
+      emit('board:new', game.board);
+      emit('scores:updated', { scores: game.scores, bingoLines: game.bingoLines, threats: [], noBingo: false });
+    },
+
     // ── Mark a square ──
     markSquare(idx, player) {
       if (idx < 0 || idx > 24) return;

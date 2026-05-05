@@ -726,3 +726,168 @@ html, body { height:100%; width:100%; overflow:hidden; background:var(--bg); col
   border-color: #c8a96e;
   color: #c8a96e;
 }
+
+/* ── Import overlay ───────────────────────────────────────────────────────── */
+#import-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 810;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 4, 3, 0.75);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  padding: 20px;
+}
+#import-overlay.open { opacity: 1; pointer-events: auto; }
+
+#import-panel {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-top: 2px solid var(--gold-dim);
+  border-radius: 10px;
+  padding: 18px 20px 20px;
+  width: min(560px, 100%);
+  max-height: 94vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.92);
+  transform: scale(0.93) translateY(14px);
+  transition: transform 0.22s cubic-bezier(0.34, 1.42, 0.64, 1);
+}
+#import-overlay.open #import-panel { transform: scale(1) translateY(0); }
+
+#import-header {
+  display: flex;
+  align-items: center;
+}
+#import-title {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  flex: 1;
+}
+#btn-close-import {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text-dim);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 7px;
+  border-radius: 4px;
+  transition: color 0.1s, border-color 0.1s;
+}
+#btn-close-import:hover { color: var(--text); border-color: var(--border2); }
+
+#import-hint {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin: -4px 0;
+}
+
+/* Drop zone */
+#import-dropzone {
+  border: 2px dashed var(--border2);
+  border-radius: 8px;
+  padding: 36px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+#import-dropzone:hover,
+#import-dropzone.drag-over {
+  border-color: var(--gold-dim);
+  background: rgba(200,169,110,0.04);
+}
+#import-dz-icon { font-size: 32px; line-height: 1; }
+#import-dz-text { font-size: 14px; color: var(--text); font-family: var(--font-body); }
+#import-dz-sub  { font-size: 11px; color: var(--text-muted); }
+
+/* Progress bar */
+#import-progress { display: flex; flex-direction: column; gap: 8px; }
+#import-progress-bar {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+#import-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--gold-dim);
+  border-radius: 2px;
+  transition: width 0.15s ease;
+}
+#import-progress-text {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* Preview grid — compact 5×5 */
+#import-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+}
+.ipr-cell {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  padding: 5px 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.ipr-good { background: rgba(26, 62, 38, 0.8);  border-color: var(--p1); }
+.ipr-med  { background: rgba(40, 30, 5,  0.8);  border-color: var(--warn); }
+.ipr-low  { background: rgba(50, 10, 10, 0.8);  border-color: var(--p2); }
+.ipr-text {
+  font-size: 9px;
+  font-family: var(--font-body);
+  color: var(--text);
+  line-height: 1.2;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+.ipr-conf {
+  position: absolute;
+  bottom: 2px; right: 3px;
+  font-size: 8px;
+  color: var(--text-muted);
+  font-family: monospace;
+  line-height: 1;
+}
+#import-legend {
+  display: flex;
+  gap: 14px;
+  font-size: 10px;
+  flex-wrap: wrap;
+}
+.leg-good { color: var(--p1-bright); }
+.leg-med  { color: var(--warn); }
+.leg-low  { color: var(--p2-bright); }
+
+#import-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
