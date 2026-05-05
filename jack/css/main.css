@@ -100,6 +100,7 @@ html, body { height:100%; width:100%; overflow:hidden; background:var(--bg); col
 /* ── Main layout ──────────────────────────────────────────────────────────── */
 #main { flex:1; display:flex; flex-direction:column; overflow:hidden; min-height:0; }
 
+/* Score bar removed from main layout — it lives inside #board-panel */
 #top-row { flex:1; display:flex; overflow:hidden; min-height:0; }
 
 #map-container { flex:1; position:relative; min-width:0; }
@@ -200,182 +201,234 @@ html, body { height:100%; width:100%; overflow:hidden; background:var(--bg); col
 .passive-name  { font-size:11px; color:var(--text-dim); }
 .passive-notes { font-size:10px; color:var(--text-muted); font-style:italic; margin-top:2px; }
 
-/* ── Score bar ────────────────────────────────────────────────────────────── */
-#score-bar {
-  flex-shrink:0; display:flex; align-items:center; gap:10px;
-  padding:5px 12px;
-  background:var(--surface); border-top:1px solid var(--border);
-  font-size:13px; transition:background 0.3s; flex-wrap:wrap;
-}
-#score-bar.warn    { background:#1a1200; }
-#score-bar.danger  { background:#200808; animation:danger-pulse 0.9s ease-in-out infinite alternate; }
-#score-bar.bingo-p1{ background:#001a0e; }
-#score-bar.bingo-p2{ background:#200808; }
-
+/* ── Score bar ─────────────────────────────────── (inside #board-panel) ──── */
 @keyframes danger-pulse {
   from { background:#200808; } to { background:#3a0c0c; }
 }
 
-.score-block { display:flex; align-items:center; gap:6px; flex-shrink:0; }
-.score-label { font-size:10px; color:var(--text-dim); }
-.p1-name { color:var(--p1-bright); font-weight:600; cursor:pointer; }
-.p2-name { color:var(--p2-bright); font-weight:600; cursor:pointer; }
+.score-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.score-label { font-size:10px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; }
+.p1-name { color:var(--p1-bright); font-weight:600; cursor:pointer; font-size:14px; }
+.p2-name { color:var(--p2-bright); font-weight:600; cursor:pointer; font-size:14px; }
 .p1-name:hover, .p2-name:hover { text-decoration:underline; }
-.score-num { font-family:var(--font-head); font-size:18px; font-weight:700; }
+.score-num { font-family:var(--font-head); font-size:32px; font-weight:700; line-height:1; }
 .p1-score  { color:var(--p1-bright); }
 .p2-score  { color:var(--p2-bright); }
-.score-sep { color:var(--border2); font-size:18px; }
 
-#threat-msg { flex:1; font-size:11px; color:var(--warn); text-align:center; }
-#score-bar.danger #threat-msg { color:var(--p2-bright); font-weight:600; }
+#threat-msg {
+  font-size:12px; color:var(--warn); text-align:center;
+  font-family:var(--font-body); letter-spacing:0.3px;
+}
+#score-bar.danger  #threat-msg { color:var(--p2-bright); font-weight:600; }
+#score-bar.bingo-p1 #threat-msg { color:var(--p1-bright); font-size:14px; font-weight:600; }
+#score-bar.bingo-p2 #threat-msg { color:var(--p2-bright); font-size:14px; font-weight:600; }
 
 .player-toggle {
-  margin-left:auto; flex-shrink:0; font-size:11px; font-family:var(--font-body);
-  padding:3px 12px; border-radius:20px; border:1px solid var(--border2);
+  font-size:11px; font-family:var(--font-body);
+  padding:4px 14px; border-radius:20px; border:1px solid var(--border2);
   background:transparent; cursor:pointer; transition:all 0.15s; color:var(--text-dim);
 }
-.player-toggle--p1 { border-color:var(--p1); color:var(--p1-bright); }
-.player-toggle--p2 { border-color:var(--p2); color:var(--p2-bright); }
+.player-toggle--p1 { border-color:var(--p1); color:var(--p1-bright); background:rgba(74,158,106,0.06); }
+.player-toggle--p2 { border-color:var(--p2); color:var(--p2-bright); background:rgba(200,64,64,0.06); }
 .p1-tag { color:var(--p1-bright); }
 .p2-tag { color:var(--p2-bright); }
 
-/* ── Board bar ────────────────────────────────────────────────────────────── */
-#board-bar {
-  flex-shrink:0;
-  background:var(--surface);
-  border-top:1px solid var(--border2);
+/* ── Board overlay ────────────────────────────────────────────────────────── */
+#board-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 4, 3, 0.72);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  padding: 20px;
+}
+#board-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* Board expand button (second button in toggle row) */
-#board-controls {
-  display:flex; align-items:center;
-  border-top:1px solid var(--border2);
+#board-panel {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-top: 2px solid var(--gold-dim);
+  border-radius: 10px;
+  padding: 16px 18px 18px;
+  width: min(820px, 100%);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 32px 100px rgba(0,0,0,0.95), 0 0 60px rgba(200,169,110,0.05);
+  transform: scale(0.93) translateY(16px);
+  transition: transform 0.22s cubic-bezier(0.34, 1.42, 0.64, 1);
 }
-#board-toggle {
-  flex:1; padding:5px 12px;
-  background:transparent; border:none; border-right:1px solid var(--border2);
-  color:var(--text-dim); font-size:11px; font-family:var(--font-body);
-  cursor:pointer; text-align:left; letter-spacing:1px; transition:color 0.1s;
+#board-overlay.open #board-panel {
+  transform: scale(1) translateY(0);
 }
-#board-toggle:hover { color:var(--text); }
-#board-expand {
-  padding:5px 10px;
-  background:transparent; border:none;
-  color:var(--text-muted); font-size:10px; font-family:var(--font-body);
-  cursor:pointer; transition:color 0.1s; white-space:nowrap;
-}
-#board-expand:hover { color:var(--text-dim); }
 
-/* Board container — fixed height so all 25 cells are visible at once, no scroll */
-#board-wrap {
-  display:none;
-  padding:5px 8px 6px;
-  border-top:1px solid var(--border);
-}
-#board-wrap.open { display:block; }
+/* Threat state bleeds onto the panel backdrop */
+#board-overlay.open.overlay-danger  { background: rgba(30, 4, 4, 0.82); }
+#board-overlay.open.overlay-bingo-p1{ background: rgba(2, 18, 10, 0.82); }
+#board-overlay.open.overlay-bingo-p2{ background: rgba(30, 4, 4, 0.82); }
 
-/*
-  5 rows × 5 cols.
-  Each row height = fixed. Total board height fits in ~220px.
-  Row height = (220px - 4 * 4px gap) / 5 = ~40px per row.
-  Cells are compact text tiles, not decorative squares.
-*/
+#board-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+#board-panel-title {
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+#board-panel-hint {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  flex: 1;
+}
+#btn-close-board {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text-dim);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 7px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: color 0.1s, border-color 0.1s;
+}
+#btn-close-board:hover { color: var(--text); border-color: var(--border2); }
+
+/* Score bar — inside board panel */
+#score-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  flex-shrink: 0;
+  transition: background 0.3s, border-color 0.3s;
+}
+#score-bar.warn    { background: #1a1200; border-color: var(--warn); }
+#score-bar.danger  { background: #200808; border-color: var(--p2); animation: danger-pulse 0.9s ease-in-out infinite alternate; }
+#score-bar.bingo-p1{ background: #001a0e; border-color: var(--p1); }
+#score-bar.bingo-p2{ background: #200808; border-color: var(--p2); }
+
+.score-mid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.score-block--right { flex-direction: row-reverse; }
+
+/* Board grid — 5×5 square cells, fills available space */
 #board-grid {
-  display:grid;
+  display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows:    repeat(5, 40px);
-  gap:4px;
-  width:100%;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
 }
 
 .cell {
-  height:40px;
-  background:var(--panel);
-  border:1px solid var(--border2);
-  border-radius:3px;
-  padding:4px 5px 3px;
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  transition:border-color 0.1s, background 0.12s;
-  position:relative;
-  overflow:hidden;
+  aspect-ratio: 1;
+  background: var(--panel);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 8px 7px 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: border-color 0.1s, background 0.12s, box-shadow 0.12s;
+  position: relative;
+  overflow: hidden;
 }
-.cell:hover { border-color:var(--gold-dim); background:#1a1710; }
+.cell:hover {
+  border-color: var(--gold-dim);
+  background: #1c1810;
+  box-shadow: 0 0 0 1px rgba(200,169,110,0.08) inset;
+}
 
 .cell-text {
-  font-size:10px;
-  font-family:var(--font-body);
-  color:var(--text);
-  line-height:1.2;
-  overflow:hidden;
-  display:-webkit-box;
-  -webkit-box-orient:vertical;
-  -webkit-line-clamp:3;
-  flex:1;
+  font-size: 11px;
+  font-family: var(--font-body);
+  color: var(--text);
+  line-height: 1.25;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
 }
 
 .cell-poi {
-  position:absolute;
-  bottom:2px; right:3px;
-  background:transparent; border:none;
-  cursor:pointer; font-size:9px;
-  opacity:0; transition:opacity 0.1s;
-  padding:0; line-height:1;
+  position: absolute;
+  bottom: 4px; left: 5px;
+  background: transparent; border: none;
+  cursor: pointer; font-size: 11px;
+  opacity: 0; transition: opacity 0.1s;
+  padding: 0; line-height: 1;
 }
-.cell:hover .cell-poi { opacity:0.6; }
-.cell-poi:hover       { opacity:1 !important; }
-
-/* Expanded mode — taller cells so full text is readable */
-#board-wrap.expanded #board-grid {
-  grid-template-rows: repeat(5, 72px);
-}
-#board-wrap.expanded .cell {
-  height: 72px;
-}
-#board-wrap.expanded .cell-text {
-  font-size: 11px;
-  -webkit-line-clamp: 4;
-}
-#board-wrap.expanded .cell-poi {
-  font-size: 10px;
-}
+.cell:hover .cell-poi { opacity: 0.55; }
+.cell-poi:hover       { opacity: 1 !important; }
 .cell.mark-p1 {
-  background: linear-gradient(135deg, #1e4a30 0%, #0f2818 100%);
+  background: linear-gradient(145deg, #1e4a30 0%, #0f2818 100%);
   border-color: var(--p1);
   border-width: 2px;
 }
 .cell.mark-p1 .cell-text { color:var(--p1-bright); font-weight:600; }
-/* P1 checkmark badge */
 .cell.mark-p1::after {
   content:'✓';
-  position:absolute; top:1px; right:3px;
-  font-size:9px; color:var(--p1-bright); opacity:0.8;
+  position:absolute; top:4px; right:6px;
+  font-size:13px; color:var(--p1-bright); opacity:0.7;
 }
 
 .cell.mark-p2 {
-  background: linear-gradient(135deg, #4a1a1a 0%, #280f0f 100%);
+  background: linear-gradient(145deg, #4a1a1a 0%, #280f0f 100%);
   border-color: var(--p2);
   border-width: 2px;
 }
 .cell.mark-p2 .cell-text { color:var(--p2-bright); font-weight:600; }
 .cell.mark-p2::after {
   content:'✓';
-  position:absolute; top:1px; right:3px;
-  font-size:9px; color:var(--p2-bright); opacity:0.8;
+  position:absolute; top:4px; right:6px;
+  font-size:13px; color:var(--p2-bright); opacity:0.7;
 }
 
 /* Bingo line highlights */
 .cell.bingo-p1 {
-  background: linear-gradient(135deg, #0d3020 0%, #061a10 100%);
+  background: linear-gradient(145deg, #0d3020 0%, #061a10 100%);
   border-color:var(--p1-bright); border-width:2px;
-  box-shadow:0 0 6px rgba(106,206,160,0.4) inset;
+  box-shadow:0 0 12px rgba(106,206,160,0.35) inset, 0 0 6px rgba(106,206,160,0.15);
 }
 .cell.bingo-p2 {
-  background: linear-gradient(135deg, #300d0d 0%, #1a0606 100%);
+  background: linear-gradient(145deg, #300d0d 0%, #1a0606 100%);
   border-color:var(--p2-bright); border-width:2px;
-  box-shadow:0 0 6px rgba(240,112,112,0.4) inset;
+  box-shadow:0 0 12px rgba(240,112,112,0.35) inset, 0 0 6px rgba(240,112,112,0.15);
 }
 
 /* ── Modal ────────────────────────────────────────────────────────────────── */
@@ -624,8 +677,8 @@ html, body { height:100%; width:100%; overflow:hidden; background:var(--bg); col
 /* ── Board synergy badges ───────────────────────────────────────────────────── */
 .cell-syn {
   position: absolute;
-  bottom: 2px;
-  right: 3px;
+  bottom: 3px;
+  right: 4px;
   display: flex;
   gap: 1px;
   pointer-events: none;

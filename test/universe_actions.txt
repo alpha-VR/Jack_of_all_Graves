@@ -1,0 +1,572 @@
+Total actions: 561
+================================================================================
+
+OBJECTIVES (362)
+--------------------------------------------------------------------------------
+[  0] Godrick the Grafted                           zone=limgrave           lvl=1  sq=Kill 4 Bosses with the word God in it, Kill Godrick while summoning Nepheli Loux
+[  1] Rennala, Queen of the Full Moon               zone=liurnia            lvl=1  sq=Kill Rennala after she summons 4 spirits
+[  2] Starscourge Radahn                            zone=caelid             lvl=1  sq=Kill 5 bosses that ride a horse, Kill Radahn without summoning NPCs
+[  3] Morgott, The Omen King                        zone=leyndell           lvl=1  sq=Kill Morgott
+[  4] Ancestor Spirit                               zone=siofra             lvl=2  sq=Kill an Ancestor Spirit
+[  5] Regal Ancestor Spirit                         zone=siofra             lvl=2  sq=Kill an Ancestor Spirit
+[  6] Mohg, Lord of Blood                           zone=mohgwyn            lvl=2  sq=Kill Mohg, Lord of Blood
+[  7] Margit, the Fell Omen                         zone=limgrave           lvl=1  sq=Kill Margit with 6+ parries
+[  8] Leonine Misbegotten                           zone=weeping_peninsula  lvl=1  sq=Kill Leonine Misbegotten
+[  9] Red Wolf of Radagon                           zone=liurnia            lvl=1  sq=Kill a Red Wolf Boss
+[ 10] Red Wolf of the Champion                      zone=altus_plateau      lvl=1  sq=Kill a Red Wolf Boss
+[ 11] Godskin Noble(Volcano Manor)                  zone=altus_plateau      lvl=1  sq=Kill 4 Bosses with the word God in it, Kill Godskin Noble (Volcano Manor) without status effects
+[ 12] Godskin Apostle (Caelid)                      zone=caelid             lvl=1  sq=Kill 4 Bosses with the word God in it, Kill a Godskin Apostle
+[ 13] Godskin Apostle & Godskin Noble               zone=mountaintops       lvl=1  sq=Complete %num% cave or grotto dungeons, Kill 3 duo/trio bosses, Kill 4 Bosses with the word God in it, Kill a Godskin Apostle
+[ 14] Godskin Apostle (Windmill Village, Altus Plateau) zone=altus_plateau      lvl=1  sq=Kill a Godskin Apostle
+[ 15] Godfrey, First Elden Lord (Golden Shade)      zone=leyndell           lvl=1  sq=Kill 4 Bosses with the word God in it, Kill Godfrey (Gold Spirit)
+[ 16] Stray Mimic Tear                              zone=mountaintops       lvl=1  sq=Complete %num% catacomb dungeons, Kill Mimic Tear consumables only
+[ 17] Mimic Tear                                    zone=siofra             lvl=2  sq=Kill Mimic Tear consumables only
+[ 18] Valiant Gargoyle                              zone=siofra             lvl=2  sq=Kill 3 duo/trio bosses, Kill Valiant Gargoyles
+[ 19] Fia's Champions Arena                         zone=deeproot           lvl=2  sq=Kill Fia's Champions
+[ 20] Mohg, the Omen                                zone=leyndell           lvl=1  sq=Kill Mohg (Sewers)
+[ 21] Royal Knight Loretta                          zone=caria_manor        lvl=1  sq=Kill Loretta (Blue Spirit)
+[ 22] Commander O'Neil                              zone=caelid             lvl=1  sq=Kill Commander O'Neil
+[ 23] Grafted Scion                                 zone=limgrave           lvl=1  sq=Finish off a boss with the explosive physick, Kill %num% Grafted Scions
+[ 24] Grafted Scion (Tutorial)                      zone=stormveil          lvl=1  sq=Kill %num% Grafted Scions
+[ 25] Grafted Scion                                 zone=altus_plateau      lvl=1  sq=Kill %num% Grafted Scions
+[ 26] Grafted Scion (Fringefolk Hero's Grave)       zone=limgrave           lvl=1  sq=Kill %num% Grafted Scions
+[ 27] Grafted Scion (Chapel of Anticipation, via Four Belfries) zone=liurnia            lvl=1  sq=Kill %num% Grafted Scions
+[ 28] Grafted Scion (Mt. Gelmir)                    zone=mt_gelmir          lvl=1  sq=Kill %num% Grafted Scions
+[ 29] Soldier of Godrick                            zone=limgrave           lvl=1  sq=Finish off a boss with the explosive physick, Kill 4 Bosses with the word God in it, Kill Soldier of Godrick bare fist only
+[ 30] Tree Sentinel (Limgrave)                      zone=limgrave           lvl=1  sq=Kill 5 bosses that ride a horse, Kill 5 bosses with 'tree' in their name, Kill Limgrave Tree Sentinel with a +0 weapon only
+[ 31] Flying Dragon Agheel                          zone=limgrave           lvl=1  sq=Kill %numofbosses% Dragon Heart bosses, Kill Agheel with a +0 weapon only
+[ 32] Tree Sentinel (Leyndell, Royal Capital)       zone=altus_plateau      lvl=1  sq=Kill 5 bosses that ride a horse, Kill 5 bosses with 'tree' in their name, Kill Tree Sentinel duo
+[ 33] Crucible Knight / Misbegotten Warrior         zone=caelid             lvl=1  sq=Kill %numofbosses% Crucible Knights, Kill 3 duo/trio bosses, Kill Crucible Knight and Misbegotten Warrior duo
+[ 34] Elemer of the Briar                           zone=altus_plateau      lvl=1  sq=Kill Elemer of the Briar
+[ 35] Crystalians (Trio - Sellia Hideaway)          zone=caelid             lvl=1  sq=Kill 3 duo/trio bosses, Kill Putrid Crystalian trio
+[ 36] Wormface                                      zone=altus_plateau      lvl=1  sq=Kill Wormface
+[ 37] Bloodhound Knight Darriwil                    zone=limgrave           lvl=1  sq=Complete %num% evergaols, Finish off a boss with the explosive physick, Kill Bloodhound Knight while summoning Blaidd
+[ 38] Elder Dragon Greyoll                          zone=caelid             lvl=1  sq=Kill %numofbosses% Dragon Heart bosses, Kill Greyoll without status effects
+[ 39] Godefroy the Grafted                          zone=altus_plateau      lvl=1  sq=Complete %num% evergaols, Kill 4 Bosses with the word God in it
+[ 40] Godskin Duo                                   zone=farum_azula        lvl=1  sq=Kill 3 duo/trio bosses, Kill 4 Bosses with the word God in it
+[ 41] Godskin Apostle                               zone=mountaintops       lvl=1  sq=Kill 4 Bosses with the word God in it
+[ 42] Godfrey, First Elden Lord                     zone=leyndell           lvl=3  sq=Kill 4 Bosses with the word God in it
+[ 43] Dragonkin Soldier                             zone=siofra             lvl=2  sq=Kill a Dragonkin Soldier
+[ 44] Dragonkin Soldier                             zone=ainsel             lvl=2  sq=Kill a Dragonkin Soldier
+[ 45] Magma Wyrm Makar                              zone=altus_plateau      lvl=1  sq=Complete %num% tunnel or precipice dungeons, Kill %numofbosses% Dragon Heart bosses, Kill a Magma Wyrm boss
+[ 46] Magma Wyrm                                    zone=caelid             lvl=1  sq=Complete %num% tunnel or precipice dungeons, Kill %numofbosses% Dragon Heart bosses, Kill a Magma Wyrm boss
+[ 47] Magma Wyrm (Volcano Manor)                    zone=altus_plateau      lvl=1  sq=Kill %numofbosses% Dragon Heart bosses, Kill a Magma Wyrm boss
+[ 48] Magma Wyrm (Mt Gelmir Lava Pool)              zone=mt_gelmir          lvl=1  sq=Kill %numofbosses% Dragon Heart bosses, Kill a Magma Wyrm boss
+[ 49] Great Wyrm Theodorix                          zone=consecrated        lvl=1  sq=Complete %num% cave or grotto dungeons, Kill %numofbosses% Dragon Heart bosses, Kill a Magma Wyrm boss
+[ 50] Full-Grown Fallingstar Beast                  zone=altus_plateau      lvl=1  sq=Kill a Fallingstar Beast
+[ 51] Fallingstar Beast                             zone=caelid             lvl=1  sq=Complete %num% tunnel or precipice dungeons, Kill a Fallingstar Beast
+[ 52] Fallingstar Beast                             zone=altus_plateau      lvl=1  sq=Kill a Fallingstar Beast
+[ 53] Black Blade Kindred                           zone=dragonbarrow       lvl=1  sq=Kill a Black Blade Kindred
+[ 54] Black Blade Kindred B                         zone=mountaintops       lvl=1  sq=Kill a Black Blade Kindred
+[ 55] Omenkiller                                    zone=liurnia            lvl=1  sq=Kill %numofbosses% Omenkiller boss
+[ 56] Miranda the Blighted Bloom / Omenkiller       zone=altus_plateau      lvl=1  sq=Kill %numofbosses% Omenkiller boss
+[ 57] Deathbird (Stormhill)                         zone=limgrave           lvl=1  sq=Kill 2 Deathbirds and 1 Death Rite Bird
+[ 58] Deathbird (Weeping Peninsula)                 zone=weeping_peninsula  lvl=1  sq=Kill 2 Deathbirds and 1 Death Rite Bird
+[ 59] Deathbird (Liurnia of the Lakes South)        zone=liurnia            lvl=1  sq=Kill 2 Deathbirds and 1 Death Rite Bird
+[ 60] Deathbird (Leyndell Capital Outskirts)        zone=altus_plateau      lvl=1  sq=Kill 2 Deathbirds and 1 Death Rite Bird
+[ 61] Death Rite Bird (Central Mountaintops of the Giants) zone=mountaintops       lvl=1  sq=Kill 2 Deathbirds and 1 Death Rite Bird
+[ 62] Death Rite Bird (Caelid Swamp)                zone=caelid             lvl=1  sq=Kill 2 Deathbirds and 1 Death Rite Bird
+[ 63] Death Rite Bird (Raya Lucaria Academy East)   zone=liurnia            lvl=1  sq=Kill 2 Deathbirds and 1 Death Rite Bird
+[ 64] Death Rite Bird (West Mountaintops of the Giants) zone=mountaintops       lvl=1  sq=Kill 2 Deathbirds and 1 Death Rite Bird
+[ 65] Cemetery Shade                                zone=limgrave           lvl=1  sq=Complete %num% catacomb dungeons, Finish off a boss with the explosive physick, Kill %numofbosses% Cemetery Shades
+[ 66] Cemetery Shade (Caelid)                       zone=caelid             lvl=1  sq=Complete %num% catacomb dungeons, Kill %numofbosses% Cemetery Shades
+[ 67] Cemetery Shade (Black Knife Catacombs)        zone=liurnia            lvl=1  sq=Complete %num% catacomb dungeons, Kill %numofbosses% Cemetery Shades
+[ 68] Erdtree Burial Watchdog (Stormfoot Catacombs) zone=limgrave           lvl=1  sq=Complete %num% catacomb dungeons, Finish off a boss with the explosive physick, Kill %numofbosses% Watchdogs, Kill 5 bosses with 'tree' in their name
+[ 69] Erdtree Burial Watchdog (Impaler's Catacombs) zone=limgrave           lvl=1  sq=Complete %num% catacomb dungeons, Kill %numofbosses% Watchdogs, Kill 5 bosses with 'tree' in their name
+[ 70] Erdtree Burial Watchdog (Minor Erdtree Catacombs) zone=caelid             lvl=1  sq=Complete %num% catacomb dungeons, Kill %numofbosses% Watchdogs, Kill 5 bosses with 'tree' in their name
+[ 71] Erdtree Burial Watchdog (Cliffbottom Catacombs) zone=liurnia            lvl=1  sq=Complete %num% catacomb dungeons, Finish off a boss with the explosive physick, Kill %numofbosses% Watchdogs, Kill 5 bosses with 'tree' in their name
+[ 72] Erdtree Burial Watchdog (Wyndham Catacombs)   zone=altus_plateau      lvl=1  sq=Complete %num% catacomb dungeons, Finish off a boss with the explosive physick, Kill %numofbosses% Watchdogs, Kill 5 bosses with 'tree' in their name
+[ 73] Grave Warden Duelist (Limgrave)               zone=limgrave           lvl=1  sq=Complete %num% catacomb dungeons, Kill %numofbosses%
+[ 74] Putrid Grave Warden Duelist                   zone=mountaintops       lvl=1  sq=Complete %num% catacomb dungeons, Kill %numofbosses%
+[ 75] Frenzied Duelist                              zone=caelid             lvl=1  sq=Complete %num% cave or grotto dungeons, Kill %numofbosses%
+[ 76] Grave Warden Duelist (Auriza Side Tomb)       zone=leyndell           lvl=1  sq=Kill %numofbosses%
+[ 77] Black Knife Assassin                          zone=limgrave           lvl=1  sq=Complete %num% catacomb dungeons, Kill %numofbosses% Black Knife Assassins
+[ 78] Black Knife Assassin (Altus Plateau)          zone=altus_plateau      lvl=1  sq=Kill %numofbosses% Black Knife Assassins
+[ 79] Black Knife Assassin (Sage's Cave)            zone=altus_plateau      lvl=1  sq=Complete %num% cave or grotto dungeons, Kill %numofbosses% Black Knife Assassins
+[ 80] Black Knife Assassin (Liurnia of the Lakes East) zone=liurnia            lvl=1  sq=Complete %num% catacomb dungeons, Kill %numofbosses% Black Knife Assassins
+[ 81] Crucible Knight                               zone=limgrave           lvl=1  sq=Complete %num% evergaols, Kill %numofbosses% Crucible Knights
+[ 82] Crucible Knight & Crucible Knight Ordovis     zone=leyndell           lvl=1  sq=Kill %numofbosses% Crucible Knights, Kill 3 duo/trio bosses
+[ 83] Crucible Knight Siluria                       zone=deeproot           lvl=2  sq=Kill %numofbosses% Crucible Knights
+[ 84] Crucible Knight (Stormveil Castle)            zone=stormveil          lvl=1  sq=Kill %numofbosses% Crucible Knights
+[ 85] Crucible Knight (Nokron, before Gargoyles)    zone=siofra             lvl=2  sq=Kill %numofbosses% Crucible Knights
+[ 86] Decaying Ekzykes                              zone=caelid             lvl=1  sq=Kill %numofbosses% Dragon Heart bosses
+[ 87] Flying Dragon Greyll                          zone=caelid             lvl=1  sq=Kill %numofbosses% Dragon Heart bosses
+[ 88] Glintstone Dragon Adula (Cathedral of Manus Celes) zone=liurnia            lvl=1  sq=Kill %numofbosses% Dragon Heart bosses
+[ 89] Glintstone Dragon Adula (Three Sisters)       zone=caria_manor        lvl=1  sq=Kill %numofbosses% Dragon Heart bosses
+[ 90] Glintstone Dragon Smarag                      zone=liurnia            lvl=1  sq=Kill %numofbosses% Dragon Heart bosses
+[ 91] Borealis the Freezing Fog                     zone=mountaintops       lvl=1  sq=Kill %numofbosses% Dragon Heart bosses, Kill Borealis
+[ 92] Dragonlord Placidusax                         zone=farum_azula        lvl=1  sq=Kill %numofbosses% Dragon Heart bosses
+[ 93] Ancient Dragon Lansseax (Altus Plateau)       zone=altus_plateau      lvl=1  sq=Kill %numofbosses% Dragon Heart bosses, Kill Lansseax
+[ 94] Lichdragon Fortissax                          zone=deeproot           lvl=2  sq=Kill %numofbosses% Dragon Heart bosses
+[ 95] Erdtree Avatar                                zone=weeping_peninsula  lvl=1  sq=Kill %numofbosses% Erdtree Avatars, Kill 5 bosses with 'tree' in their name
+[ 96] Erdtree Avatar (Liurnia Southwest)            zone=liurnia            lvl=1  sq=Kill %numofbosses% Erdtree Avatars, Kill 5 bosses with 'tree' in their name
+[ 97] Erdtree Avatar (Liurnia Northeast)            zone=liurnia            lvl=1  sq=Kill %numofbosses% Erdtree Avatars, Kill 5 bosses with 'tree' in their name
+[ 98] Erdtree Avatar (Caelid)                       zone=caelid             lvl=1  sq=Kill %numofbosses% Erdtree Avatars, Kill 5 bosses with 'tree' in their name
+[ 99] Erdtree Avatar (Mountaintops East)            zone=mountaintops       lvl=1  sq=Kill %numofbosses% Erdtree Avatars, Kill 5 bosses with 'tree' in their name
+[100] Erdtree Avatar (Leyndell)                     zone=leyndell           lvl=1  sq=Kill %numofbosses% Erdtree Avatars, Kill 5 bosses with 'tree' in their name
+[101] Erdtree Avatar                                zone=deeproot           lvl=2  sq=Kill %numofbosses% Erdtree Avatars, Kill 5 bosses with 'tree' in their name
+[102] Night's Cavalry (Weeping Peninsula)           zone=weeping_peninsula  lvl=1  sq=Kill %numofbosses% Night's Cavalry, Kill 5 bosses that ride a horse
+[103] Night's Cavalry (Limgrave)                    zone=limgrave           lvl=1  sq=Kill %numofbosses% Night's Cavalry, Kill 5 bosses that ride a horse
+[104] Night's Cavalry (Caelid)                      zone=caelid             lvl=1  sq=Kill %numofbosses% Night's Cavalry, Kill 5 bosses that ride a horse
+[105] Night's Cavalry (Liurnia)                     zone=liurnia            lvl=1  sq=Kill %numofbosses% Night's Cavalry, Kill 5 bosses that ride a horse
+[106] Night's Cavalry - 2x (Consecrated Snowfield)  zone=consecrated        lvl=1  sq=Kill %numofbosses% Night's Cavalry, Kill 5 bosses that ride a horse
+[107] Night's Cavalry (Liurnia of the Lakes North)  zone=liurnia            lvl=1  sq=Kill %numofbosses% Night's Cavalry, Kill 5 bosses that ride a horse
+[108] Night's Cavalry (Altus Plateau)               zone=altus_plateau      lvl=1  sq=Kill %numofbosses% Night's Cavalry, Kill 5 bosses that ride a horse
+[109] Night's Cavalry (Dragonbarrow East)           zone=caelid             lvl=1  sq=Kill %numofbosses% Night's Cavalry, Kill 5 bosses that ride a horse
+[110] Night's Cavalry (Forbidden Lands)             zone=leyndell           lvl=1  sq=Kill %numofbosses% Night's Cavalry, Kill 5 bosses that ride a horse
+[111] Tibia Mariner (Limgrave)                      zone=limgrave           lvl=1  sq=Finish off a boss with the explosive physick, Kill %numofbosses% Tibia Mariners
+[112] Tibia Mariner (Liurnia of the Lakes)          zone=liurnia            lvl=1  sq=Finish off a boss with the explosive physick, Kill %numofbosses% Tibia Mariners
+[113] Tibia Mariner (Wyndham Ruins)                 zone=altus_plateau      lvl=1  sq=Finish off a boss with the explosive physick, Kill %numofbosses% Tibia Mariners
+[114] Bell Bearing Hunter                           zone=limgrave           lvl=1  sq=Kill %numofbosses% Bell Bearing Hunters
+[115] Bell Bearing Hunter (Church of Vows)          zone=liurnia            lvl=1  sq=Kill %numofbosses% Bell Bearing Hunters
+[116] Bell Bearing Hunter                           zone=altus_plateau      lvl=1  sq=Kill %numofbosses% Bell Bearing Hunters
+[117] Bell Bearing Hunter (Isolated Merchant Dragonbarrow) zone=caelid             lvl=1  sq=Kill %numofbosses% Bell Bearing Hunters
+[118] Fell Twins                                    zone=mountaintops       lvl=1  sq=Kill 3 duo/trio bosses
+[119] Nox Swordstress & Nox Priest                  zone=caelid             lvl=1  sq=Kill 3 duo/trio bosses
+[120] Cleanrot Knight Duo (Abandoned Cave)          zone=caelid             lvl=1  sq=Complete %num% cave or grotto dungeons, Kill 3 duo/trio bosses
+[121] Omenkiller & Miranda the Blighted Bloom (Perfumer's Grotto) zone=mt_gelmir          lvl=1  sq=Kill 3 duo/trio bosses
+[122] Abductor Virgin Duo (Volcano Manor)           zone=volcano_manor      lvl=1  sq=Kill 3 duo/trio bosses
+[123] Beastman of Farum Azula Duo (Dragonbarrow Cave) zone=dragonbarrow       lvl=1  sq=Kill 3 duo/trio bosses
+[124] Draconic Tree Sentinel                        zone=leyndell           lvl=1  sq=Kill 5 bosses that ride a horse, Kill 5 bosses with 'tree' in their name
+[125] Ulcerated Tree Spirit (Mt. Gelmir)            zone=altus_plateau      lvl=1  sq=Kill 3 Tree spirits, Kill 5 bosses with 'tree' in their name
+[126] Ulcerated Tree Spirit (Limgrave)              zone=limgrave           lvl=1  sq=Kill 3 Tree spirits, Kill 5 bosses with 'tree' in their name
+[127] Draconic Tree Sentinel                        zone=farum_azula        lvl=1  sq=Kill 5 bosses with 'tree' in their name
+[128] Loretta, Knight of the Haligtree              zone=haligtree          lvl=1  sq=Kill 5 bosses with 'tree' in their name
+[129] Putrid Tree Spirit                            zone=caelid             lvl=1  sq=Complete %num% catacomb dungeons, Kill 3 Tree spirits, Kill 5 bosses with 'tree' in their name
+[130] Ulcerated Tree Spirit (Giants' Mountaintop Catacombs) zone=mountaintops       lvl=1  sq=Complete %num% catacomb dungeons, Kill 3 Tree spirits, Kill 5 bosses with 'tree' in their name
+[131] Beastman of Farum Azula (Groveside Cave)      zone=limgrave           lvl=1  sq=Complete %num% cave or grotto dungeons, Finish off a boss with the explosive physick
+[132] Demi-Human Chief                              zone=limgrave           lvl=1  sq=Complete %num% cave or grotto dungeons, Finish off a boss with the explosive physick
+[133] Mad Pumpkin Head (Waypoint Ruins)             zone=limgrave           lvl=1  sq=Finish off a boss with the explosive physick
+[134] Beastman of Farum Azula (Dragonbarrow Cave)   zone=dragonbarrow       lvl=1  sq=Complete %num% cave or grotto dungeons, Finish off a boss with the explosive physick
+[135] Mad Pumpkin Head (Caelem Ruins)               zone=caelid             lvl=1  sq=Finish off a boss with the explosive physick
+[136] Spirit-Caller Snail                           zone=unknown            lvl=1  sq=Complete %num% catacomb dungeons
+[137] Perfumer Tricia                               zone=mt_gelmir          lvl=1  sq=Complete %num% catacomb dungeons
+[138] Misbegotten Warrior                           zone=mt_gelmir          lvl=1  sq=Complete %num% catacomb dungeons
+[139] Runebear                                      zone=limgrave           lvl=1  sq=Complete %num% cave or grotto dungeons
+[140] Crystalians                                   zone=liurnia            lvl=1  sq=Complete %num% cave or grotto dungeons
+[141] Patches (Bossfight)                           zone=limgrave           lvl=1  sq=Complete %num% cave or grotto dungeons
+[142] Cleanrot Knight - Stillwater Cave             zone=liurnia            lvl=1  sq=Complete %num% cave or grotto dungeons
+[143] Guardian Golem                                zone=limgrave           lvl=1  sq=Complete %num% cave or grotto dungeons
+[144] Demi-Human Queen Margot                       zone=mt_gelmir          lvl=1  sq=Complete %num% cave or grotto dungeons
+[145] Miranda the Blighted Bloom                    zone=limgrave           lvl=1  sq=Complete %num% cave or grotto dungeons
+[146] Kindred of Rot                                zone=mt_gelmir          lvl=1  sq=Complete %num% cave or grotto dungeons
+[147] Bloodhound Knight                             zone=liurnia            lvl=1  sq=Complete %num% cave or grotto dungeons
+[148] Necromancer Garris                            zone=mt_gelmir          lvl=1  sq=Complete %num% cave or grotto dungeons
+[149] Misbegotten Crusader                          zone=consecrated        lvl=1  sq=Complete %num% cave or grotto dungeons, Kill Misbegotten Crusader
+[150] Crystalian (Ring Blade)                       zone=liurnia            lvl=1  sq=Complete %num% tunnel or precipice dungeons
+[151] Scaly Misbegotten                             zone=limgrave           lvl=1  sq=Complete %num% tunnel or precipice dungeons
+[152] Onyx Lord                                     zone=leyndell           lvl=1  sq=Complete %num% tunnel or precipice dungeons
+[153] Astel, Stars of Darkness                      zone=consecrated        lvl=1  sq=Complete %num% tunnel or precipice dungeons, Kill Astel and Astel, Stars of Darkness
+[154] Stonedigger Troll (Limgrave Tunnels)          zone=limgrave           lvl=1  sq=Complete %num% tunnel or precipice dungeons
+[155] Stonedigger Troll (Old Altus Tunnel)          zone=altus_plateau      lvl=1  sq=Complete %num% tunnel or precipice dungeons
+[156] Crystalian Duo (Altus Tunnel)                 zone=altus_plateau      lvl=1  sq=Complete %num% tunnel or precipice dungeons
+[157] Demi-Human Chief Duo (Coastal Cave)           zone=limgrave           lvl=1  sq=Complete %num% tunnel or precipice dungeons
+[158] Beastman of Farum Azula (Groveside Cave)      zone=limgrave           lvl=1  sq=Complete %num% tunnel or precipice dungeons
+[159] Auriza Hero's Grave                           zone=mountaintops       lvl=1  sq=Complete an Altus Plateau Hero's Grave
+[160] Gelmir Hero's Grave                           zone=mt_gelmir          lvl=1  sq=Complete an Altus Plateau Hero's Grave
+[161] Ancient Hero of Zamor                         zone=limgrave           lvl=1  sq=Complete %num% evergaols
+[162] Adan, Thief of Fire                           zone=liurnia            lvl=1  sq=Complete %num% evergaols
+[163] Alabaster Lord                                zone=altus_plateau      lvl=1  sq=Complete %num% evergaols
+[164] Bols, Carian Knight                           zone=unknown            lvl=1  sq=Complete %num% evergaols
+[165] Roundtable Knight Vyke                        zone=mountaintops       lvl=1  sq=Complete %num% evergaols, Kill 4 NPC Bosses, Kill Roundtable Knight Vyke
+[166] Alecto, Black Knife Ringleader                zone=liurnia            lvl=1  sq=Complete %num% evergaols
+[167] Battlemage Hugues                             zone=caelid             lvl=1  sq=Complete %num% evergaols
+[168] Fire Giant                                    zone=mountaintops       lvl=1  sq=Kill Fire Giant
+[169] Somberstone Miner's Bell Bearing (1)          zone=mohgwyn            lvl=1  sq=Acquire Somberstone Bell Bearing [1] and [2]
+[170] Somberstone Miner's Bell Bearing (2)          zone=altus_plateau      lvl=1  sq=Acquire Somberstone Bell Bearing [1] and [2]
+[171] Smithing-Stone Miner's Bell Bearing (1)       zone=liurnia            lvl=1  sq=Acquire Smithing-stone Bell Bearing [1] and [2]
+[172] Smithing-Stone Miner's Bell Bearing (2)       zone=leyndell           lvl=1  sq=Acquire Smithing-stone Bell Bearing [1] and [2]
+[173] Glovewort Picker's Bell Bearing (1)           zone=altus_plateau      lvl=1  sq=Acquire Grave and Ghost Glovewort Bell Bearings [1], Spirit Ash +4 summon
+[174] Ghost-Glovewort Picker's Bell Bearing (1)     zone=siofra             lvl=2  sq=Acquire Grave and Ghost Glovewort Bell Bearings [1], Spirit Ash +4 summon
+[175] Ghost-Glovewort Picker's Bell Bearing (2)     zone=ainsel             lvl=2  sq=Acquire Grave and Ghost Glovewort Bell Bearings [2]
+[176] Margit's Shackle (Patches - Murkwater Cave)   zone=limgrave           lvl=1  sq=Acquire Margit's and Mohg's Shackles, Kill 4 NPC Bosses
+[177] Mohg's Shackle (Leyndell Sewers)              zone=leyndell           lvl=1  sq=Acquire Margit's and Mohg's Shackles, Kill 4 NPC invaders
+[178] Divine Tower of Limgrave                      zone=unknown            lvl=1  sq=Restore Godrick's Great Rune
+[179] Divine Tower of Caelid                        zone=caelid             lvl=1  sq=Restore Radahn's Great Rune
+[180] Divine Tower of West Altus Gate               zone=leyndell           lvl=1  sq=Restore Rykard's Great Rune
+[181] Divine Tower of East Altus                    zone=leyndell           lvl=1  sq=Restore Morgott's Great Rune
+[182] Lone Wolf Ashes                               zone=limgrave           lvl=1  sq=Spirit Ash +4 summon
+[183] Spirit Jellyfish Ashes                        zone=limgrave           lvl=1  sq=Spirit Ash +4 summon
+[184] Banished Knight Oleg Ashes                    zone=limgrave           lvl=1  sq=Spirit Ash +4 summon
+[185] Lhutel the Headless                           zone=limgrave           lvl=1  sq=Spirit Ash +4 summon
+[186] Black Knife Tiche                             zone=liurnia            lvl=1  sq=Spirit Ash +4 summon
+[187] Mimic Tear Ashes                              zone=siofra             lvl=2  sq=Spirit Ash +4 summon
+[188] Ghost Glovewort [1] - Stormfoot Catacombs     zone=limgrave           lvl=1  sq=Spirit Ash +4 summon
+[189] Ghost Glovewort [1] - Tombsward Catacombs     zone=weeping_peninsula  lvl=1  sq=Spirit Ash +4 summon
+[190] Golden Seed (F)                               zone=limgrave           lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[191] Golden Seed - Fort Haight                     zone=caelid             lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[192] Golden Seed (A) - Stormveil Castle            zone=stormveil          lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[193] Golden Seed (C)                               zone=mountaintops       lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[194] Golden Seed (B)                               zone=mountaintops       lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[195] Golden Seed - Academy Gate Town               zone=liurnia            lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[196] Golden Seed - Caria Manor                     zone=altus_plateau      lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[197] Golden Seed (I)                               zone=altus_plateau      lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[198] Golden Seed (J)                               zone=mt_gelmir          lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[199] Golden Seed - Raya Lucaria Academy            zone=liurnia            lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[200] Golden Seed - Lux Ruins                       zone=altus_plateau      lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[201] Golden Seed - Minor Erdtree Altus Plateau     zone=altus_plateau      lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[202] Golden Seed - Windmill Village                zone=mountaintops       lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[203] Golden Seed - Weeping Peninsula               zone=weeping_peninsula  lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[204] Golden Seed - Liurnia of the Lakes            zone=liurnia            lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[205] Golden Seed - Forbidden Lands                 zone=mountaintops       lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[206] Golden Seed (Consecrated Snowfield)           zone=consecrated        lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[207] Sacred Tear (Callu Baptismal Church)          zone=weeping_peninsula  lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[208] Sacred Tear (Church of Pilgrimage)            zone=limgrave           lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[209] Sacred Tear (Third Church of Marika)          zone=caelid             lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[210] Sacred Tear (Fourth Church of Marika)         zone=limgrave           lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[211] Sacred Tear (Bellum Church)                   zone=liurnia            lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[212] Sacred Tear (First Church of Marika)          zone=unknown            lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[213] Sacred Tear (Stormcaller Church)              zone=altus_plateau      lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[214] Sacred Tear (Church of the Plague)            zone=caelid             lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[215] Sacred Tear (Church of Irith)                 zone=liurnia            lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[216] Sacred Tear (Church of Inhibition)            zone=altus_plateau      lvl=1  sq=10 Sacred Flask charges, Sacred Flask + %num%
+[217] Cracked Pot - Caria Manor                     zone=altus_plateau      lvl=1  sq=Acquire 10 Cracked Pots
+[218] Cracked Pot - 2x Stormveil Castle             zone=stormveil          lvl=1  sq=Acquire 10 Cracked Pots
+[219] Cracked Pot - Raya Lucaria Academy            zone=liurnia            lvl=1  sq=Acquire 10 Cracked Pots
+[220] Cracked Pot - Groveside Cave                  zone=limgrave           lvl=1  sq=Acquire 10 Cracked Pots
+[221] Cracked Pot - x3 - Jarburg                    zone=liurnia            lvl=1  sq=Acquire 10 Cracked Pots
+[222] Cracked Pot - x2 - Auriza Side Tomb           zone=mountaintops       lvl=1  sq=Acquire 10 Cracked Pots
+[223] Cracked Pot - Minor Erdtree (Caelid)          zone=caelid             lvl=1  sq=Acquire 10 Cracked Pots
+[224] Cracked Pot - Leyndell, Royal Capital         zone=mountaintops       lvl=1  sq=Acquire 10 Cracked Pots
+[225] Ritual Pot - Laskyar Ruins                    zone=liurnia            lvl=1  sq=Acquire 5 Ritual Pots
+[226] Ritual Pot - Raya Lucaria Academy             zone=liurnia            lvl=1  sq=Acquire 5 Ritual Pots
+[227] Ritual Pot - 2x Jarburg                       zone=liurnia            lvl=1  sq=Acquire 5 Ritual Pots
+[228] Radagon's Scarseal                            zone=siofra             lvl=2  sq=Acquire both Scarseal talismans
+[229] Marika's Scarseal                             zone=siofra             lvl=2  sq=Acquire both Scarseal talismans
+[230] Fingerslayer Blade                            zone=siofra             lvl=2  sq=Acquire Fingerslayer Blade
+[231] Writheblood Ruins                             zone=altus_plateau      lvl=1  sq=Invade and defeat Magnus the Beast Claw
+[232] Walking Mausoleum (Weeping Peninsula)         zone=weeping_peninsula  lvl=1  sq=Dupe a Remembrance at a Mausoleum
+[233] Walking Mausoleum (Bellum Highway)            zone=liurnia            lvl=1  sq=Dupe a Remembrance at a Mausoleum
+[234] Walking Mausoleum (Mausoleum Compound South)  zone=liurnia            lvl=1  sq=Dupe a Remembrance at a Mausoleum
+[235] Walking Mausoleum (Deeproot Depths)           zone=deeproot           lvl=2  sq=Dupe a Remembrance at a Mausoleum
+[236] Walking Mausoleum (Mountaintops)              zone=mountaintops       lvl=1  sq=Dupe a Remembrance at a Mausoleum
+[237] Walking Mausoleum (Consecrated Snowfield)     zone=consecrated        lvl=1  sq=Dupe a Remembrance at a Mausoleum
+[238] Walking Mausoleum (Mausoleum Compound North)  zone=liurnia            lvl=1  sq=Dupe a Remembrance at a Mausoleum
+[239] Recusant Henricus                             zone=limgrave           lvl=1  sq=Kill 4 NPC invaders
+[240] Anastasia, Tarnished-Eater A                  zone=caelid             lvl=1  sq=Kill 4 NPC invaders
+[241] Bloody Finger Nerijus                         zone=limgrave           lvl=1  sq=Kill 4 NPC invaders
+[242] Edgar the Revenger                            zone=liurnia            lvl=1  sq=Kill 4 NPC invaders
+[243] Maleigh Marais, Shaded Castle Castellan       zone=altus_plateau      lvl=1  sq=Kill 4 NPC invaders
+[244] Moongrum, Carian Knight                       zone=liurnia            lvl=1  sq=Kill 4 NPC invaders
+[245] Sanguine Noble                                zone=consecrated        lvl=1  sq=Kill 4 NPC invaders
+[246] Inquisitor Ghiza                              zone=mt_gelmir          lvl=1  sq=Kill 4 NPC invaders
+[247] Old Knight Istvan                             zone=limgrave           lvl=1  sq=Kill 4 NPC invaders
+[248] Bloody Finger Okina                           zone=consecrated        lvl=1  sq=Kill 4 NPC invaders
+[249] Great Horned Tragoth                          zone=altus_plateau      lvl=1  sq=Kill 4 NPC invaders
+[250] Juno Hoslow, Knight of Blood                  zone=consecrated        lvl=1  sq=Kill 4 NPC invaders
+[251] Recusant Bernahl                              zone=farum_azula        lvl=1  sq=Kill 4 NPC invaders
+[252] Eleonora, Violet Bloody Finger                zone=altus_plateau      lvl=1  sq=Kill 4 NPC invaders
+[253] Preceptor Miriam                              zone=liurnia            lvl=1  sq=Kill 4 NPC invaders
+[254] Baleful Shadow                                zone=ainsel             lvl=2  sq=Kill 4 NPC invaders
+[255] White-Faced Varre (First Location)            zone=limgrave           lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[256] Boc the Seamster (First Location)             zone=limgrave           lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[257] Miriel, Pastor of Vows                        zone=liurnia            lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[258] War Counselor Iji                             zone=caria_manor        lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[259] Thops                                         zone=liurnia            lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[260] Hyetta (First Location)                       zone=liurnia            lvl=1  sq=Give Hyetta 3 Shabriri Grapes, Kill 3 friendly NPCs (no hermit merchants)
+[261] Gurranq, Beast Clergyman                      zone=caelid             lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[262] Tanith                                        zone=mt_gelmir          lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[263] Iron Fist Alexander (First Location)          zone=limgrave           lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[264] Gowry                                         zone=caelid             lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[265] Patches (First Location)                      zone=liurnia            lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[266] Latenna                                       zone=liurnia            lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[267] Blackguard Big Boggart                        zone=liurnia            lvl=1  sq=Buy 20 Boiled Crab from Boggart, Kill 3 friendly NPCs (no hermit merchants)
+[268] Bloody Finger Hunter Yura (Murkwater Cave area) zone=limgrave           lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[269] Blaidd (Mistwood Ruins / Ranni's Rise)        zone=liurnia            lvl=1  sq=Kill 3 friendly NPCs (no hermit merchants)
+[270] Bestial Sanctum                               zone=dragonbarrow       lvl=1  sq=Kill Gurranq
+[271] Ash of War: Lightning Ram                     zone=altus_plateau      lvl=1  sq=Use AoW Lightning Ram to kill 10 sheep
+[272] Sheep herd (Stormhill)                        zone=limgrave           lvl=1  sq=Use AoW Lightning Ram to kill 10 sheep
+[273] Rock Sling                                    zone=caelid             lvl=1  sq=Learn 12 different sorceries
+[274] Meteorite Staff                               zone=caelid             lvl=1  sq=Collect 6 unique Staves, Learn 12 different sorceries
+[275] Comet                                         zone=liurnia            lvl=1  sq=Learn 12 different sorceries
+[276] Comet Azur                                    zone=mt_gelmir          lvl=1  sq=Learn 12 different sorceries
+[277] Stars of Ruin                                 zone=caelid             lvl=1  sq=Learn 12 different sorceries
+[278] Adula's Moonblade                             zone=liurnia            lvl=1  sq=Learn 12 different sorceries
+[279] Rock Blaster                                  zone=caelid             lvl=1  sq=Learn 12 different sorceries
+[280] Ranni's Dark Moon                             zone=liurnia            lvl=1  sq=Learn 12 different sorceries
+[281] Crystal Burst                                 zone=limgrave           lvl=1  sq=Learn 12 different sorceries
+[282] Night Comet                                   zone=caelid             lvl=1  sq=Learn 12 different sorceries
+[283] Gravity Well                                  zone=liurnia            lvl=1  sq=Learn 12 different sorceries
+[284] Frozen Armament                               zone=altus_plateau      lvl=1  sq=Learn 12 different sorceries
+[285] Meteorite of Astel                            zone=consecrated        lvl=1  sq=Learn 12 different sorceries
+[286] Loretta's Greatbow                            zone=altus_plateau      lvl=1  sq=Learn 12 different sorceries
+[287] Founding Rain of Stars                        zone=consecrated        lvl=1  sq=Learn 12 different sorceries
+[288] Dragonfire                                    zone=stormveil          lvl=1  sq=Learn 14 different incantations
+[289] The Flame of Frenzy                           zone=limgrave           lvl=1  sq=Learn 14 different incantations
+[290] Lightning Strike                              zone=limgrave           lvl=1  sq=Learn 14 different incantations
+[291] Flame, Cleanse Me                             zone=liurnia            lvl=1  sq=Learn 14 different incantations
+[292] Bloodflame Blade                              zone=liurnia            lvl=1  sq=Learn 14 different incantations
+[293] Flame of the Fell God                         zone=liurnia            lvl=1  sq=Learn 14 different incantations
+[294] Aspects of the Crucible: Horns                zone=stormveil          lvl=1  sq=Learn 14 different incantations
+[295] Golden Vow (Spell)                            zone=mt_gelmir          lvl=1  sq=Learn 14 different incantations
+[296] Magma Shot                                    zone=mt_gelmir          lvl=1  sq=Learn 14 different incantations
+[297] Beast Claw                                    zone=caelid             lvl=1  sq=Learn 14 different incantations
+[298] Gurranq's Beast Claw                          zone=caelid             lvl=1  sq=Learn 14 different incantations
+[299] Theodorix's Magma                             zone=consecrated        lvl=1  sq=Learn 14 different incantations
+[300] Elden Stars                                   zone=deeproot           lvl=2  sq=Learn 14 different incantations
+[301] Swarm of Flies                                zone=siofra             lvl=2  sq=Learn 14 different incantations
+[302] Hyetta (Second Location)                      zone=liurnia            lvl=1  sq=Give Hyetta 3 Shabriri Grapes
+[303] Hyetta (Third Location)                       zone=liurnia            lvl=1  sq=Give Hyetta 3 Shabriri Grapes
+[304] Hyetta (Fourth location)                      zone=liurnia            lvl=1  sq=Give Hyetta 3 Shabriri Grapes
+[305] Ulcerated Tree Spirit (Fringefolk Hero's Grave) zone=limgrave           lvl=1  sq=Kill 3 Tree spirits
+[306] Ulcerated Tree Spirit (Deeproot Depths)       zone=deeproot           lvl=2  sq=Kill 3 Tree spirits
+[307] Demi-Human Queen's Staff                      zone=limgrave           lvl=1  sq=Collect 6 unique Staves
+[308] Azur's Glintstone Staff                       zone=liurnia            lvl=1  sq=Collect 6 unique Staves
+[309] Carian Glintstone Staff                       zone=liurnia            lvl=1  sq=Collect 6 unique Staves
+[310] Carian Glintblade Staff                       zone=liurnia            lvl=1  sq=Collect 6 unique Staves
+[311] Staff of Loss                                 zone=caelid             lvl=1  sq=Collect 6 unique Staves
+[312] Lusat's Glintstone Staff                      zone=caelid             lvl=1  sq=Collect 6 unique Staves
+[313] Digger's Staff                                zone=liurnia            lvl=1  sq=Collect 6 unique Staves
+[314] Crystal Staff                                 zone=liurnia            lvl=1  sq=Collect 6 unique Staves
+[315] Academy Glintstone Staff                      zone=liurnia            lvl=1  sq=Collect 6 unique Staves
+[316] Albinauric Staff                              zone=mt_gelmir          lvl=1  sq=Collect 6 unique Staves
+[317] Prophecy Painting                             zone=stormveil          lvl=1  sq=Collect 3 Painting rewards
+[318] Champion's Song Painting                      zone=altus_plateau      lvl=1  sq=Collect 3 Painting rewards
+[319] Redmane Painting                              zone=caelid             lvl=1  sq=Collect 3 Painting rewards
+[320] Sorcerer Painting                             zone=consecrated        lvl=1  sq=Collect 3 Painting rewards
+[321] Homecoming Painting                           zone=limgrave           lvl=1  sq=Collect 3 Painting rewards
+[322] Resurrection Painting                         zone=liurnia            lvl=1  sq=Collect 3 Painting rewards
+[323] Flightless Bird Painting                      zone=mountaintops       lvl=1  sq=Collect 3 Painting rewards
+[324] Haligtree Secret Medallion (Right)            zone=liurnia            lvl=1  sq=Collect the full Haligtree Medallion
+[325] Haligtree Secret Medallion (Left)             zone=consecrated        lvl=1  sq=Collect the full Haligtree Medallion
+[326] Malenia, Blade of Miquella                    zone=haligtree          lvl=1  sq=Kill Malenia
+[327] Astel, Naturalborn of the Void                zone=ainsel             lvl=2  sq=Kill Astel and Astel, Stars of Darkness
+[328] Mimic Tear (Nokron)                           zone=siofra             lvl=2  sq=Kill 4 NPC Bosses
+[329] Stray Mimic Tear (Hidden Path to the Haligtree) zone=consecrated        lvl=1  sq=Kill 4 NPC Bosses
+[330] Esgar, Priest of Blood (Leyndell Sewers)      zone=leyndell           lvl=1  sq=Kill 4 NPC Bosses
+[331] Bell-Bearing Hunter (Warmaster's Shack)       zone=limgrave           lvl=1  sq=Kill 4 NPC Bosses
+[332] Moon of Nokstella                             zone=ainsel             lvl=2  sq=Acquire Moon of Nokstella
+[333] Blackguard  (Second Location)                 zone=mountaintops       lvl=1  sq=Buy 20 Boiled Crab from Boggart
+[334] Lion Guardian (Stormveil Castle)              zone=stormveil          lvl=1  sq=Kill 2 Elder Lions
+[335] Lion Guardian (Farum Azula - Dragon Temple)   zone=farum_azula        lvl=1  sq=Kill 2 Elder Lions
+[336] Lion Guardian (Farum Azula - Altar)           zone=farum_azula        lvl=1  sq=Kill 2 Elder Lions
+[337] Giant Golem                                   zone=leyndell           lvl=1  sq=Kill the Sleeping Golem in Leyndell
+[338] Dragon Communion Seal                         zone=limgrave           lvl=1  sq=Collect %num% unique Seals
+[339] Golden Order Seal                             zone=leyndell           lvl=1  sq=Collect %num% unique Seals
+[340] Godslayer's Seal                              zone=stormveil          lvl=1  sq=Collect %num% unique Seals
+[341] Erdtree Seal                                  zone=mt_gelmir          lvl=1  sq=Collect %num% unique Seals
+[342] Gravel Stone Seal                             zone=mountaintops       lvl=1  sq=Collect %num% unique Seals
+[343] Giant's Seal                                  zone=consecrated        lvl=1  sq=Collect %num% unique Seals
+[344] Aeonia Swamp (Caelid)                         zone=caelid             lvl=1  sq=Kill the Millicent invader in Caelid
+[345] Spelldrake Talisman                           zone=limgrave           lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[346] Haligdrake Talisman                           zone=limgrave           lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[347] Roar Medallion                                zone=limgrave           lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[348] Hammer Talisman                               zone=limgrave           lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[349] Twinblade Talisman                            zone=weeping_peninsula  lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[350] Two Fingers Heirloom                          zone=liurnia            lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[351] Axe Talisman                                  zone=limgrave           lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[352] Claw Talisman                                 zone=stormveil          lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[353] Boltdrake Talisman                            zone=stormveil          lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[354] Green Turtle Talisman                         zone=limgrave           lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[355] Blessed Dew Talisman                          zone=mountaintops       lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[356] Winged Sword Insignia                         zone=liurnia            lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[357] Sacrificial Twig                              zone=liurnia            lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[358] Radagon Icon                                  zone=liurnia            lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[359] Stargazer Heirloom                            zone=liurnia            lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[360] Erdtree's Favor                               zone=limgrave           lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+[361] Sacrificial Twig - Mistwood Ruins             zone=limgrave           lvl=1  sq=Acquire 9 different Talismans (only 1 Sacrificial Twig)
+
+STONE NODES (198)
+--------------------------------------------------------------------------------
+[362] Smithing Stone [2]  @ (-211.12, 114.98)  zone=weeping_peninsula
+[363] Smithing Stone [2]  @ (-226.03, 109.31)  zone=weeping_peninsula
+[364] Smithing Stone [1]  @ (-227.42, 107.66)  zone=weeping_peninsula
+[365] Smithing Stone [1]  @ (-204.64, 117.17)  zone=weeping_peninsula
+[366] Somber Stone [2]  @ (-227.20, 112.13)  zone=weeping_peninsula
+[367] Somber Stone [1]  @ (-191.45, 110.42)  zone=limgrave
+[368] Smithing Stone [2]  @ (-226.48, 107.07)  zone=weeping_peninsula
+[369] Smithing Stone [1]  @ (-182.90, 97.47)  zone=limgrave
+[370] Smithing Stone [1]  @ (-181.38, 103.19)  zone=limgrave
+[371] Smithing Stone [2]  @ (-181.39, 103.70)  zone=limgrave
+[372] Smithing Stone [2]  @ (-189.95, 117.57)  zone=limgrave
+[373] Smithing Stone [1]  @ (-195.48, 124.38)  zone=caelid
+[374] Smithing Stone [2]  @ (-177.31, 119.28)  zone=limgrave
+[375] Smithing Stone [1]  @ (-190.56, 109.49)  zone=limgrave
+[376] Smithing Stone [2]  @ (-150.31, 61.26)  zone=liurnia
+[377] Smithing Stone [2]  @ (-154.76, 58.86)  zone=liurnia
+[378] Smithing Stone [2]  @ (-147.38, 50.74)  zone=liurnia
+[379] Smithing Stone [1]  @ (-172.98, 118.81)  zone=limgrave
+[380] Smithing Stone [1]  @ (-180.39, 106.69)  zone=limgrave
+[381] Smithing Stone [1]  @ (-143.46, 62.02)  zone=liurnia
+[382] Smithing Stone [2]  @ (-158.28, 52.41)  zone=liurnia
+[383] Somber Stone [4]  @ (-84.66, 62.76)  zone=altus_plateau
+[384] Smithing Stone [1]  @ (-174.97, 109.43)  zone=limgrave
+[385] Smithing Stone [3]  @ (-160.12, 71.71)  zone=liurnia
+[386] Somber Stone [3]  @ (-124.24, 61.89)  zone=liurnia
+[387] Somber Stone [2]  @ (-125.45, 65.61)  zone=liurnia
+[388] Smithing Stone [5]  @ (-105.57, 73.19)  zone=altus_plateau
+[389] Smithing Stone [4]  @ (-104.36, 75.57)  zone=altus_plateau
+[390] Smithing Stone [3]  @ (-102.98, 75.13)  zone=altus_plateau
+[391] Smithing Stone [5]  @ (-105.73, 75.30)  zone=altus_plateau
+[392] Somber Stone [4]  @ (-102.91, 74.16)  zone=altus_plateau
+[393] Smithing Stone [1]  @ (-191.00, 99.04)  zone=limgrave
+[394] Smithing Stone [4]  @ (-128.17, 45.55)  zone=liurnia
+[395] Somber Stone [3]  @ (-126.63, 48.08)  zone=liurnia
+[396] Somber Stone [3]  @ (-136.71, 54.10)  zone=liurnia
+[397] Somber Stone [3]  @ (-138.12, 58.11)  zone=liurnia
+[398] Smithing Stone [4]  @ (-138.48, 59.01)  zone=liurnia
+[399] Smithing Stone [3]  @ (-136.73, 54.98)  zone=liurnia
+[400] Somber Stone [4]  @ (-137.04, 54.13)  zone=liurnia
+[401] Smithing Stone [5]  @ (-136.87, 59.03)  zone=liurnia
+[402] Somber Stone [6]  @ (-86.00, 76.12)  zone=altus_plateau
+[403] Smithing Stone [5]  @ (-94.94, 94.13)  zone=altus_plateau
+[404] Somber Stone [5]  @ (-94.78, 94.78)  zone=altus_plateau
+[405] Smithing Stone [5]  @ (-96.27, 73.34)  zone=altus_plateau
+[406] Smithing Stone [7]  @ (-73.59, 161.82)  zone=mountaintops
+[407] Smithing Stone [4]  @ (-82.65, 81.55)  zone=altus_plateau
+[408] Smithing Stone [5]  @ (-83.72, 82.07)  zone=altus_plateau
+[409] Somber Stone [5]  @ (-81.77, 80.07)  zone=altus_plateau
+[410] Smithing Stone [5]  @ (-81.22, 80.50)  zone=altus_plateau
+[411] Smithing Stone [5]  @ (-81.53, 83.22)  zone=altus_plateau
+[412] Smithing Stone [5]  @ (-80.47, 82.60)  zone=altus_plateau
+[413] Smithing Stone [5]  @ (-106.20, 106.15)  zone=altus_plateau
+[414] Somber Stone [5]  @ (-171.82, 144.58)  zone=caelid
+[415] Smithing Stone [5]  @ (-171.59, 144.26)  zone=caelid
+[416] Somber Stone [4]  @ (-171.16, 144.75)  zone=caelid
+[417] Smithing Stone [1]  @ (-183.32, 90.23)  zone=limgrave
+[418] Smithing Stone [4]  @ (-172.00, 130.49)  zone=caelid
+[419] Somber Stone [4]  @ (-182.19, 144.46)  zone=caelid
+[420] Smithing Stone [4]  @ (-184.42, 143.35)  zone=caelid
+[421] Somber Stone [9]  @ (-70.47, 156.98)  zone=mountaintops
+[422] Smithing Stone [1]  @ (-126.08, 67.52)  zone=liurnia
+[423] Smithing Stone [3]  @ (-126.35, 66.24)  zone=liurnia
+[424] Smithing Stone [2]  @ (-126.42, 66.82)  zone=liurnia
+[425] Somber Stone [7]  @ (-63.62, 165.13)  zone=consecrated
+[426] Smithing Stone [6]  @ (-90.85, 67.83)  zone=altus_plateau
+[427] Smithing Stone [4]  @ (-90.21, 68.10)  zone=altus_plateau
+[428] Smithing Stone [5]  @ (-61.11, 157.31)  zone=consecrated
+[429] Smithing Stone [4]  @ (-174.52, 128.84)  zone=caelid
+[430] Somber Stone [2]  @ (-174.85, 128.76)  zone=caelid
+[431] Somber Stone [4]  @ (-175.19, 128.69)  zone=caelid
+[432] Smithing Stone [7]  @ (-62.02, 157.71)  zone=consecrated
+[433] Smithing Stone [6]  @ (-60.86, 158.62)  zone=mountaintops
+[434] Smithing Stone [1]  @ (-172.53, 109.73)  zone=limgrave
+[435] Smithing Stone [2]  @ (-173.22, 109.64)  zone=limgrave
+[436] Smithing Stone [1]  @ (-188.77, 103.27)  zone=limgrave
+[437] Somber Stone [1]  @ (-188.02, 103.38)  zone=limgrave
+[438] Smithing Stone [1]  @ (-213.22, 108.27)  zone=weeping_peninsula
+[439] Somber Stone [1]  @ (-213.33, 108.85)  zone=weeping_peninsula
+[440] Somber Stone [1]  @ (-125.95, 65.81)  zone=liurnia
+[441] Somber Stone [8]  @ (-156.62, 52.04)  zone=liurnia
+[442] Smithing Stone [8]  @ (-163.27, 44.94)  zone=liurnia
+[443] Smithing Stone [7]  @ (-162.14, 44.81)  zone=liurnia
+[444] Smithing Stone [7]  @ (-163.52, 46.00)  zone=liurnia
+[445] Somber Stone [5]  @ (-179.85, 130.87)  zone=caelid
+[446] Smithing Stone [8]  @ (-160.86, 59.79)  zone=liurnia
+[447] Smithing Stone [3]  @ (-144.40, 84.41)  zone=liurnia
+[448] Smithing Stone [6]  @ (-119.52, 218.90)  zone=siofra
+[449] Somber Stone [8]  @ (-77.25, 132.13)  zone=mountaintops
+[450] Somber Stone [8]  @ (-120.02, 219.30)  zone=siofra
+[451] Somber Stone [5]  @ (-172.72, 140.77)  zone=caelid
+[452] Smithing Stone [7]  @ (-89.75, 64.37)  zone=altus_plateau
+[453] Somber Stone [2]  @ (-89.37, 65.51)  zone=altus_plateau
+[454] Smithing Stone [8]  @ (-42.53, 147.36)  zone=haligtree
+[455] Somber Stone [8]  @ (-42.06, 146.99)  zone=haligtree
+[456] Somber Stone [9]  @ (-43.29, 146.48)  zone=haligtree
+[457] Smithing Stone [6]  @ (-43.77, 146.72)  zone=haligtree
+[458] Smithing Stone [6]  @ (-44.29, 146.98)  zone=haligtree
+[459] Smithing Stone [7]  @ (-45.02, 149.12)  zone=haligtree
+[460] Smithing Stone [8]  @ (-45.07, 149.47)  zone=consecrated
+[461] Somber Stone [9]  @ (-77.05, 133.15)  zone=mountaintops
+[462] Smithing Stone [8]  @ (-71.38, 131.75)  zone=mountaintops
+[463] Smithing Stone [5]  @ (-174.53, 131.70)  zone=caelid
+[464] Smithing Stone [7]  @ (-38.49, 149.56)  zone=haligtree
+[465] Smithing Stone [7]  @ (-36.45, 149.21)  zone=haligtree
+[466] Smithing Stone [8]  @ (-37.71, 149.51)  zone=haligtree
+[467] Somber Stone [9]  @ (-36.87, 150.05)  zone=haligtree
+[468] Somber Stone [9]  @ (-36.86, 148.61)  zone=haligtree
+[469] Smithing Stone [8]  @ (-35.82, 147.85)  zone=haligtree
+[470] Smithing Stone [8]  @ (-35.03, 147.17)  zone=haligtree
+[471] Smithing Stone [6]  @ (-35.13, 146.14)  zone=haligtree
+[472] Somber Stone [5]  @ (-93.53, 94.23)  zone=altus_plateau
+[473] Smithing Stone [2]  @ (-202.27, 93.73)  zone=weeping_peninsula
+[474] Somber Stone [1]  @ (-229.87, 105.71)  zone=weeping_peninsula
+[475] Smithing Stone [1]  @ (-215.51, 115.97)  zone=weeping_peninsula
+[476] Smithing Stone [1]  @ (-195.08, 102.98)  zone=limgrave
+[477] Smithing Stone [1]  @ (-180.87, 113.00)  zone=limgrave
+[478] Smithing Stone [5]  @ (-86.15, 70.62)  zone=altus_plateau
+[479] Smithing Stone [7]  @ (-73.14, 173.58)  zone=mountaintops
+[480] Somber Stone [4]  @ (-114.00, 59.98)  zone=liurnia
+[481] Smithing Stone [5]  @ (-137.07, 57.04)  zone=liurnia
+[482] Smithing Stone [2]  @ (-141.53, 56.49)  zone=liurnia
+[483] Somber Stone [1]  @ (-150.37, 55.60)  zone=liurnia
+[484] Smithing Stone [3]  @ (-149.83, 71.93)  zone=liurnia
+[485] Somber Stone [2]  @ (-163.61, 85.92)  zone=liurnia
+[486] Smithing Stone [4]  @ (-139.64, 78.72)  zone=liurnia
+[487] Somber Stone [4]  @ (-178.45, 132.46)  zone=caelid
+[488] Smithing Stone [6]  @ (-195.42, 155.49)  zone=caelid
+[489] Smithing Stone [3]  @ (-195.21, 156.09)  zone=caelid
+[490] Smithing Stone [5]  @ (-197.01, 157.63)  zone=caelid
+[491] Smithing Stone [3]  @ (-196.60, 158.87)  zone=caelid
+[492] Smithing Stone [5]  @ (-196.97, 159.47)  zone=caelid
+[493] Smithing Stone [4]  @ (-195.85, 158.35)  zone=caelid
+[494] Smithing Stone [4]  @ (-194.83, 157.72)  zone=caelid
+[495] Smithing Stone [6]  @ (-194.89, 159.44)  zone=caelid
+[496] Smithing Stone [6]  @ (-191.20, 158.25)  zone=caelid
+[497] Somber Stone [5]  @ (-191.78, 159.25)  zone=caelid
+[498] Smithing Stone [8]  @ (-172.54, 150.05)  zone=caelid
+[499] Smithing Stone [7]  @ (-172.81, 150.59)  zone=caelid
+[500] Somber Stone [4]  @ (-166.21, 132.28)  zone=caelid
+[501] Smithing Stone [3]  @ (-141.03, 73.73)  zone=liurnia
+[502] Somber Stone [3]  @ (-124.84, 65.87)  zone=liurnia
+[503] Smithing Stone [2]  @ (-227.97, 107.52)  zone=weeping_peninsula
+[504] Smithing Stone [3]  @ (-146.68, 80.54)  zone=liurnia
+[505] Smithing Stone [4]  @ (-162.84, 65.90)  zone=liurnia
+[506] Smithing Stone [5]  @ (-80.65, 75.78)  zone=altus_plateau
+[507] Smithing Stone [5]  @ (-92.09, 77.77)  zone=altus_plateau
+[508] Somber Stone [6]  @ (-91.86, 79.24)  zone=altus_plateau
+[509] Somber Stone [5]  @ (-92.33, 78.75)  zone=altus_plateau
+[510] Somber Stone [4]  @ (-92.48, 78.12)  zone=altus_plateau
+[511] Smithing Stone [4]  @ (-177.66, 134.96)  zone=siofra
+[512] Somber Stone [2]  @ (-183.17, 132.56)  zone=siofra
+[513] Smithing Stone [2]  @ (-185.87, 125.88)  zone=siofra
+[514] Smithing Stone [4]  @ (-183.43, 125.96)  zone=siofra
+[515] Smithing Stone [2]  @ (-177.13, 139.38)  zone=siofra
+[516] Smithing Stone [2]  @ (-183.41, 134.42)  zone=siofra
+[517] Smithing Stone [4]  @ (-185.50, 124.96)  zone=siofra
+[518] Smithing Stone [1]  @ (-131.70, 71.35)  zone=ainsel
+[519] Smithing Stone [2]  @ (-130.38, 66.44)  zone=ainsel
+[520] Somber Stone [3]  @ (-130.28, 64.57)  zone=ainsel
+[521] Smithing Stone [3]  @ (-131.47, 74.82)  zone=ainsel
+[522] Smithing Stone [4]  @ (-130.84, 70.32)  zone=ainsel
+[523] Smithing Stone [3]  @ (-128.01, 69.98)  zone=ainsel
+[524] Smithing Stone [1]  @ (-129.15, 70.06)  zone=ainsel
+[525] Smithing Stone [3]  @ (-130.95, 76.45)  zone=ainsel
+[526] Smithing Stone [3]  @ (-130.37, 74.00)  zone=ainsel
+[527] Smithing Stone [3]  @ (-128.61, 67.44)  zone=ainsel
+[528] Smithing Stone [5]  @ (-187.81, 120.73)  zone=siofra
+[529] Smithing Stone [3]  @ (-186.16, 122.08)  zone=siofra
+[530] Somber Stone [4]  @ (-184.19, 123.88)  zone=siofra
+[531] Smithing Stone [5]  @ (-187.42, 125.59)  zone=siofra
+[532] Somber Stone [5]  @ (-178.48, 126.30)  zone=siofra
+[533] Smithing Stone [5]  @ (-181.02, 132.75)  zone=siofra
+[534] Smithing Stone [5]  @ (-179.81, 137.11)  zone=siofra
+[535] Smithing Stone [2]  @ (-178.17, 133.40)  zone=siofra
+[536] Smithing Stone [5]  @ (-173.81, 136.63)  zone=siofra
+[537] Smithing Stone [3]  @ (-183.35, 129.80)  zone=siofra
+[538] Smithing Stone [4]  @ (-124.03, 75.48)  zone=ainsel
+[539] Somber Stone [6]  @ (-127.35, 69.12)  zone=ainsel
+[540] Smithing Stone [6]  @ (-121.02, 64.88)  zone=ainsel
+[541] Somber Stone [7]  @ (-119.89, 64.22)  zone=ainsel
+[542] Smithing Stone [6]  @ (-120.45, 63.77)  zone=ainsel
+[543] Somber Stone [7]  @ (-122.94, 63.27)  zone=ainsel
+[544] Smithing Stone [4]  @ (-124.66, 61.18)  zone=ainsel
+[545] Smithing Stone [5]  @ (-124.89, 60.97)  zone=ainsel
+[546] Somber Stone [7]  @ (-129.91, 57.43)  zone=ainsel
+[547] Somber Stone [8]  @ (-137.14, 64.87)  zone=ainsel
+[548] Somber Stone [8]  @ (-127.30, 60.92)  zone=ainsel
+[549] Somber Stone [7]  @ (-129.27, 63.42)  zone=ainsel
+[550] Somber Stone [9]  @ (-133.81, 59.32)  zone=ainsel
+[551] Smithing Stone [6]  @ (-138.47, 57.61)  zone=ainsel
+[552] Smithing Stone [7]  @ (-138.53, 57.32)  zone=ainsel
+[553] Smithing Stone [6]  @ (-178.66, 153.96)  zone=siofra
+[554] Smithing Stone [7]  @ (-179.45, 152.32)  zone=siofra
+[555] Smithing Stone [6]  @ (-182.80, 154.38)  zone=siofra
+[556] Somber Stone [9]  @ (-181.12, 154.88)  zone=siofra
+[557] Smithing Stone [8]  @ (-180.69, 152.72)  zone=siofra
+[558] Smithing Stone [5]  @ (-140.00, 53.91)  zone=ainsel
+[559] Smithing Stone [2]  @ (-162.83, 66.09)  zone=liurnia
+
+ROUNDTABLE (1)
+--------------------------------------------------------------------------------
+[560] Roundtable Hold

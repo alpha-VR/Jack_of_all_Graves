@@ -33,6 +33,7 @@
 
     <!-- Game controls -->
     <button id="btn-generate" class="hdr-btn primary">⊞ New Board</button>
+    <button id="btn-board"    class="hdr-btn" disabled>⊟ Board</button>
     <button id="btn-route"    class="hdr-btn" disabled>⚔ Compute Route</button>
     <button id="btn-save"     class="hdr-btn">💾 Save</button>
     <button id="btn-saves"    class="hdr-btn">📂 Saves</button>
@@ -78,33 +79,38 @@
 
     </div>
 
-    <!-- Score bar — always visible -->
+  </div>
+</div>
+
+<!-- Board overlay -->
+<div id="board-overlay">
+  <div id="board-panel">
+
+    <div id="board-panel-header">
+      <span id="board-panel-title">Bingo Board</span>
+      <span id="board-panel-hint">B to toggle · ESC to close</span>
+      <button id="btn-close-board">✕</button>
+    </div>
+
+    <!-- Score bar lives inside the board panel -->
     <div id="score-bar">
       <div class="score-block">
         <span class="score-label">P1</span>
         <span id="p1-name" class="p1-name">Player 1</span>
         <span id="p1-score" class="score-num p1-score">0</span>
       </div>
-      <span class="score-sep">│</span>
-      <div class="score-block">
-        <span class="score-label">P2</span>
-        <span id="p2-name" class="p2-name">Player 2</span>
-        <span id="p2-score" class="score-num p2-score">0</span>
+      <div class="score-mid">
+        <span id="threat-msg"></span>
+        <button id="player-toggle" class="player-toggle"></button>
       </div>
-      <span id="threat-msg"></span>
-      <button id="player-toggle" class="player-toggle"></button>
+      <div class="score-block score-block--right">
+        <span id="p2-score" class="score-num p2-score">0</span>
+        <span id="p2-name" class="p2-name">Player 2</span>
+        <span class="score-label">P2</span>
+      </div>
     </div>
 
-    <!-- Board — collapsible -->
-    <div id="board-bar">
-      <div id="board-controls">
-        <button id="board-toggle">▲ Show Board</button>
-        <button id="board-expand" style="display:none">⤢ Expand</button>
-      </div>
-      <div id="board-wrap">
-        <div id="board-grid"></div>
-      </div>
-    </div>
+    <div id="board-grid"></div>
 
   </div>
 </div>
@@ -129,7 +135,7 @@
   // Init modules
   UI.init();
   MapView.init(document.getElementById('map'));
-  Board.init(document.getElementById('board-grid'));
+  Board.init(document.getElementById('board-grid')); // lives inside #board-overlay now
   POI.init();
 
   // ── Layer switch buttons ─────────────────────────────────────────────────

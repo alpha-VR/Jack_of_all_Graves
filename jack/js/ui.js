@@ -10,7 +10,7 @@ const UI = (() => {
   let $scoreBar, $p1score, $p2score, $p1name, $p2name, $threatMsg;
   let $playerToggle;
   let $routePanel, $routeList, $routeWarnings, $routeToggle;
-  let $boardWrap, $boardToggle, $boardGrid;
+  let $boardOverlay, $boardGrid, $btnBoard;
   let $genBtn, $routeBtn, $saveBtn, $savesBtn;
   let $modal, $modalContent;
   let $toast;
@@ -32,10 +32,10 @@ const UI = (() => {
     $routeWarnings=document.getElementById('route-warnings');
     $routeToggle = document.getElementById('route-toggle');
 
-    // Board
-    $boardWrap   = document.getElementById('board-wrap');
-    $boardToggle = document.getElementById('board-toggle');
-    $boardGrid   = document.getElementById('board-grid');
+    // Board overlay
+    $boardOverlay = document.getElementById('board-overlay');
+    $boardGrid    = document.getElementById('board-grid');
+    $btnBoard     = document.getElementById('btn-board');
 
     // Buttons
     $genBtn      = document.getElementById('btn-generate');
@@ -62,21 +62,16 @@ const UI = (() => {
       $routeToggle.textContent = collapsed ? '▶' : '▼';
     });
 
-    // Board collapse toggle
-    $boardToggle.addEventListener('click', () => {
-      const open = $boardWrap.classList.toggle('open');
-      $boardToggle.textContent = open ? '▼ Hide Board' : '▲ Show Board';
-      document.getElementById('board-expand').style.display = open ? 'block' : 'none';
-    });
+    // Board overlay toggle button
+    $btnBoard.addEventListener('click', () => _toggleBoard());
 
-    // Board expand toggle
-    const $boardExpand = document.getElementById('board-expand');
-    if ($boardExpand) {
-      $boardExpand.addEventListener('click', () => {
-        const expanded = $boardWrap.classList.toggle('expanded');
-        $boardExpand.textContent = expanded ? '⤡ Compact' : '⤢ Expand';
-      });
-    }
+    // Close board — ✕ button
+    document.getElementById('btn-close-board').addEventListener('click', () => _closeBoard());
+
+    // Close board — click backdrop (outside panel)
+    $boardOverlay.addEventListener('click', e => {
+      if (e.target === $boardOverlay) _closeBoard();
+    });
 
     // Player toggle
     $playerToggle.addEventListener('click', () => {
@@ -93,6 +88,8 @@ const UI = (() => {
         State.generateBoard();
         toast('New board generated!', 'ok');
         $routeBtn.disabled = false;
+        $btnBoard.disabled = false;
+        _openBoard();
       } catch(e) {
         toast('Error generating board: ' + e.message, 'err');
       }
@@ -170,7 +167,8 @@ const UI = (() => {
     // Keyboard shortcuts
     document.addEventListener('keydown', e => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      if (e.key === 'Escape') closeModal();
+      if (e.key === 'Escape') { if ($boardOverlay.classList.contains('open')) _closeBoard(); else closeModal(); }
+      if (e.key === 'b' || e.key === 'B') _toggleBoard();
       if (e.key === 'n' || e.key === 'N') State.advanceStop();
       if (e.key === 'Tab') { e.preventDefault(); $playerToggle.click(); }
     });
@@ -185,10 +183,10 @@ const UI = (() => {
     // Clear done stops only when a brand-new board is generated
     State.on('board:new', () => { _doneStops.clear(); });
 
-    State.on('scores:updated', ({ scores, bingoLines, threats }) => {
+    State.on('scores:updated', ({ scores, bingoLines, threats, noBingo }) => {
       $p1score.textContent = scores[0];
       $p2score.textContent = scores[1];
-      _updateThreatBar(threats, bingoLines);
+      _updateThreatBar(threats, bingoLines, noBingo, scores);
     });
 
     State.on('route:ready', _renderRoute);
@@ -205,12 +203,22 @@ const UI = (() => {
     });
 
     State.on('game:saved', ({ name }) => toast(`Saved: ${name}`, 'ok'));
-    State.on('game:loaded', () => toast(`Game loaded: ${State.game.name}`, 'ok'));
+    State.on('game:loaded', () => {
+      toast(`Game loaded: ${State.game.name}`, 'ok');
+      $routeBtn.disabled = false;
+      $btnBoard.disabled = false;
+      _openBoard();
+    });
 
     State.on('poi:requested', ({ sq, squareData }) => {
       if (!squareData) return toast('No location data for this square', 'warn');
     });
   }
+
+  // ── Board overlay ─────────────────────────────────────────────────────────
+  function _openBoard()   { $boardOverlay.classList.add('open'); }
+  function _closeBoard()  { $boardOverlay.classList.remove('open'); }
+  function _toggleBoard() { if (!State.game.board.length) return; $boardOverlay.classList.toggle('open'); }
 
   // ── Score bar ─────────────────────────────────────────────────────────────
   function _updatePlayerToggle() {
@@ -221,34 +229,47 @@ const UI = (() => {
     $playerToggle.className = `player-toggle player-toggle--p${_activePlayer+1}`;
   }
 
-  function _updateThreatBar(threats, bingoLines) {
-    // Check if either player has bingo
+  function _updateThreatBar(threats, bingoLines, noBingo, scores) {
+    const LINE_NAMES = ['Row 1','Row 2','Row 3','Row 4','Row 5',
+                        'Col 1','Col 2','Col 3','Col 4','Col 5','Diag ↘','Diag ↗'];
+
+    let state = '';
     if (bingoLines[0].length > 0) {
-      $scoreBar.className = 'score-bar bingo-p1';
+      state = 'bingo-p1';
       $threatMsg.textContent = `🏆 ${State.game.players[0]} BINGO!`;
-      return;
-    }
-    if (bingoLines[1].length > 0) {
-      $scoreBar.className = 'score-bar bingo-p2';
+    } else if (bingoLines[1].length > 0) {
+      state = 'bingo-p2';
       $threatMsg.textContent = `🏆 ${State.game.players[1]} BINGO!`;
-      return;
+    } else if (noBingo) {
+      const [s0, s1] = scores || [0, 0];
+      if (s0 > s1) {
+        state = 'bingo-p1';
+        $threatMsg.textContent = `🏆 ${State.game.players[0]} wins by majority (${s0}–${s1})`;
+      } else if (s1 > s0) {
+        state = 'bingo-p2';
+        $threatMsg.textContent = `🏆 ${State.game.players[1]} wins by majority (${s1}–${s0})`;
+      } else {
+        state = 'warn';
+        $threatMsg.textContent = `No bingo possible — tied at ${s0}, keep marking`;
+      }
+    } else {
+      const danger = threats.filter(t => t.danger);
+      if (danger.length > 0) {
+        state = 'danger';
+        const lineStr = danger.map(t => `${LINE_NAMES[t.lineIdx]} (${t.oppCount}/5)`).join(', ');
+        $threatMsg.textContent = `⚠ Opponent threatening: ${lineStr}`;
+      } else if (threats.length > 0) {
+        state = 'warn';
+        $threatMsg.textContent = `Opponent has ${threats[0].oppCount}/5 on ${LINE_NAMES[threats[0].lineIdx]}`;
+      } else {
+        $threatMsg.textContent = '';
+      }
     }
 
-    const danger = threats.filter(t => t.danger);
-    if (danger.length > 0) {
-      $scoreBar.className = 'score-bar danger';
-      const lineNames = ['Row 1','Row 2','Row 3','Row 4','Row 5',
-                         'Col 1','Col 2','Col 3','Col 4','Col 5',
-                         'Diag ↘','Diag ↗'];
-      const lineStr = danger.map(t => `${lineNames[t.lineIdx]} (${t.oppCount}/5)`).join(', ');
-      $threatMsg.textContent = `⚠ Opponent threatening: ${lineStr}`;
-    } else if (threats.length > 0) {
-      $scoreBar.className = 'score-bar warn';
-      $threatMsg.textContent = `Opponent has ${threats[0].oppCount}/5 on ${['Row 1','Row 2','Row 3','Row 4','Row 5','Col 1','Col 2','Col 3','Col 4','Col 5','Diag ↘','Diag ↗'][threats[0].lineIdx]}`;
-    } else {
-      $scoreBar.className = 'score-bar';
-      $threatMsg.textContent = '';
-    }
+    $scoreBar.className = state ? `score-bar ${state}` : 'score-bar';
+    // Sync overlay backdrop tint without disturbing the open/closed state
+    $boardOverlay.classList.remove('overlay-danger','overlay-bingo-p1','overlay-bingo-p2','overlay-warn');
+    if (state && state !== 'warn') $boardOverlay.classList.add(`overlay-${state}`);
   }
 
   // ── RL route adapter ──────────────────────────────────────────────────────

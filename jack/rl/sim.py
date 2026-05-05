@@ -444,6 +444,24 @@ class BingoGame:
             self.winner = 1 - agent_id
             reward -= 1.0
             done   = True
+        # No bingo achievable by either player → majority wins now
+        elif self._no_bingo_possible():
+            my_count  = sum(my_marks)
+            opp_count = sum(opp_marks)
+            self.done = True
+            if my_count > opp_count:
+                self.winner = agent_id
+                reward += 1.0
+            elif opp_count > my_count:
+                self.winner = 1 - agent_id
+                reward -= 1.0
+            else:
+                t0 = self.agents[0].time
+                t1 = self.agents[1].time
+                winner_id = 0 if t0 <= t1 else 1
+                self.winner = winner_id
+                reward += 0.5 if winner_id == agent_id else -0.5
+            done = True
         # All markable squares taken → majority wins
         elif self._no_markable_squares_remain():
             my_count  = sum(my_marks)
@@ -509,6 +527,15 @@ class BingoGame:
 
     def _has_bingo(self, marks: List[bool]) -> bool:
         return any(all(marks[i] for i in line) for line in BINGO_LINES)
+
+    def _no_bingo_possible(self) -> bool:
+        """True when every bingo line has at least one mark from each player,
+        making it impossible for either player to complete any line."""
+        p0, p1 = self.agents[0].marks, self.agents[1].marks
+        return all(
+            any(p0[i] for i in line) and any(p1[i] for i in line)
+            for line in BINGO_LINES
+        )
 
     def _no_markable_squares_remain(self) -> bool:
         """True when every board square is either marked by one agent or has no

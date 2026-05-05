@@ -102,6 +102,15 @@ const State = (() => {
     .sort((a, b) => b.oppCount - a.oppCount);
   }
 
+  // True when every line has ≥1 mark from each player → neither can bingo
+  function noBingoPossible() {
+    return BINGO_LINES.every(line => {
+      const hasP0 = line.some(i => game.marks[i] === 0);
+      const hasP1 = line.some(i => game.marks[i] === 1);
+      return hasP0 && hasP1;
+    });
+  }
+
   // ── Public API ─────────────────────────────────────────────────────────────
   return {
     on, off, emit,
@@ -152,7 +161,7 @@ const State = (() => {
       route.stops     = [];
       route.completedPrereqs = new Set();
       emit('board:new', game.board);
-      emit('scores:updated', { scores: game.scores, bingoLines: game.bingoLines, threats: [] });
+      emit('scores:updated', { scores: game.scores, bingoLines: game.bingoLines, threats: [], noBingo: noBingoPossible() });
     },
 
     // ── Mark a square ──
@@ -163,7 +172,7 @@ const State = (() => {
       _recomputeScores();
       const threats = opponentThreats(0);
       emit('square:marked', { idx, mark: game.marks[idx], marks: [...game.marks] });
-      emit('scores:updated', { scores: [...game.scores], bingoLines: game.bingoLines, threats });
+      emit('scores:updated', { scores: [...game.scores], bingoLines: game.bingoLines, threats, noBingo: noBingoPossible() });
     },
 
     opponentThreats,
@@ -299,7 +308,7 @@ const State = (() => {
         route.computed = false; route.stops = [];
       }
       emit('board:new', game.board);
-      emit('scores:updated', { scores: [...game.scores], bingoLines: game.bingoLines, threats: opponentThreats(0) });
+      emit('scores:updated', { scores: [...game.scores], bingoLines: game.bingoLines, threats: opponentThreats(0), noBingo: noBingoPossible() });
       if (route.computed) emit('route:ready', route);
       emit('game:loaded', game);
     },
