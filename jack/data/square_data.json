@@ -6855,8 +6855,7 @@
           "x": -188.640625,
           "y": 136.908546,
           "level": 1,
-          "zone": "caelid",
-          "min_weapon_level": 0
+          "zone": "caelid"
         },
         {
           "id": 1348,
@@ -7001,8 +7000,7 @@
           "x": -188.640625,
           "y": 136.908546,
           "level": 1,
-          "zone": "caelid",
-          "min_weapon_level": 0
+          "zone": "caelid"
         },
         {
           "id": 5711,
