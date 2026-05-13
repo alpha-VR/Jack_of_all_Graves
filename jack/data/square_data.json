@@ -10300,7 +10300,8 @@
           "x": -180.0,
           "y": 141.0,
           "level": 1,
-          "zone": "caelid"
+          "zone": "caelid",
+          "min_weapon_level": 0
         }
       ],
       "prerequisites": [],
