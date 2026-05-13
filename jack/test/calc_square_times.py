@@ -792,9 +792,9 @@ def main():
                     else:
                         time_cells = [fmt_range(t[0], t[1]) for t in r['times']]
 
-                    zone_str = ZONE_LABEL.get(r['zone'], r['zone'])
+                    zone_str = ZONE_LABEL.get(r['zone'], r['zone']) or ''
                     print(
-                        f'{r["name"][:NW]:<{NW}} | '
+                        f'{(r["name"] or "")[:NW]:<{NW}} | '
                         f'{r["type"]:<{TW}} | '
                         f'{r["count"]:<{CW}} | '
                         f'{zone_str:<{ZW}}'

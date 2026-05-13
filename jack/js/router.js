@@ -325,6 +325,9 @@ const Router = (() => {
   function extractCount(text, sqData) {
     if (sqData?.count_needed != null) return sqData.count_needed;
     if (sqData?.type === 'boss_multi_type') return (sqData.groups||[]).reduce((s,g) => s+(g.count||1), 0);
+    // acquire_multi: every item must be collected; boss_multi_specific: every boss must die
+    if (sqData?.type === 'acquire_multi')      return (sqData.locations||[]).length || 1;
+    if (sqData?.type === 'boss_multi_specific') return (sqData.bosses||[]).length   || 1;
     if (['boss_specific','consumable_action','npc_action','restore_rune',
          'acquire_fixed','dungeon_specific','npc_invasion'].includes(sqData?.type)) return 1;
     const m = text.match(/^(?:Kill|Complete|Collect|Acquire|Learn|Give|Return|Invade|Buy|Dupe|Use)\s+(\d+)/i);

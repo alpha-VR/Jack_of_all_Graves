@@ -81,22 +81,22 @@ class BingoEnv(gym.Env):
             my_c  = sum(self.game.agents[0].marks)
             opp_c = sum(self.game.agents[1].marks)
             if my_c > opp_c:
-                reward += 0.5
+                reward += 1.0
             elif opp_c > my_c:
-                reward -= 0.5
+                reward -= 1.0
             else:
                 # Time tiebreak — lower game time wins
                 t0 = self.game.agents[0].time
                 t1 = self.game.agents[1].time
-                reward += 0.3 if t0 <= t1 else -0.3
+                reward += 0.5 if t0 <= t1 else -0.5
 
         obs = self.game.get_obs(0)
         if done:
-            # Terminal reward from winner
+            # Terminal reward — win/loss magnitude dominates all shaped rewards
             if self.game.winner == 0:
-                reward = max(reward, 1.0)
+                reward = max(reward, 2.0)
             elif self.game.winner == 1:
-                reward = min(reward, -1.0)
+                reward = min(reward, -2.0)
 
         mask = self.game.get_action_mask(0) if not done else np.ones(UNIVERSE_SIZE, dtype=bool)
         info['action_mask'] = mask
@@ -110,20 +110,34 @@ class BingoEnv(gym.Env):
             return np.ones(UNIVERSE_SIZE, dtype=bool)
         return self.game.get_action_mask(0)
 
-    def set_opponent(self, policy):
-        """Add policy to pool and set as latest opponent."""
+    def set_opponent(self, policy, win_rate: float = 0.5):
+        """Add policy snapshot to pool and set as latest opponent.
+
+        win_rate is the current model's win rate against the previous snapshot
+        at the time this snapshot was frozen — stored for diagnostics.
+        Pool entries are dicts so recency weights can be applied at sample time.
+        """
         self._opponent_latest = policy
-        self._opponent_pool.append(policy)
-        if len(self._opponent_pool) > 10:
+        self._opponent_pool.append({'policy': policy, 'win_rate': win_rate})
+        if len(self._opponent_pool) > 20:
             self._opponent_pool.pop(0)
 
     def _sample_opponent(self):
-        """Sample an opponent policy for the current episode (70/20/10 mix)."""
+        """Sample an opponent policy for the current episode.
+
+        Fixed fractions: 60% latest, 25% pool (recency-weighted), 15% random.
+        Recency weighting (1.5^i, newest = highest) ensures stale opponents
+        don't crowd out recent ones as the pool fills.
+        """
         r = self._ep_rng.random()
-        if r < 0.70 and self._opponent_latest is not None:
+        if r < 0.60 and self._opponent_latest is not None:
             return self._opponent_latest
-        if r < 0.90 and self._opponent_pool:
-            return self._ep_rng.choice(self._opponent_pool)
+        if r < 0.85 and self._opponent_pool:
+            n = len(self._opponent_pool)
+            # Weight[i] = 1.5^i: index 0 = oldest, index n-1 = newest
+            weights = [1.5 ** i for i in range(n)]
+            entry   = self._ep_rng.choices(self._opponent_pool, weights=weights, k=1)[0]
+            return entry['policy']
         return None  # pure random
 
     # ── Opponent loop ─────────────────────────────────────────────────────────

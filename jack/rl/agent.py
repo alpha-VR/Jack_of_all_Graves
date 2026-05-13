@@ -23,6 +23,7 @@ else:
 
 def _load_model(model_path: Optional[str] = None):
     from sb3_contrib import MaskablePPO
+    from .train import BingoExtractor  # noqa: F401 — registers custom policy class for load
     path = model_path or _DEFAULT_MODEL
     exists = os.path.exists(path)
     print(f"[RL] model path: {path}")
@@ -49,7 +50,7 @@ def _squares_from_raw_names(raw_names: List[str]) -> List[Square]:
         sq_type = sq_data.get('type', 'unknown')
         locs    = _extract_locations(raw_name, sq_data) if sq_data else []
         count   = _extract_count(raw_name, sq_data) if sq_data else 1
-        is_passive = sq_type in ('passive_runes', 'passive_stat', 'boss_modifier') or not locs
+        is_passive = sq_type in ('passive_runes', 'passive_stat') or not locs
 
         squares.append(Square(
             idx=i,
@@ -131,8 +132,14 @@ def generate_route(
 
         # Pick action: model if available, else random valid
         if model is not None:
-            action, _ = model.predict(obs, action_masks=mask, deterministic=True)
-            action = int(action)
+            try:
+                action, _ = model.predict(obs, action_masks=mask, deterministic=True)
+                action = int(action)
+            except Exception:
+                # Model action space doesn't match current universe (stale checkpoint)
+                valid  = np.where(mask)[0]
+                action = int(np.random.choice(valid))
+                model  = None  # stop trying for remaining steps
         else:
             valid  = np.where(mask)[0]
             action = int(np.random.choice(valid))
@@ -171,6 +178,19 @@ def generate_route(
             stop['stone_somber']= entry['stone_somber']
         if entry['type'] == 'objective':
             stop['sq_names'] = list(entry['sq_names'])
+
+        # Annotate boss stops that complete a modifier constraint
+        modifier_info = []
+        for sq_idx in info.get('sq_completed', []):
+            sq = squares[sq_idx]
+            if sq.data.get('type') == 'boss_modifier':
+                modifier_info.append({
+                    'constraint':   sq.data.get('constraint', ''),
+                    'overhead_sec': sq.data.get('overhead_sec', 0),
+                    'sq_text':      sq.text,
+                })
+        if modifier_info:
+            stop['modifier_info'] = modifier_info
 
         stops.append(stop)
 

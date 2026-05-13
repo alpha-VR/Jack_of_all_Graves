@@ -10,6 +10,12 @@ __pycache__/
 # Training output — nothing in checkpoints/ is committed
 jack/rl/checkpoints/
 
+# Train logs and eval results
+jack/rl/logs/
+
+# Old versioned model snapshots (only current bingo_agent.zip is tracked)
+jack/rl/models/bingo_agent_v*.zip
+
 # Confirmed release models (jack/rl/models/) are tracked — do not ignore
 
 # Local game saves (personal data)

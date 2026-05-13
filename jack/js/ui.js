@@ -55,6 +55,40 @@ const UI = (() => {
     _initBuildPanel();
   }
 
+  // Shared RL route fetch — called from button and on mark changes
+  async function _computeRlRoute({ silent = false } = {}) {
+    try {
+      const res = await fetch('/api/rl/route', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          raw_names: State.game.board.map(sq => sq.raw.name),
+          marks:     [...State.game.marks],
+          player:    0,
+          build:     State.build,
+        }),
+      });
+      const rl = await res.json();
+      if (rl.error) throw new Error(rl.error);
+      const adapted = _adaptRlRoute(rl);
+      State.route.computed       = true;
+      State.route.isRlRoute      = true;
+      State.route.stops          = adapted.stops;
+      State.route.passive        = [];
+      State.route.warnings       = rl.model_found ? [] : ['Model not ready — showing random play'];
+      State.route.summary        = {};
+      State.route.targetLine     = null;
+      State.route.targetLineName = `AI Route`;
+      State.route.lineSummary    = [];
+      State.route.activeStop     = 0;
+      State.emit('route:ready', State.route);
+      if (!silent) toast(`AI route ready — ${adapted.stops.length} stops`, 'ok');
+      return true;
+    } catch(e) {
+      return false;
+    }
+  }
+
   function _bindEvents() {
     // Route collapse toggle
     $routeToggle.addEventListener('click', () => {
@@ -101,40 +135,16 @@ const UI = (() => {
       $routeBtn.disabled = true;
       $routeBtn.textContent = 'Computing...';
       try {
-        const res = await fetch('/api/rl/route', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            raw_names: State.game.board.map(sq => sq.raw.name),
-            marks:     [...State.game.marks],
-            player:    0,
-            build:     State.build,
-          }),
-        });
-        const rl = await res.json();
-        if (rl.error) throw new Error(rl.error);
-        const adapted = _adaptRlRoute(rl);
-        State.route.computed       = true;
-        State.route.stops          = adapted.stops;
-        State.route.passive        = [];
-        State.route.warnings       = rl.model_found ? [] : ['Model not ready — showing random play'];
-        State.route.summary        = {};
-        State.route.targetLine     = null;
-        State.route.targetLineName = `AI Route`;
-        State.route.lineSummary    = [];
-        State.route.activeStop     = 0;
-        State.emit('route:ready', State.route);
-        toast(`AI route ready — ${adapted.stops.length} stops`, 'ok');
-      } catch(e) {
-        // Server not running or hard error — fall back to JS router
-        try {
+        const ok = await _computeRlRoute();
+        if (!ok) {
           const result = Router.computeBestLine(State.game.board, State.data.squareData);
+          State.route.isRlRoute = false;
           State.setRoute(result);
           toast(`Route ready — ${result.route.length} stops`, 'ok');
-        } catch(e2) {
-          toast('Route error: ' + e2.message, 'err');
-          console.error(e2);
         }
+      } catch(e) {
+        toast('Route error: ' + e.message, 'err');
+        console.error(e);
       } finally {
         $routeBtn.disabled = false;
         $routeBtn.textContent = '⚔ Compute Route';
@@ -197,7 +207,10 @@ const UI = (() => {
 
     // Recompute route whenever a square is marked/unmarked
     State.on('square:marked', () => {
-      if (State.route.computed) {
+      if (!State.route.computed) return;
+      if (State.route.isRlRoute) {
+        setTimeout(() => _computeRlRoute({ silent: true }), 0);
+      } else {
         setTimeout(() => State.recomputeRoute(), 0);
       }
     });
@@ -297,15 +310,40 @@ const UI = (() => {
       State.game.board.forEach(sq => { rawToText[sq.raw.name] = sq.text; });
     }
 
+    // Pre-pass: count how many stops each square rawName appears in (for N/M denominator).
+    // sq_names on objective stops lists every board square that location contributes to.
+    const sqTotals   = {};   // rawName → total stop count
+    const sqCounters = {};   // rawName → running visit index
+    rl.stops.forEach(stop => {
+      (stop.sq_names || []).forEach(rn => {
+        sqTotals[rn] = (sqTotals[rn] || 0) + 1;
+      });
+    });
+
     const stops = rl.stops.map((stop, i) => {
       const isSton = stop.type === 'stone';
       const isRT   = stop.type === 'roundtable';
       let squareName;
-      if (isRT)        squareName = 'Roundtable Hold — Upgrade Weapon';
-      else if (isSton) squareName = `Stone [${stop.stone_tier}]${stop.stone_somber ? ' Somber' : ''}`;
-      else             squareName = stop.completes?.length
-        ? (rawToText[stop.completes[0]] || stop.completes[0])
-        : stop.name;
+
+      if (isRT) {
+        squareName = 'Roundtable Hold — Upgrade Weapon';
+      } else if (isSton) {
+        squareName = `Stone [${stop.stone_tier}]${stop.stone_somber ? ' Somber' : ''}`;
+      } else {
+        // Prefer the first board square this stop contributes to (raw name available);
+        // fall back to the completing-square text or bare location name.
+        const primaryRaw = (stop.sq_names || []).find(rn => rawToText[rn]) || null;
+        if (primaryRaw) {
+          sqCounters[primaryRaw] = (sqCounters[primaryRaw] || 0) + 1;
+          const total = sqTotals[primaryRaw] || 1;
+          const countStr = total > 1 ? ` (${sqCounters[primaryRaw]}/${total})` : '';
+          squareName = (rawToText[primaryRaw] || primaryRaw) + countStr;
+        } else {
+          squareName = stop.completes?.length
+            ? (rawToText[stop.completes[0]] || stop.completes[0])
+            : stop.name;
+        }
+      }
 
       const travel = stop.travel_sec  || 0;
       const action = stop.action_sec  || 0;
@@ -322,7 +360,24 @@ const UI = (() => {
       const extraCompletes = stop.completes?.length > 1
         ? stop.completes.slice(1).map(c => `✓ Completes: ${c}`) : [];
       const prereqFlags = sqPrereqs.map(p => `⚠ ${p}`);
-      const allFlags = [...extraCompletes, ...prereqFlags];
+
+      // Boss modifier constraint flags
+      const _modifierLabels = {
+        'hitless':            'Hitless run',
+        'colossal_only':      'Colossal armaments only',
+        'dagger_claw_fist':   'Daggers / claws / fists only',
+        'bow_only':           'Bow only',
+        'sorcery_only':       'Sorceries only',
+        'incantation_only':   'Incantations only',
+        'remembrance_weapon': 'Remembrance weapon only',
+      };
+      const modifierFlags = (stop.modifier_info || []).map(m => {
+        const label = _modifierLabels[m.constraint] || m.constraint;
+        const prep  = m.overhead_sec > 0 ? ` (+${fmt(m.overhead_sec)} prep)` : '';
+        return `🔒 ${label}${prep}`;
+      });
+
+      const allFlags = [...extraCompletes, ...prereqFlags, ...modifierFlags];
 
       return {
         num:           i + 1,

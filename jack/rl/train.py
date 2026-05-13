@@ -40,12 +40,50 @@ class _Tee:
         self._file.close()
 
 import numpy as np
+import torch
+import torch.nn as nn
 from sb3_contrib import MaskablePPO
 from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3.common.env_util   import make_vec_env
-from stable_baselines3.common.vec_env    import VecEnv
+from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
+from stable_baselines3.common.vec_env    import VecEnv, VecNormalize
 
 from .env import BingoEnv
+from .sim import SELF_DIM, OPP_DIM, BOARD_DIM
+
+
+# ── Three-stream feature extractor ─────────────────────────────────────────────
+class BingoExtractor(BaseFeaturesExtractor):
+    """Separate encoder streams for self-state, opponent, and board synergy.
+
+    Processes each perspective independently before merging, so the network
+    can specialize: self_net learns routing efficiency, opp_net learns
+    opponent threat assessment, board_net learns square synergy.
+    """
+
+    def __init__(self, observation_space, features_dim: int = 256):
+        super().__init__(observation_space, features_dim)
+        self.self_net = nn.Sequential(
+            nn.Linear(SELF_DIM, 128), nn.ReLU(),
+            nn.Linear(128, 128),      nn.ReLU(),
+        )
+        self.opp_net = nn.Sequential(
+            nn.Linear(OPP_DIM, 64),  nn.ReLU(),
+            nn.Linear(64, 64),        nn.ReLU(),
+        )
+        self.board_net = nn.Sequential(
+            nn.Linear(BOARD_DIM, 128), nn.ReLU(),
+            nn.Linear(128, 128),       nn.ReLU(),
+        )
+        self.merge = nn.Sequential(
+            nn.Linear(128 + 64 + 128, features_dim), nn.ReLU(),
+        )
+
+    def forward(self, obs: torch.Tensor) -> torch.Tensor:
+        s = self.self_net(obs[:, :SELF_DIM])
+        o = self.opp_net(obs[:, SELF_DIM:SELF_DIM + OPP_DIM])
+        b = self.board_net(obs[:, SELF_DIM + OPP_DIM:])
+        return self.merge(torch.cat([s, o, b], dim=1))
 
 DEFAULT_SAVE_DIR = os.path.join(os.path.dirname(__file__), 'checkpoints')
 
@@ -70,6 +108,7 @@ class SelfPlayCallback(BaseCallback):
         self._last_update      = 0
         self._win_history      = deque(maxlen=200)
         self._snapshot: Optional[MaskablePPO] = None
+        self._opponent_pool: list = []          # past frozen snapshots (max 20)
 
     def _on_step(self) -> bool:
         if self.num_timesteps - self._last_update >= self._update_interval:
@@ -79,41 +118,85 @@ class SelfPlayCallback(BaseCallback):
 
     def _update_opponent(self):
         """Freeze current policy as new opponent and save checkpoint."""
+        # Measure improvement vs previous snapshot BEFORE freezing the new one
+        wr = self._quick_win_rate()
+
         buf = io.BytesIO()
         self.model.save(buf)
         buf.seek(0)
-        self._snapshot = MaskablePPO.load(buf)
-        self._env.set_opponent(self._snapshot)
+        # Explicitly load to same device as training model to avoid CPU fallback
+        device = next(self.model.policy.parameters()).device
+        self._snapshot = MaskablePPO.load(buf, device=device)
+        self._opponent_pool.append({'policy': self._snapshot, 'win_rate': wr})
+        if len(self._opponent_pool) > 20:
+            self._opponent_pool.pop(0)
+        self._env.set_opponent(self._snapshot, win_rate=wr)
 
-        # Push new snapshot to all training envs via opponent pool
+        # Push new snapshot to all training envs
         if isinstance(self.training_env, VecEnv):
-            self.training_env.env_method('set_opponent', self._snapshot)
+            self.training_env.env_method('set_opponent', self._snapshot, wr)
 
         # Save checkpoint to disk
         ckpt_path = os.path.join(self._save_dir, f'ckpt_{self.num_timesteps:09d}')
         self.model.save(ckpt_path)
 
         if self.verbose:
-            wr = self._quick_win_rate()
-            print(f"[{self.num_timesteps:>9,}] Saved {ckpt_path}.zip  |  win-rate vs old: {wr:.1%}")
+            print(f"[{self.num_timesteps:>9,}] Saved {ckpt_path}.zip  |  win-rate vs prev: {wr:.1%}")
 
     def _quick_win_rate(self) -> float:
-        """Play `_eval_episodes` games vs frozen snapshot, return win rate."""
+        """Play `_eval_episodes` games vs uniformly-sampled past snapshots.
+
+        Uniform (not recency-weighted) sampling across the full pool avoids the
+        rock-paper-scissors problem: A beats B, B beats C, C beats A.  Win rate
+        here means "I beat X% of all past selves on average," which is robust to
+        non-transitive cycles.  Falls back to the latest snapshot when the pool
+        is still empty.
+        """
         if self._snapshot is None:
             return 0.5
         wins = 0
-        eval_env = BingoEnv(opponent_policy=self._snapshot)
+        eval_env = BingoEnv()
+        rng = random.Random()
+        pool_policies = [e['policy'] for e in self._opponent_pool] if self._opponent_pool else [self._snapshot]
         for _ in range(self._eval_episodes):
             obs, info = eval_env.reset()
+            eval_env._current_opponent = rng.choice(pool_policies)  # uniform across all past selves
             done = False
             while not done:
                 mask = eval_env.action_masks()
                 action, _ = self.model.predict(obs, action_masks=mask, deterministic=False)
                 obs, _, terminated, truncated, info = eval_env.step(action)
                 done = terminated or truncated
-            if info.get('winner') == 0:
+            w = info.get('winner')
+            if w == 0:
                 wins += 1
+            elif w is None:
+                # Truncated: decide by mark count, tiebreak by time
+                a0 = eval_env.game.agents[0]
+                a1 = eval_env.game.agents[1]
+                m0, m1 = sum(a0.marks), sum(a1.marks)
+                if m0 > m1:
+                    wins += 1
+                elif m0 == m1:
+                    wins += 0.5
         return wins / self._eval_episodes
+
+
+# ── Entropy schedule callback ──────────────────────────────────────────────────
+class EntropyScheduleCallback(BaseCallback):
+    """Linearly decays model.ent_coef from initial_ent → final_ent over training."""
+
+    def __init__(self, initial_ent: float = 0.15, final_ent: float = 0.02,
+                 total_steps: int = 1_000_000):
+        super().__init__()
+        self._initial    = initial_ent
+        self._final      = final_ent
+        self._total      = total_steps
+
+    def _on_step(self) -> bool:
+        frac = min(self.num_timesteps / self._total, 1.0)
+        self.model.ent_coef = self._final + (1.0 - frac) * (self._initial - self._final)
+        return True
 
 
 # ── Training entry point ───────────────────────────────────────────────────────
@@ -121,24 +204,31 @@ def train(
     total_timesteps:          int   = 1_000_000,
     save_dir:                 str   = DEFAULT_SAVE_DIR,
     opponent_update_interval: int   = 100_000,
-    n_envs:                   int   = 4,
-    learning_rate:            float = 1e-4,
-    batch_size:               int   = 512,
-    n_epochs:                 int   = 10,
-    gamma:                    float = 0.99,
-    ent_coef:                 float = 0.05,
+    n_envs:                   int   = 8,
+    learning_rate:            float = 3e-4,
+    batch_size:               int   = 256,
+    n_epochs:                 int   = 4,
+    gamma:                    float = 0.995,
+    ent_coef:                 float = 0.10,
     resume_from:              str   = None,
 ):
     os.makedirs(save_dir, exist_ok=True)
 
-    # Single env for self-play callback evaluation
+    # Single env for self-play callback evaluation (no normalization needed)
     eval_env = BingoEnv()
 
-    # Vectorised training envs (opponents start as random)
+    # Vectorised training envs wrapped with reward normalization.
+    # norm_obs=False because we manually normalize all obs features in get_obs().
     def _make():
         return BingoEnv()
 
-    vec_env = make_vec_env(_make, n_envs=n_envs)
+    vec_env = VecNormalize(
+        make_vec_env(_make, n_envs=n_envs),
+        norm_obs=False,
+        norm_reward=True,
+        clip_reward=10.0,
+    )
+
 
     if resume_from and os.path.exists(resume_from):
         print(f"Resuming from {resume_from}")
@@ -148,27 +238,38 @@ def train(
             policy="MlpPolicy",
             env=vec_env,
             learning_rate=learning_rate,
-            n_steps=2048,
+            n_steps=1024,
             batch_size=batch_size,
             n_epochs=n_epochs,
             gamma=gamma,
             ent_coef=ent_coef,
             verbose=1,
-            policy_kwargs=dict(net_arch=[256, 256]),
+            policy_kwargs=dict(
+                features_extractor_class=BingoExtractor,
+                features_extractor_kwargs=dict(features_dim=256),
+                net_arch=dict(pi=[256], vf=[256]),
+            ),
         )
 
-    callback = SelfPlayCallback(
-        env=eval_env,
-        save_dir=save_dir,
-        update_interval=opponent_update_interval,
-        verbose=1,
-    )
+    callbacks = [
+        SelfPlayCallback(
+            env=eval_env,
+            save_dir=save_dir,
+            update_interval=opponent_update_interval,
+            verbose=1,
+        ),
+        EntropyScheduleCallback(
+            initial_ent=0.15,
+            final_ent=0.02,
+            total_steps=total_timesteps,
+        ),
+    ]
 
     print(f"Training for {total_timesteps:,} timesteps  |  {n_envs} parallel envs")
     t0 = time.time()
     model.learn(
         total_timesteps=total_timesteps,
-        callback=callback,
+        callback=callbacks,
         reset_num_timesteps=resume_from is None,
     )
     elapsed = time.time() - t0
@@ -211,7 +312,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Train bingo RL agent')
     parser.add_argument('--timesteps',  type=int,   default=1_000_000)
     parser.add_argument('--save-dir',   type=str,   default=DEFAULT_SAVE_DIR)
-    parser.add_argument('--n-envs',     type=int,   default=4)
+    parser.add_argument('--n-envs',     type=int,   default=8)
     parser.add_argument('--lr',         type=float, default=3e-4)
     parser.add_argument('--resume',     type=str,   default=None)
     parser.add_argument('--log',        type=str,   default=None,

@@ -23,20 +23,31 @@ from .constants import (
     compute_kill_time, compute_travel_time, compute_rune_level,
     compute_death_probability, get_boss_difficulty,
     max_upgrade_level, stones_needed, dungeon_overhead, BINGO_LINES, N_SQUARES,
-    PREREQ_LOCS,
+    PREREQ_LOCS, PREREQ_RESOLUTION, BOSS_MODIFIER_KILL_MULT,
+    runes_to_reach_level,
 )
 from .board import Square, UNIVERSE, UNIVERSE_SIZE, UNIVERSE_KEY_TO_IDX, _loc_key
 
+# ── Observation stream dimensions ──────────────────────────────────────────────
+# Self stream:  my_marks(25) + line_mc(12) + agent_state(8) + stones(17) + time(1)
+# Opp stream:   opp_marks(25) + per_line(oc+danger=24) + opp_extras(4)
+# Board stream: N_SQUARES * 9  (my_mark, opp_mark, available, zone_tier,
+#                                coloc, zone_density, prereq_ok,
+#                                progress_ratio, unvisited_ratio)
+SELF_DIM  = 63
+OPP_DIM   = 53
+BOARD_DIM = N_SQUARES * 10  # 250
 
-# Prereq keys → the universe locKey that satisfies them when visited.
-# Keys matching 'nokron_access'/'radahn'/boss kills use warp_pool (boss grace added
-# on kill); these keys use visited_keys instead.
-_PREREQ_VISITED: dict = {
-    'capital_access':  '-936_1202_1',   # Draconic Tree Sentinel, leyndell entrance
-    'Kill Fell Twins': '-1040_1321_1',  # Fell Twins, mountaintops
-    'kill_loretta':    '-1046_568_1',   # Royal Knight Loretta, Caria Manor
-    **{ploc['prereq_key']: _loc_key(ploc) for ploc in PREREQ_LOCS},
-}
+# Prereq resolution — loaded from square_data.json _meta.prereq_resolution.
+# Each entry: {'type': 'grace'|'visited'|'optimistic', 'grace_id'|'loc_key': ...}
+# Unknown keys → warn once then treat as optimistic.
+_PREREQ_TABLE: dict = dict(PREREQ_RESOLUTION)
+# Ensure PREREQ_LOCS entries are present (loc_keys computed from coordinates).
+for _ploc in PREREQ_LOCS:
+    _key = _ploc['prereq_key']
+    if _key not in _PREREQ_TABLE:
+        _PREREQ_TABLE[_key] = {'type': 'visited', 'loc_key': _loc_key(_ploc)}
+_PREREQ_WARNED: set = set()  # tracks unknown keys so we only warn once
 
 
 # ── Agent state ────────────────────────────────────────────────────────────────
@@ -243,8 +254,8 @@ class BingoGame:
             weapon_level=0,
             is_somber=is_somber,
             primary_stat=self._default_stat(weapon_class),
-            rune_level=1,
-            total_runes_earned=0,
+            rune_level=10,
+            total_runes_earned=runes_to_reach_level(10),
             rune_balance=0,
             smithing_stones={},
             somber_stones={},
@@ -288,11 +299,13 @@ class BingoGame:
 
         # ── Action time + effects ────────────────────────────────────────────────
         overhead = OVERHEAD_GRACE_SEC
-        runes_gained = 0
-        sq_completed = []
-        stone_reward   = 0.0
-        upgrade_reward = 0.0
-        death_penalty  = 0.0
+        runes_gained    = 0
+        sq_completed    = []
+        stone_reward    = 0.0
+        upgrade_reward  = 0.0
+        death_penalty   = 0.0
+        partial_reward  = 0.0
+        blocking_reward = 0.0
 
         if entry['type'] == 'roundtable':
             overhead = OVERHEAD_ROUNDTABLE_SEC
@@ -316,11 +329,14 @@ class BingoGame:
             # Reward useful stone pickups; tier closest to current need scores highest
             cur_tier = (agent.weapon_level + 1) if somber else (agent.weapon_level // 3 + 1)
             usefulness = max(0.0, 1.0 - abs(tier - cur_tier) * 0.25)
-            proximity_bonus = 0.015 if self._stone_near_obj[action_idx] else 0.0
-            stone_reward = 0.04 * max(usefulness, 0.1) + proximity_bonus
+            proximity_bonus = 0.008 if self._stone_near_obj[action_idx] else 0.0
+            stone_reward = 0.02 * max(usefulness, 0.1) + proximity_bonus
 
         elif entry['type'] == 'objective':
-            # Determine which board squares this location contributes to
+            # Determine which board squares this location contributes to.
+            # Location-level prereqs gate the entire visit (e.g. medallion chest
+            # requires Niall dead); square-level prereqs gate per-square credit.
+            loc_prereqs_ok = self._check_prereqs(entry.get('loc_prereqs', []), agent)
             relevant_squares = [
                 sq for sq in self.board
                 if sq.raw_name in entry['sq_names']
@@ -328,11 +344,26 @@ class BingoGame:
                 and not self._is_blocked_by_opp(sq.idx, agent_id)
                 and not (sq.requires_zero_weapon and agent.has_upgraded)
                 and self._prereqs_satisfied(sq, agent)
-            ]
+            ] if loc_prereqs_ok else []
+
+            # Mutual exclusivity: at most one boss_modifier can complete per boss kill.
+            # Keep the easiest constraint for this build (lowest kill multiplier).
+            modifier_sqs = [sq for sq in relevant_squares if sq.sq_type == 'boss_modifier']
+            if len(modifier_sqs) > 1:
+                modifier_sqs.sort(key=lambda sq: BOSS_MODIFIER_KILL_MULT.get(
+                    sq.data.get('constraint', ''), {}).get(agent.primary_stat, 1.5))
+                for sq in modifier_sqs[1:]:
+                    relevant_squares.remove(sq)
+
             if not relevant_squares:
                 # Location visited but no benefit — still costs travel time
                 pass
             else:
+                # Snapshot progress before this visit for partial reward calculation
+                prog_before = {
+                    sq.idx: len(agent.sq_progress.get(sq.idx, set()))
+                    for sq in relevant_squares
+                }
                 for sq in relevant_squares:
                     progress = agent.sq_progress.setdefault(sq.idx, set())
                     progress.add(key)
@@ -342,6 +373,37 @@ class BingoGame:
                         agent.marks[sq.idx] = True
                         sq_completed.append(sq.idx)
                         runes_gained += sq.runes_on_complete
+
+                # Partial progress: small reward for each new step toward a square
+                opp_agent = self.agents[1 - agent_id]
+                for sq in relevant_squares:
+                    if not agent.marks[sq.idx]:
+                        needed = self._count_needed(sq, agent)
+                        after  = len(agent.sq_progress.get(sq.idx, set()))
+                        if after > prog_before[sq.idx]:
+                            partial_reward += 0.04 / max(needed, 1)
+
+                # Blocking: reward for marking a square that broke an opponent danger line
+                for sq_idx in sq_completed:
+                    best = 0
+                    for line in BINGO_LINES:
+                        if sq_idx in line:
+                            oc = sum(opp_agent.marks[i] for i in line)
+                            if oc >= 2:
+                                best = max(best, oc)
+                    if best >= 2:
+                        blocking_reward += 0.08 * best
+
+                # Line proximity: bonus for reaching 3-in-a-line or 4-in-a-line
+                for sq_idx in sq_completed:
+                    for line in BINGO_LINES:
+                        if sq_idx in line:
+                            mc = sum(agent.marks[i] for i in line)
+                            if mc == 3:
+                                partial_reward += 0.10
+                            elif mc == 4:
+                                partial_reward += 0.25
+                            break
 
             # Boss kill: compute time + runes + unlock grace
             boss_name = loc.get('name', '').lower()
@@ -360,7 +422,21 @@ class BingoGame:
                 if kill_result:
                     kill_sec      = kill_result['kill_sec']
                     runes_gained += kill_result['runes']
-                    overhead      = OVERHEAD_BOSS_SEC + kill_sec
+                    # Apply boss_modifier constraint multiplier if any board square requires it
+                    modifier_mult    = 1.0
+                    modifier_overhead = 0
+                    for sq in relevant_squares:
+                        if sq.sq_type == 'boss_modifier':
+                            constraint = sq.data.get('constraint', '')
+                            mult = BOSS_MODIFIER_KILL_MULT.get(constraint, {}).get(
+                                agent.primary_stat, 1.5)
+                            if mult > modifier_mult:
+                                modifier_mult = mult
+                            mod_oh = sq.data.get('overhead_sec', 0)
+                            if mod_oh > modifier_overhead:
+                                modifier_overhead = mod_oh
+                    kill_sec = math.ceil(kill_sec * modifier_mult)
+                    overhead      = OVERHEAD_BOSS_SEC + kill_sec + modifier_overhead
                     # Stochastic variance (±15%)
                     overhead = int(overhead * self.rng.uniform(0.85, 1.15))
                 else:
@@ -380,16 +456,18 @@ class BingoGame:
                     if self.rng.random() < p_death:
                         agent.rune_balance = 0
                         agent.time += death_time
-                        death_penalty = 0.20
+                        death_penalty = 0.10
                     else:
-                        death_penalty = p_death * 0.05
+                        death_penalty = p_death * 0.025
             else:
-                # Pickup / NPC / dungeon overhead — use per-type cost where available
-                sq_type = (relevant_squares[0].sq_type if relevant_squares else '')
-                if 'dungeon' in sq_type:
-                    overhead += OVERHEAD_DUNGEON_SEC + dungeon_overhead(
-                        relevant_squares[0].text if relevant_squares else ''
-                    )
+                # Pickup / NPC / dungeon overhead — per-square override, then per-type
+                sq = relevant_squares[0] if relevant_squares else None
+                sq_type = sq.sq_type if sq else ''
+                sq_overhead = sq.data.get('overhead_sec') if sq else None
+                if sq_overhead:
+                    overhead += sq_overhead
+                elif 'dungeon' in sq_type:
+                    overhead += OVERHEAD_DUNGEON_SEC + dungeon_overhead(sq.text if sq else '')
                 else:
                     overhead += SQUARE_ACTION_SEC.get(sq_type, OVERHEAD_PICKUP_SEC)
 
@@ -402,7 +480,8 @@ class BingoGame:
                 agent.warp_pool.append(dict(loc))
 
         elif entry['type'] == 'prereq':
-            # Prerequisite-only stop: pay travel + pickup overhead, no square credit
+            # Prerequisite-only stop: pay travel overhead, no square credit.
+            # Boss kills still happen and add their grace so grace-type prereqs are satisfied.
             overhead = OVERHEAD_PICKUP_SEC
             agent.visited_keys.add(key)
             agent.pos = dict(loc)
@@ -410,6 +489,27 @@ class BingoGame:
                 abs(g.get('x', 0) - loc['x']) < 0.5 for g in agent.warp_pool
             ):
                 agent.warp_pool.append(dict(loc))
+            # Boss kill: add kill time and unlock boss grace
+            boss_name = loc.get('name', '').lower()
+            boss_data = BOSS_HP.get(boss_name)
+            if not boss_data:
+                for k2, v in BOSS_HP.items():
+                    if boss_name in k2 or k2 in boss_name:
+                        boss_data = v; break
+            if boss_data:
+                kill_result = compute_kill_time(
+                    loc.get('name', ''), agent.weapon_class, agent.weapon_level,
+                    agent.is_somber, agent.primary_stat, agent.rune_level,
+                    loc.get('zone', 'unknown'),
+                )
+                if kill_result:
+                    overhead += kill_result['kill_sec']
+                    runes_gained += kill_result['runes']
+                else:
+                    overhead += OVERHEAD_BOSS_SEC
+                bg = BOSS_GRACES.get(boss_name)
+                if bg and not any(g.get('id') == bg['id'] for g in agent.warp_pool):
+                    agent.warp_pool.append(dict(bg))
 
         agent.time += overhead
 
@@ -419,13 +519,29 @@ class BingoGame:
             agent.rune_balance       += runes_gained
             agent.rune_level = compute_rune_level(agent.total_runes_earned)
 
+        # ── Auto-mark passive squares (rune threshold) ───────────────────────────
+        # passive_runes:  mark "Rune Level 60" when total rune level reaches 60
+        # passive_stat:   mark "30 Faith/Int/Arcane" when rune level reaches 30
+        #   (level 30 means enough total levels to have 30 in any one stat from base 10)
+        for sq in self.board:
+            if agent.marks[sq.idx] or self._is_blocked_by_opp(sq.idx, agent_id):
+                continue
+            if sq.sq_type == 'passive_runes' and agent.rune_level >= 60:
+                agent.marks[sq.idx] = True
+                sq_completed.append(sq.idx)
+            elif sq.sq_type == 'passive_stat' and agent.rune_level >= 30:
+                agent.marks[sq.idx] = True
+                sq_completed.append(sq.idx)
+
         # ── Reward shaping ───────────────────────────────────────────────────────
         reward = 0.0
-        reward += 0.1  * len(sq_completed)   # per-square bonus
-        reward -= travel_sec * 0.0001         # time penalty
-        reward += stone_reward               # incentivise useful stone pickups
-        reward += upgrade_reward             # reward weapon level gains at Roundtable
-        reward -= death_penalty              # penalise fighting underleveled
+        reward += 0.15 * len(sq_completed)   # per-square bonus (increased)
+        reward += partial_reward             # dense: fractional credit toward squares
+        reward += blocking_reward            # strategic: breaking opponent danger lines
+        reward -= travel_sec * 0.00005      # time penalty (halved — win must dominate)
+        reward += stone_reward
+        reward += upgrade_reward
+        reward -= death_penalty
 
         # ── Win condition check ──────────────────────────────────────────────────
         done   = False
@@ -444,24 +560,6 @@ class BingoGame:
             self.winner = 1 - agent_id
             reward -= 1.0
             done   = True
-        # No bingo achievable by either player → majority wins now
-        elif self._no_bingo_possible():
-            my_count  = sum(my_marks)
-            opp_count = sum(opp_marks)
-            self.done = True
-            if my_count > opp_count:
-                self.winner = agent_id
-                reward += 1.0
-            elif opp_count > my_count:
-                self.winner = 1 - agent_id
-                reward -= 1.0
-            else:
-                t0 = self.agents[0].time
-                t1 = self.agents[1].time
-                winner_id = 0 if t0 <= t1 else 1
-                self.winner = winner_id
-                reward += 0.5 if winner_id == agent_id else -0.5
-            done = True
         # All markable squares taken → majority wins
         elif self._no_markable_squares_remain():
             my_count  = sum(my_marks)
@@ -495,29 +593,30 @@ class BingoGame:
     def _is_blocked_by_opp(self, sq_idx: int, agent_id: int) -> bool:
         return self.agents[1 - agent_id].marks[sq_idx]
 
-    def _prereqs_satisfied(self, sq: 'Square', agent: AgentState) -> bool:
-        """Return True if all prerequisites for this square are met by the agent."""
-        for p in (sq.prereqs or []):
-            if p in ('nokron_access', 'radahn', 'Kill Starscourge Radahn'):
-                if not any(g.get('id') == 'bg_radahn' for g in agent.warp_pool):
+    def _check_prereqs(self, prereqs: list, agent: AgentState) -> bool:
+        """Return True if every prereq in the list is satisfied by the agent."""
+        for p in prereqs:
+            res = _PREREQ_TABLE.get(p)
+            if res is None:
+                if p not in _PREREQ_WARNED:
+                    _PREREQ_WARNED.add(p)
+                    print(f'[prereq] unknown key {p!r} — treating as optimistic; '
+                          f'add to square_data.json _meta.prereq_resolution')
+                continue  # optimistic
+            if res['type'] == 'grace':
+                if not any(g.get('id') == res['grace_id'] for g in agent.warp_pool):
                     return False
-            elif p == 'mohgwyn_access':
-                if not any(g.get('id') == 'bg_mohg' for g in agent.warp_pool):
+            elif res['type'] == 'any_grace':
+                if not any(g.get('id') in res['grace_ids'] for g in agent.warp_pool):
                     return False
-            elif p == 'Kill Godrick the Grafted':
-                if not any(g.get('id') == 'bg_godrick' for g in agent.warp_pool):
+            elif res['type'] == 'visited':
+                if res['loc_key'] not in agent.visited_keys:
                     return False
-            elif p == 'Kill Morgott, The Omen King':
-                if not any(g.get('id') == 'bg_morgott' for g in agent.warp_pool):
-                    return False
-            elif p == 'Kill Rykard, Lord of Blasphemy':
-                if not any(g.get('id') == 'bg_rykard' for g in agent.warp_pool):
-                    return False
-            elif p in _PREREQ_VISITED:
-                if _PREREQ_VISITED[p] not in agent.visited_keys:
-                    return False
-            # Truly unknown prereqs: optimistically allow
+            # 'optimistic' → always pass
         return True
+
+    def _prereqs_satisfied(self, sq: 'Square', agent: AgentState) -> bool:
+        return self._check_prereqs(sq.prereqs or [], agent)
 
     def _count_needed(self, sq: Square, agent: AgentState) -> int:
         """For upgrade squares (smithing/somber), count is 1 (just visit Roundtable)."""
@@ -537,29 +636,85 @@ class BingoGame:
             for line in BINGO_LINES
         )
 
+    def _prereqs_ever_satisfiable(self, sq: 'Square', agent: AgentState) -> bool:
+        """True if every prereq for sq can still be satisfied given current game state.
+
+        A grace-type prereq is satisfiable if an unvisited, board-relevant entry
+        exists (objective OR prereq type) that would grant that grace on visit.
+        A visited-type prereq is satisfiable only if its loc_key is reachable in UNIVERSE.
+        """
+        for p in (sq.prereqs or []):
+            res = _PREREQ_TABLE.get(p)
+            if res is None:
+                continue  # unknown → optimistic
+            t = res.get('type', 'optimistic')
+            if t == 'optimistic':
+                continue
+            if t == 'grace':
+                grace_id = res['grace_id']
+                if any(g.get('id') == grace_id for g in agent.warp_pool):
+                    continue  # already obtained
+                can_get = any(
+                    self.relevant_mask[i]
+                    and UNIVERSE[i]['type'] in ('objective', 'prereq')
+                    and UNIVERSE[i]['key'] not in agent.visited_keys
+                    and BOSS_GRACES.get(
+                        UNIVERSE[i]['loc'].get('name', '').lower(), {}
+                    ).get('id') == grace_id
+                    for i in range(UNIVERSE_SIZE)
+                )
+                if not can_get:
+                    return False
+            elif t == 'any_grace':
+                grace_ids = set(res.get('grace_ids', []))
+                if any(g.get('id') in grace_ids for g in agent.warp_pool):
+                    continue
+                can_get = any(
+                    self.relevant_mask[i]
+                    and UNIVERSE[i]['type'] in ('objective', 'prereq')
+                    and UNIVERSE[i]['key'] not in agent.visited_keys
+                    and BOSS_GRACES.get(
+                        UNIVERSE[i]['loc'].get('name', '').lower(), {}
+                    ).get('id') in grace_ids
+                    for i in range(UNIVERSE_SIZE)
+                )
+                if not can_get:
+                    return False
+            elif t == 'visited':
+                loc_key_needed = res['loc_key']
+                if loc_key_needed in agent.visited_keys:
+                    continue
+                if loc_key_needed not in UNIVERSE_KEY_TO_IDX:
+                    return False  # prereq location not in universe → permanent lock
+        return True
+
     def _no_markable_squares_remain(self) -> bool:
         """True when every board square is either marked by one agent or has no
-        reachable locations left for either agent."""
+        reachable locations left for either agent (accounting for permanently
+        unsatisfiable prerequisites)."""
         for sq in self.board:
             if sq.is_passive:
                 continue
             if any(a.marks[sq.idx] for a in self.agents):
                 continue
-            # Square still available — check if any agent could still mark it
             for a in self.agents:
                 if self._is_blocked_by_opp(sq.idx, a.agent_id):
                     continue
                 if sq.requires_zero_weapon and a.has_upgraded:
                     continue
+                if not self._prereqs_ever_satisfiable(sq, a):
+                    continue  # prereqs can never be met → treat as permanently unavailable
                 visited = a.visited_keys
                 unvisited = [l for l in sq.locations
                              if _loc_key(l) not in visited]
                 if unvisited:
-                    return False   # at least one agent can still work on this
+                    return False
         return True
 
     def _check_majority(self) -> Optional[int]:
-        """Returns winning agent_id if majority achieved, else None."""
+        """Returns winning agent_id if they have 13+ marks AND no bingo is possible, else None."""
+        if not self._no_bingo_possible():
+            return None
         counts = [sum(a.marks) for a in self.agents]
         for i, c in enumerate(counts):
             if c >= 13:
@@ -609,7 +764,11 @@ class BingoGame:
                 mask[i] = True
 
             elif entry['type'] == 'objective':
-                # Valid if it contributes to at least one non-blocked, non-marked square
+                # Skip if this location's own prereqs aren't met yet (physical access gate)
+                if not self._check_prereqs(entry.get('loc_prereqs', []), agent):
+                    continue
+                # Valid if it contributes to at least one non-marked, non-opponent-blocked square
+                # whose prerequisites are satisfied (prevents wasted no-credit visits)
                 for raw in entry['sq_names']:
                     sq = self.sq_by_name.get(raw)
                     if sq is None:
@@ -619,6 +778,8 @@ class BingoGame:
                     if self._is_blocked_by_opp(sq.idx, agent_id):
                         continue
                     if sq.requires_zero_weapon and agent.has_upgraded:
+                        continue
+                    if not self._prereqs_satisfied(sq, agent):
                         continue
                     mask[i] = True
                     break
@@ -644,23 +805,21 @@ class BingoGame:
 
     # ── Observation ───────────────────────────────────────────────────────────────
     def get_obs(self, agent_id: int):
-        """Returns flat float32 numpy array of game state for agent_id."""
+        """Returns flat float32 numpy array of game state for agent_id.
+
+        Layout: [self_stream (SELF_DIM)] + [opp_stream (OPP_DIM)] + [board_stream (BOARD_DIM)]
+        Separable streams let the encoder give each perspective its own weights.
+        """
         import numpy as np
         agent = self.agents[agent_id]
         opp   = self.agents[1 - agent_id]
+        obs   = []
 
-        # Board marks: 25 mine + 25 opp
-        obs = list(agent.marks) + list(opp.marks)
-
-        # Line progress: for each of 12 lines, (my_count/5, opp_count/5,
-        #                                        opp_danger 0/1)
-        for line in BINGO_LINES:
-            mc = sum(agent.marks[i] for i in line)
-            oc = sum(opp.marks[i]   for i in line)
-            obs += [mc / 5.0, oc / 5.0, float(oc >= 3 and mc == 0)]
-
-        # Agent state (normalised)
-        obs += [
+        # ── Self stream (63) ─────────────────────────────────────────────────────
+        obs.extend(float(m) for m in agent.marks)           # 25: my marks
+        for line in BINGO_LINES:                             # 12: my count per line
+            obs.append(sum(agent.marks[i] for i in line) / 5.0)
+        obs += [                                             # 8: agent state
             (agent.pos.get('x', -150) + 250) / 300.0,
             (agent.pos.get('y',  100) - 50)  / 200.0,
             float(agent.pos.get('level', 1) == 2),
@@ -670,47 +829,87 @@ class BingoGame:
             agent.flask_level / 14.0,
             float(agent.has_upgraded),
         ]
-
-        # Stone inventory (smithing tiers 1-8, somber tiers 1-9)
-        for tier in range(1, 9):
+        for tier in range(1, 9):                            # 8: smithing stones
             obs.append(min(agent.smithing_stones.get(tier, 0), 5) / 5.0)
-        for tier in range(1, 10):
+        for tier in range(1, 10):                           # 9: somber stones
             obs.append(min(agent.somber_stones.get(tier, 0), 3) / 3.0)
+        obs.append(min(agent.time / 3600.0, 2.0))           # 1: time
 
-        # Time (normalised to 3600s)
-        obs.append(min(agent.time / 3600.0, 2.0))
+        # ── Opponent stream (53) ─────────────────────────────────────────────────
+        obs.extend(float(m) for m in opp.marks)             # 25: opp marks
+        for line in BINGO_LINES:                             # 24: opp count + danger
+            mc = sum(agent.marks[i] for i in line)
+            oc = sum(opp.marks[i]   for i in line)
+            obs.append(oc / 5.0)
+            obs.append(float(oc >= 3 and mc == 0))
+        obs += [                                             # 4: opp extras
+            (opp.pos.get('x', -150) + 250) / 300.0,
+            (opp.pos.get('y',  100) - 50)  / 200.0,
+            opp.weapon_level / 24.0,
+            min(opp.time / 3600.0, 2.0),
+        ]
 
-        # Square-level features (25 squares × 7 features)
+        # ── Board stream (250 = 25 × 10) ─────────────────────────────────────────
+        ax = agent.pos.get('x', -150)
+        ay = agent.pos.get('y',  100)
         for sq in self.board:
-            available = not agent.marks[sq.idx] and not opp.marks[sq.idx]
-            # Co-location: other open squares sharing a visit location with this one
-            coloc = sum(
+            available    = not agent.marks[sq.idx] and not opp.marks[sq.idx]
+            coloc        = sum(
                 1 for idx in self._coloc_partners[sq.idx]
                 if not agent.marks[idx] and not opp.marks[idx]
             )
-            # Zone density: other open squares in same primary zone
-            zone = self._sq_zone[sq.idx]
+            zone         = self._sq_zone[sq.idx]
             zone_density = sum(
                 1 for idx in self._zone_sq.get(zone, [])
                 if idx != sq.idx and not agent.marks[idx] and not opp.marks[idx]
             )
             prereq_ok = float(self._prereqs_satisfied(sq, agent))
+
+            if sq.is_passive:
+                # Passive squares need no visits — signal as already complete
+                progress_ratio  = 1.0
+                unvisited_ratio = 0.0
+                nearest_dt      = 0.0
+            else:
+                n_locs         = len(sq.locations)
+                progress       = len(agent.sq_progress.get(sq.idx, set()))
+                needed         = self._count_needed(sq, agent)
+                unvisited_locs = [
+                    loc for loc in sq.locations
+                    if _loc_key(loc) not in agent.visited_keys
+                ]
+                progress_ratio  = progress / max(needed, 1)
+                unvisited_ratio = len(unvisited_locs) / max(n_locs, 1)
+                # Euclidean distance to nearest unvisited PoI, normalized to ~400 unit world
+                if available and unvisited_locs:
+                    nearest_dt = min(
+                        math.sqrt((ax - loc.get('x', ax)) ** 2 + (ay - loc.get('y', ay)) ** 2)
+                        for loc in unvisited_locs
+                    ) / 400.0
+                    nearest_dt = min(nearest_dt, 2.0)
+                else:
+                    nearest_dt = 0.0  # marked or blocked — irrelevant
+
             obs += [
                 float(agent.marks[sq.idx]),
                 float(opp.marks[sq.idx]),
                 float(available),
-                ZONE_TIER.get(sq.locations[0].get('zone', 'unknown') if sq.locations else 'unknown', 5) / 10.0,
-                min(coloc, 4) / 4.0,          # co-location synergy (capped at 4)
-                min(zone_density, 8) / 8.0,   # zone cluster density (capped at 8)
-                prereq_ok,                    # prereq gate: 1.0 = reachable now
+                ZONE_TIER.get(
+                    sq.locations[0].get('zone', 'unknown') if sq.locations else 'unknown', 5
+                ) / 10.0,
+                min(coloc, 4) / 4.0,
+                min(zone_density, 8) / 8.0,
+                prereq_ok,
+                progress_ratio,
+                unvisited_ratio,
+                nearest_dt,                         # distance to nearest unvisited PoI
             ]
 
         return np.array(obs, dtype=np.float32)
 
     @property
     def obs_size(self) -> int:
-        # 50 (marks) + 36 (line × 3) + 8 (state) + 17 (stones) + 1 (time) + 175 (squares × 7)
-        return 50 + 12 * 3 + 8 + 17 + 1 + N_SQUARES * 7
+        return SELF_DIM + OPP_DIM + BOARD_DIM
 
     # ── Route export (for map visualisation) ─────────────────────────────────────
     def export_route(self, agent_id: int) -> list:

@@ -33,7 +33,7 @@ else:
 
 
 def _load_json(name):
-    with open(os.path.join(_DATA_DIR, name)) as f:
+    with open(os.path.join(_DATA_DIR, name), encoding='utf-8') as f:
         return json.load(f)
 
 
@@ -45,7 +45,7 @@ _BASE_TEMPLATES = [t for t in _TEMPLATES if t.get('category') == 'Base']
 
 
 # ── Passive square types — no locations to visit ──────────────────────────────
-_PASSIVE_TYPES = {'passive_runes', 'passive_stat', 'boss_modifier'}
+_PASSIVE_TYPES = {'passive_runes', 'passive_stat'}
 
 # ── Square types that require +0 weapon (invalidated on first upgrade) ─────────
 _ZERO_WEAPON_PATTERNS = re.compile(r'\+0\s+weapon', re.IGNORECASE)
@@ -143,8 +143,13 @@ def _extract_count(text, sq_data):
     if sq_data.get('count_needed') is not None:
         return sq_data['count_needed']
     t = sq_data.get('type', '')
-    if t in ('boss_multi_type',):
+    if t == 'boss_multi_type':
         return sum(g.get('count', 1) for g in sq_data.get('groups', []))
+    # acquire_multi: every item must be collected; boss_multi_specific: every boss must die
+    if t == 'acquire_multi':
+        return len(sq_data.get('locations', [])) or 1
+    if t == 'boss_multi_specific':
+        return len(sq_data.get('bosses', [])) or 1
     if t in ('boss_specific', 'consumable_action', 'npc_action', 'restore_rune',
              'acquire_fixed', 'dungeon_specific', 'npc_invasion'):
         return 1
@@ -231,10 +236,11 @@ def _build_global_universe():
     # Objective locations
     for k, entry in obj_locs.items():
         universe.append({
-            'type':     'objective',
-            'loc':       entry['loc'],
-            'sq_names':  frozenset(entry['sq_names']),
-            'key':       k,
+            'type':      'objective',
+            'loc':        entry['loc'],
+            'sq_names':   frozenset(entry['sq_names']),
+            'key':        k,
+            'loc_prereqs': entry['loc'].get('prerequisites', []),
         })
     # Stone nodes (direct access = guaranteed world pickups)
     for node in STONE_NODES:

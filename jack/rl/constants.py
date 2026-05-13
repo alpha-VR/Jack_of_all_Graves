@@ -15,7 +15,7 @@ else:
 
 
 def _load_json(name):
-    with open(os.path.join(_DATA_DIR, name)) as f:
+    with open(os.path.join(_DATA_DIR, name), encoding='utf-8') as f:
         return json.load(f)
 
 
@@ -197,6 +197,19 @@ BOSS_PHASE_OVERHEAD = {
     "astel, stars of darkness":          10,
 }
 
+# Kill-time multipliers for boss_modifier constraint squares.
+# Keys match the 'constraint' field in square_data.json.
+# Values keyed by primary_stat — modifier difficulty varies by build.
+BOSS_MODIFIER_KILL_MULT = {
+    'hitless':             {'Strength': 1.5, 'Dexterity': 1.5, 'Int': 1.5, 'Faith': 1.5, 'Quality': 1.5},
+    'colossal_only':       {'Strength': 1.0, 'Dexterity': 1.5, 'Int': 2.0, 'Faith': 2.0, 'Quality': 1.2},
+    'dagger_claw_fist':    {'Strength': 2.5, 'Dexterity': 2.0, 'Int': 2.5, 'Faith': 2.5, 'Quality': 2.0},
+    'bow_only':            {'Strength': 3.0, 'Dexterity': 2.5, 'Int': 3.0, 'Faith': 3.0, 'Quality': 2.8},
+    'sorcery_only':        {'Strength': 2.0, 'Dexterity': 2.0, 'Int': 1.0, 'Faith': 2.5, 'Quality': 2.0},
+    'incantation_only':    {'Strength': 2.0, 'Dexterity': 2.0, 'Int': 2.5, 'Faith': 1.0, 'Quality': 2.0},
+    'remembrance_weapon':  {'Strength': 1.5, 'Dexterity': 1.5, 'Int': 1.5, 'Faith': 1.5, 'Quality': 1.5},
+}
+
 OVERHEAD_GRACE_SEC      = 10
 OVERHEAD_BOSS_SEC       = 25
 OVERHEAD_DUNGEON_SEC    = 40
@@ -286,10 +299,47 @@ PREREQ_STOPS = {
 # Prerequisite-only locations — must be visited but belong to no square's locations list.
 # These become 'prereq' type entries in the UNIVERSE so the RL agent can route to them.
 PREREQ_LOCS = [
-    {'name': 'Third Church of Marika', 'x': -180.125, 'y': 123.403,
-     'level': 1, 'zone': 'limgrave',    'prereq_key': 'physick_flask'},
-    {'name': "Ranni's Rise",            'x': -106.42,  'y':  50.01,
-     'level': 1, 'zone': 'caria_manor', 'prereq_key': 'ranni_quest_p1'},
+    {'name': 'Third Church of Marika',                  'x': -180.125,    'y': 123.403,
+     'level': 1, 'zone': 'limgrave',      'prereq_key': 'physick_flask'},
+    {'name': "Ranni's Rise",                            'x': -106.42,     'y':  50.01,
+     'level': 1, 'zone': 'caria_manor',   'prereq_key': 'ranni_quest_p1'},
+    {'name': 'Commander Niall',                         'x':  -57.0,      'y': 157.5,
+     'level': 1, 'zone': 'mountaintops',  'prereq_key': 'kill_commander_niall'},
+    {'name': 'Commander Niall',                         'x':  -57.0,      'y': 157.5,
+     'level': 1, 'zone': 'mountaintops',  'prereq_key': 'Kill Commander Niall for left half'},
+    {'name': 'Waygate to Mohgwyn Palace',               'x':  -70.68,     'y': 129.59,
+     'level': 1, 'zone': 'consecrated',  'prereq_key': 'mohgwyn_access'},
+    # capital_access: Draconic Tree Sentinel blocks entry to Leyndell
+    {'name': 'Draconic Tree Sentinel',                  'x':  -93.609375, 'y': 120.199825,
+     'level': 1, 'zone': 'leyndell',      'prereq_key': 'capital_access'},
+    {'name': 'Godfrey, First Elden Lord (Golden Shade)', 'x': -107.117,   'y': 116.465,
+     'level': 1, 'zone': 'leyndell',      'prereq_key': 'kill_godfrey_gold_spirit'},
+    {'name': 'Fell Twins',                              'x': -104.0,      'y': 132.1,
+     'level': 1, 'zone': 'leyndell',      'prereq_key': 'Kill Fell Twins'},
+    {'name': 'Royal Knight Loretta',                    'x': -104.635938, 'y':  56.783965,
+     'level': 1, 'zone': 'caria_manor',   'prereq_key': 'kill_loretta'},
+    {'name': 'Red Wolf of Radagon',                     'x': -138.0,      'y':  57.0,
+     'level': 1, 'zone': 'liurnia',       'prereq_key': 'kill_red_wolf_of_radagon'},
+    {'name': 'Onyx Lord (Sealed Tunnel)',               'x': -111.5,      'y': 105.77997,
+     'level': 1, 'zone': 'leyndell',      'prereq_key': 'kill_onyx_lord_sealed_tunnel'},
+    {'name': 'Astel, Naturalborn of the Void',          'x': -165.7,      'y':  47.6,
+     'level': 2, 'zone': 'ainsel',        'prereq_key': 'kill_astel_lake_of_rot'},
+    {'name': 'Blackguard Big Boggart',                  'x': -151.88,     'y':  67.387,
+     'level': 1, 'zone': 'liurnia',       'prereq_key': 'boggart_necklace_bought'},
+    # Boss kill prereqs — agent routes here to kill boss and unlock grace even when
+    # the standalone kill square isn't on the board.
+    {'name': 'Margit, the Fell Omen',                  'x': -182.695312, 'y':  90.972955,
+     'level': 1, 'zone': 'limgrave',      'prereq_key': 'kill_margit'},
+    {'name': 'Godrick the Grafted',                    'x': -173.665626, 'y':  86.058335,
+     'level': 1, 'zone': 'limgrave',      'prereq_key': 'Kill Godrick the Grafted'},
+    {'name': 'Starscourge Radahn',                     'x': -194.5625,   'y': 159.103951,
+     'level': 1, 'zone': 'caelid',        'prereq_key': 'nokron_access'},
+    {'name': 'Starscourge Radahn',                     'x': -194.5625,   'y': 159.103951,
+     'level': 1, 'zone': 'caelid',        'prereq_key': 'Kill Starscourge Radahn'},
+    {'name': 'Rykard, Lord of Blasphemy',              'x':  -87.59375,  'y':  66.862074,
+     'level': 1, 'zone': 'volcano_manor', 'prereq_key': 'Kill Rykard, Lord of Blasphemy'},
+    {'name': 'Morgott, The Omen King',                 'x': -107.320312, 'y': 120.965331,
+     'level': 1, 'zone': 'leyndell',      'prereq_key': 'Kill Morgott, The Omen King'},
 ]
 
 # ── Weapon combat model (from timing.js) ──────────────────────────────────────
@@ -585,6 +635,21 @@ def stones_needed(from_level, to_level, is_somber):
     return needs
 
 
+def level_up_cost(level: int) -> int:
+    """Rune cost for a single level-up from `level` to `level+1`."""
+    if level < 12:
+        return int(673 * (1.04 ** level))
+    elif level < 92:
+        return int(0.02 * level**3 + 3.06 * level**2 + 105.6 * level - 895)
+    else:
+        return int(0.1 * level**3 - 16 * level**2 + 2010 * level - 60000)
+
+
+def runes_to_reach_level(target: int, start: int = 1) -> int:
+    """Total runes spent going from `start` to `target` rune level."""
+    return sum(level_up_cost(lvl) for lvl in range(start, target))
+
+
 def compute_rune_level(total_runes, start=1):
     level, remaining = start, total_runes
     while remaining > 0 and level < 150:
@@ -645,3 +710,7 @@ STONE_NODES = [
     s for s in _raw['_meta']['poi_stones']
     if s.get('access_tier') == 'direct' and s.get('tier', 99) <= 9
 ]
+
+# Prereq resolution table — maps every prereq key to how the sim enforces it.
+# Loaded from square_data.json so adding a new prereq only requires a JSON edit.
+PREREQ_RESOLUTION: dict = _raw['_meta'].get('prereq_resolution', {})
