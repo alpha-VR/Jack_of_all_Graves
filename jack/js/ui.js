@@ -322,14 +322,17 @@ const UI = (() => {
     const sqCountNeeded = rl.sq_count_needed || {};
 
     const stops = rl.stops.map((stop, i) => {
-      const isSton = stop.type === 'stone';
-      const isRT   = stop.type === 'roundtable';
+      const isSton  = stop.type === 'stone';
+      const isRT    = stop.type === 'roundtable';
+      const isGrace = stop.type === 'grace';
       let squareName;
 
       if (isRT) {
         squareName = 'Roundtable Hold — Upgrade Weapon';
       } else if (isSton) {
         squareName = `Stone [${stop.stone_tier}]${stop.stone_somber ? ' Somber' : ''}`;
+      } else if (isGrace) {
+        squareName = `Grace: ${stop.name}`;
       } else {
         // Prefer the first board square this stop contributes to (raw name available);
         // fall back to the completing-square text or bare location name.
@@ -384,7 +387,7 @@ const UI = (() => {
         num:           i + 1,
         squareName,
         rawName:       stop.name,
-        type:          isRT ? 'start' : (isSton ? 'acquire_fixed' : 'boss_specific'),
+        type:          isRT ? 'start' : (isSton ? 'acquire_fixed' : (isGrace ? 'grace' : 'boss_specific')),
         zone:          _ZONE_DISPLAY[stop.zone] || stop.zone || '',
         zoneId:        stop.zone,
         location:      stop.x != null ? { x: stop.x, y: stop.y, zone: stop.zone,
@@ -531,7 +534,7 @@ const UI = (() => {
       acquire_multi:'📦', acquire_count:'📦', acquire_fixed:'📦',
       restore_rune:'✦', npc_action:'💬', npc_invasion:'🩸', npc_kill:'🗡',
       consumable_action:'🧪', passive_runes:'📊', passive_stat:'📊',
-      bonus_pickup:'💰', start:'🐴',
+      bonus_pickup:'💰', start:'🐴', grace:'✨',
     };
     return icons[type] || '●';
   }

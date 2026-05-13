@@ -41,18 +41,18 @@ ZONE_SPEED_MULT = {
 }
 
 ZONE_TIER = {
-    'limgrave': 0, 'weeping_peninsula': 1, 'stormveil': 1, 'siofra': 2,
-    'liurnia': 3,  'caria_manor': 4,        'caelid': 4,    'dragonbarrow': 5,
-    'altus_plateau': 5, 'mt_gelmir': 6,     'volcano_manor': 6,
-    'leyndell': 7, 'deeproot': 7,           'ainsel': 7,
-    'mohgwyn': 8,  'mountaintops': 8,       'consecrated': 9,
-    'haligtree': 10, 'farum_azula': 10,     'unknown': 5,
+    'limgrave': 0, 'weeping_peninsula': 1, 'stormveil': 2, 'siofra': 2,
+    'liurnia': 3,  'caria_manor': 3,        'caelid': 3,   'dragonbarrow': 4,
+    'altus_plateau': 4, 'mt_gelmir': 5,     'volcano_manor': 5,
+    'leyndell': 6, 'deeproot': 5,           'ainsel': 5,
+    'mohgwyn': 7,  'mountaintops': 6,       'consecrated': 7,
+    'haligtree': 8, 'farum_azula': 8,       'unknown': 4,
 }
 
-# Minimum weapon level to fight comfortably per zone tier [0..10].
+# Minimum weapon level to fight comfortably per zone tier [0..8].
 # Standard smithing weapons (max +24) and somber (max +9).
-_ZONE_WEAPON_FLOOR_STD    = [0, 3, 6, 9, 12, 15, 18, 20, 22, 23, 24]
-_ZONE_WEAPON_FLOOR_SOMBER = [0, 1, 2, 3,  5,  6,  7,  8,  8,  9,  9]
+_ZONE_WEAPON_FLOOR_STD    = [0,  3,  6, 12, 15, 18, 20, 22, 24]
+_ZONE_WEAPON_FLOOR_SOMBER = [0,  1,  2,  5,  6,  7,  8,  9,  9]
 
 # ── Travel constants ───────────────────────────────────────────────────────────
 TRAVEL_SEC_PER_UNIT = 8.3
@@ -277,6 +277,24 @@ BOSS_GRACES = {
     'mimic tear':                      {'id': 'bg_mimic',       'x': -184.91, 'y': 128.39, 'level': 2, 'zone': 'siofra',      'name': 'Nokron, Eternal City'},
     "commander o'neil":                {'id': 'bg_oneil',       'x': -180.50, 'y': 144.00, 'level': 1, 'zone': 'caelid',      'name': "Commander O'Neil"},
 }
+
+# Pre-fight tactical graces — agent explicitly visits these to shorten corpse runs.
+# Added to warp_pool only when the agent chooses to visit them (unlike BOSS_GRACES
+# which are added automatically after a kill).
+TACTICAL_GRACES = [
+    {'id': 'tg_margit',       'name': 'Castleward Tunnel',          'x': -180.70, 'y':  92.40, 'level': 1, 'zone': 'stormveil'},
+    {'id': 'tg_godrick',      'name': 'Secluded Cell',              'x': -173.90, 'y':  84.60, 'level': 1, 'zone': 'stormveil'},
+    {'id': 'tg_rennala',      'name': 'Schoolhouse Classroom',      'x': -136.50, 'y':  57.20, 'level': 1, 'zone': 'liurnia'},
+    {'id': 'tg_loretta',      'name': 'Caria Manor Lower Level',    'x': -104.00, 'y':  57.50, 'level': 1, 'zone': 'caria_manor'},
+    {'id': 'tg_radahn',       'name': 'Impassable Greatbridge',     'x': -198.00, 'y': 158.50, 'level': 1, 'zone': 'caelid'},
+    {'id': 'tg_capital_gate', 'name': 'Capital Outskirts',          'x':  -96.50, 'y': 116.00, 'level': 1, 'zone': 'leyndell'},
+    {'id': 'tg_leyndell_hub', 'name': 'Erdtree Sanctuary',          'x': -108.50, 'y': 117.00, 'level': 1, 'zone': 'leyndell'},
+    {'id': 'tg_avenue',       'name': 'Avenue Balcony',             'x': -107.00, 'y': 116.00, 'level': 1, 'zone': 'leyndell'},
+    {'id': 'tg_rykard',       'name': 'Prison Town Church',         'x':  -89.20, 'y':  65.00, 'level': 1, 'zone': 'volcano_manor'},
+    {'id': 'tg_fire_giant',   'name': 'Foot of the Forge',          'x':  -90.50, 'y': 158.00, 'level': 1, 'zone': 'mountaintops'},
+    {'id': 'tg_mohg',         'name': 'Dynasty Mausoleum Entrance', 'x': -183.00, 'y': 144.00, 'level': 2, 'zone': 'mohgwyn'},
+    {'id': 'tg_malenia',      'name': 'Haligtree Town',             'x':  -45.00, 'y': 147.00, 'level': 1, 'zone': 'haligtree'},
+]
 
 # Roundtable Hold — teleport from any grace
 ROUNDTABLE = {
@@ -690,14 +708,20 @@ def dungeon_overhead(square_name):
     return DUNGEON_OVERHEAD['dungeon']
 
 
+def boss_weapon_floor(zone: str, is_somber: bool) -> int:
+    """Minimum weapon level to fight comfortably in this zone."""
+    tier = ZONE_TIER.get(zone, 4)
+    arr  = _ZONE_WEAPON_FLOOR_SOMBER if is_somber else _ZONE_WEAPON_FLOOR_STD
+    return arr[min(tier, len(arr) - 1)]
+
+
 def compute_death_probability(zone: str, weapon_level: int, is_somber: bool) -> float:
     """P(dying on first attempt) against a boss in this zone at current weapon_level.
 
     0.18 per level of deficit vs zone floor, capped at 0.90.
     Deficit = 0 means no penalty (at or above expected level).
     """
-    tier = ZONE_TIER.get(zone, 5)
-    floor = (_ZONE_WEAPON_FLOOR_SOMBER if is_somber else _ZONE_WEAPON_FLOOR_STD)[min(tier, 10)]
+    floor  = boss_weapon_floor(zone, is_somber)
     deficit = max(0, floor - weapon_level)
     return min(0.90, deficit * 0.18)
 

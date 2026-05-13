@@ -6044,7 +6044,8 @@
           "x": -181.29687,
           "y": 143.75635,
           "level": 1,
-          "zone": "caelid"
+          "zone": "caelid",
+          "min_weapon_level": 0
         }
       ],
       "runes": 12000,
@@ -6854,7 +6855,8 @@
           "x": -188.640625,
           "y": 136.908546,
           "level": 1,
-          "zone": "caelid"
+          "zone": "caelid",
+          "min_weapon_level": 0
         },
         {
           "id": 1348,
@@ -6999,7 +7001,8 @@
           "x": -188.640625,
           "y": 136.908546,
           "level": 1,
-          "zone": "caelid"
+          "zone": "caelid",
+          "min_weapon_level": 0
         },
         {
           "id": 5711,

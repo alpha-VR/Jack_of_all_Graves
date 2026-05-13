@@ -21,7 +21,7 @@ from .constants import (
     OVERHEAD_GRACE_SEC, OVERHEAD_BOSS_SEC, OVERHEAD_PICKUP_SEC,
     OVERHEAD_DUNGEON_SEC, OVERHEAD_ROUNDTABLE_SEC, SQUARE_ACTION_SEC,
     compute_kill_time, compute_travel_time, compute_rune_level,
-    compute_death_probability, get_boss_difficulty,
+    compute_death_probability, boss_weapon_floor, get_boss_difficulty,
     max_upgrade_level, stones_needed, dungeon_overhead, BINGO_LINES, N_SQUARES,
     PREREQ_LOCS, PREREQ_RESOLUTION, BOSS_MODIFIER_KILL_MULT,
     runes_to_reach_level,
@@ -326,11 +326,14 @@ class BingoGame:
             count  = entry.get('stone_count', 1)
             agent.add_stone(tier, somber, count)
             agent.visited_keys.add(key)
-            # Reward useful stone pickups; tier closest to current need scores highest
             cur_tier = (agent.weapon_level + 1) if somber else (agent.weapon_level // 3 + 1)
             usefulness = max(0.0, 1.0 - abs(tier - cur_tier) * 0.25)
-            proximity_bonus = 0.008 if self._stone_near_obj[action_idx] else 0.0
-            stone_reward = 0.02 * max(usefulness, 0.1) + proximity_bonus
+            proximity_bonus = 0.012 if self._stone_near_obj[action_idx] else 0.0
+            stone_reward = 0.06 * max(usefulness, 0.15) + proximity_bonus
+            # Upgrade-enable bonus: first stone of the exact needed tier unlocks next upgrade
+            inv = agent.somber_stones if somber else agent.smithing_stones
+            if tier == cur_tier and inv.get(tier, 0) == count:
+                stone_reward += 0.04
 
         elif entry['type'] == 'objective':
             # Determine which board squares this location contributes to.
@@ -446,13 +449,15 @@ class BingoGame:
                 if bg and not any(g.get('id') == bg['id'] for g in agent.warp_pool):
                     agent.warp_pool.append(dict(bg))
                 # Death probability: underleveled agents lose runes and spend recovery time.
-                # Death overhead scales with boss difficulty — hard boss = longer corpse run.
+                # Recovery time uses nearest warp-point distance — a tactical grace near
+                # the boss dramatically shortens the corpse run vs. a distant S6 grace.
                 p_death = compute_death_probability(
                     loc.get('zone', 'unknown'), agent.weapon_level, agent.is_somber
                 )
                 if p_death > 0:
-                    difficulty   = get_boss_difficulty(loc.get('name', ''))
-                    death_time   = int(120 + 60 * math.sqrt(difficulty))
+                    difficulty        = get_boss_difficulty(loc.get('name', ''))
+                    recovery_travel   = compute_travel_time(agent.pos, loc, agent.warp_pool)
+                    death_time        = int(recovery_travel + 30 * math.sqrt(difficulty))
                     if self.rng.random() < p_death:
                         agent.rune_balance = 0
                         agent.time += death_time
@@ -478,6 +483,16 @@ class BingoGame:
                 abs(g.get('x',0)-loc['x'])<0.5 for g in agent.warp_pool
             ):
                 agent.warp_pool.append(dict(loc))
+
+        elif entry['type'] == 'grace':
+            # Tactical grace: register as warp point and move position.
+            # No square credit, but shortens corpse-run recovery when nearby bosses are fought.
+            overhead = OVERHEAD_GRACE_SEC
+            agent.visited_keys.add(key)
+            agent.pos = dict(loc)
+            grace_id = entry.get('grace_id')
+            if grace_id and not any(g.get('id') == grace_id for g in agent.warp_pool):
+                agent.warp_pool.append(dict(loc) | {'id': grace_id})
 
         elif entry['type'] == 'prereq':
             # Prerequisite-only stop: pay travel overhead, no square credit.
@@ -790,6 +805,17 @@ class BingoGame:
                 # Skip if this location's own prereqs aren't met yet (physical access gate)
                 if not self._check_prereqs(entry.get('loc_prereqs', []), agent):
                     continue
+                # Boss weapon floor gate: block if death probability is too high.
+                # Exceptions: locations with explicit min_weapon_level=0 override.
+                if entry.get('is_boss_loc'):
+                    min_wl = entry.get('min_weapon_level')
+                    if min_wl is None:
+                        p_death = compute_death_probability(
+                            entry['loc'].get('zone', 'unknown'),
+                            agent.weapon_level, agent.is_somber,
+                        )
+                        if p_death >= 0.54:
+                            continue
                 # Valid if it contributes to at least one non-marked, non-opponent-blocked square
                 # whose prerequisites are satisfied (prevents wasted no-credit visits)
                 for raw in entry['sq_names']:
@@ -806,6 +832,33 @@ class BingoGame:
                         continue
                     mask[i] = True
                     break
+
+            elif entry['type'] == 'grace':
+                # Offer if not already in warp_pool AND there's an unfinished boss
+                # objective within 15 map units (same level) that could benefit from
+                # a shorter corpse run.
+                grace_id = entry.get('grace_id')
+                if any(g.get('id') == grace_id for g in agent.warp_pool):
+                    continue
+                gx = entry['loc']['x']
+                gy = entry['loc']['y']
+                glv = entry['loc'].get('level', 1)
+                for j, ue in enumerate(UNIVERSE):
+                    if not self.relevant_mask[j]:
+                        continue
+                    if ue['type'] != 'objective' or not ue.get('is_boss_loc'):
+                        continue
+                    if ue['loc'].get('level', 1) != glv:
+                        continue
+                    if (ue['loc']['x'] - gx) ** 2 + (ue['loc']['y'] - gy) ** 2 > 15 ** 2:
+                        continue
+                    for raw in ue['sq_names']:
+                        sq = self.sq_by_name.get(raw)
+                        if sq and not agent.marks[sq.idx] and not self._is_blocked_by_opp(sq.idx, agent_id):
+                            mask[i] = True
+                            break
+                    if mask[i]:
+                        break
 
             elif entry['type'] == 'prereq':
                 # Valid if any board square still needs this prereq and isn't yet done

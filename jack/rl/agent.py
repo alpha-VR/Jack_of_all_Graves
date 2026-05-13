@@ -178,6 +178,8 @@ def generate_route(
             stop['stone_somber']= entry['stone_somber']
         if entry['type'] == 'objective':
             stop['sq_names'] = list(entry['sq_names'])
+        if entry['type'] == 'grace':
+            stop['grace_id'] = entry.get('grace_id')
 
         # Annotate boss stops that complete a modifier constraint
         modifier_info = []

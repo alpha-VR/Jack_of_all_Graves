@@ -22,6 +22,7 @@ from .constants import (
     ZONE_PENALTY, ZONE_SPEED_MULT, ZONE_TIER,
     BOSS_HP, compute_kill_time, compute_travel_time,
     WEAPON_CLASSES, S6_GRACES, STONE_NODES, ROUNDTABLE, PREREQ_LOCS,
+    TACTICAL_GRACES,
     OVERHEAD_GRACE_SEC, OVERHEAD_BOSS_SEC, OVERHEAD_PICKUP_SEC,
     OVERHEAD_DUNGEON_SEC, dungeon_overhead, BINGO_LINES, N_SQUARES,
 )
@@ -219,6 +220,22 @@ def generate_board(seed=None, num_squares=N_SQUARES):
 #   sq_names: set of square raw_names this location belongs to (objective only)
 #   stone_tier, stone_somber: for 'stone' type
 
+_BOSS_NAMES_LOWER = set(BOSS_HP.keys())
+
+
+def _is_boss_loc(loc: dict) -> bool:
+    """True if this location hosts a boss fight (name is in BOSS_HP)."""
+    name = loc.get('name', '').lower().strip()
+    if not name:
+        return False
+    if name in _BOSS_NAMES_LOWER:
+        return True
+    for k in _BOSS_NAMES_LOWER:
+        if name in k or k in name.split('(')[0].strip():
+            return True
+    return False
+
+
 def _build_global_universe():
     # Collect all objective locations
     obj_locs = {}   # loc_key → {loc, sq_names}
@@ -235,12 +252,15 @@ def _build_global_universe():
     universe = []
     # Objective locations
     for k, entry in obj_locs.items():
+        loc = entry['loc']
         universe.append({
-            'type':      'objective',
-            'loc':        entry['loc'],
-            'sq_names':   frozenset(entry['sq_names']),
-            'key':        k,
-            'loc_prereqs': entry['loc'].get('prerequisites', []),
+            'type':           'objective',
+            'loc':             loc,
+            'sq_names':        frozenset(entry['sq_names']),
+            'key':             k,
+            'loc_prereqs':     loc.get('prerequisites', []),
+            'is_boss_loc':     _is_boss_loc(loc),
+            'min_weapon_level': loc.get('min_weapon_level'),  # None = use zone floor
         })
     # Stone nodes (direct access = guaranteed world pickups)
     for node in STONE_NODES:
@@ -266,6 +286,15 @@ def _build_global_universe():
             'loc':         loc,
             'prereq_key':  ploc['prereq_key'],
             'key':         _loc_key(loc),
+        })
+    # Tactical graces — pre-fight graces agent visits to shorten corpse runs
+    for tg in TACTICAL_GRACES:
+        loc = _resolve_loc(tg)
+        universe.append({
+            'type':     'grace',
+            'loc':       loc,
+            'grace_id':  tg['id'],
+            'key':       _loc_key(loc),
         })
     return universe
 
