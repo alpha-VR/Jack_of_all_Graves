@@ -5541,7 +5541,13 @@
       "capital_access": {
         "type": "min_graces",
         "min": 2,
-        "grace_ids": ["bg_godrick", "bg_radahn", "bg_rykard", "bg_malenia", "bg_mohg"]
+        "grace_ids": [
+          "bg_godrick",
+          "bg_radahn",
+          "bg_rykard",
+          "bg_malenia",
+          "bg_mohg"
+        ]
       },
       "Kill Fell Twins": {
         "type": "visited",
@@ -7727,8 +7733,20 @@
       "count_needed": 1,
       "overhead_sec": 0,
       "locations": [
-        {"name": "Godrick the Grafted",    "x": -173.665626, "y": 86.058335,   "level": 1, "zone": "limgrave"},
-        {"name": "Starscourge Radahn",     "x": -194.5625,   "y": 159.103951,  "level": 1, "zone": "caelid"}
+        {
+          "name": "Godrick the Grafted",
+          "x": -173.665626,
+          "y": 86.058335,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Starscourge Radahn",
+          "x": -194.5625,
+          "y": 159.103951,
+          "level": 1,
+          "zone": "caelid"
+        }
       ],
       "build_req": {},
       "notes": "No build requirement. Attach to easiest remembrance boss on your route. Margit or Godrick recommended for beginners. Hitless = take zero damage for the entire fight."
@@ -7739,7 +7757,13 @@
       "count_needed": 1,
       "overhead_sec": 150,
       "locations": [
-        {"name": "Godrick the Grafted",    "x": -173.665626, "y": 86.058335,   "level": 1, "zone": "limgrave"}
+        {
+          "name": "Godrick the Grafted",
+          "x": -173.665626,
+          "y": 86.058335,
+          "level": 1,
+          "zone": "limgrave"
+        }
       ],
       "build_req": {
         "weapon_type": "colossal"
@@ -7752,7 +7776,13 @@
       "count_needed": 1,
       "overhead_sec": 150,
       "locations": [
-        {"name": "Godrick the Grafted",    "x": -173.665626, "y": 86.058335,   "level": 1, "zone": "limgrave"}
+        {
+          "name": "Godrick the Grafted",
+          "x": -173.665626,
+          "y": 86.058335,
+          "level": 1,
+          "zone": "limgrave"
+        }
       ],
       "build_req": {
         "weapon_type": "dagger_or_claw_or_fist"
@@ -7765,7 +7795,13 @@
       "count_needed": 1,
       "overhead_sec": 150,
       "locations": [
-        {"name": "Godrick the Grafted",    "x": -173.665626, "y": 86.058335,   "level": 1, "zone": "limgrave"}
+        {
+          "name": "Godrick the Grafted",
+          "x": -173.665626,
+          "y": 86.058335,
+          "level": 1,
+          "zone": "limgrave"
+        }
       ],
       "build_req": {
         "weapon_type": "bow",
@@ -7779,7 +7815,13 @@
       "count_needed": 1,
       "overhead_sec": 300,
       "locations": [
-        {"name": "Godrick the Grafted",    "x": -173.665626, "y": 86.058335,   "level": 1, "zone": "limgrave"}
+        {
+          "name": "Godrick the Grafted",
+          "x": -173.665626,
+          "y": 86.058335,
+          "level": 1,
+          "zone": "limgrave"
+        }
       ],
       "build_req": {
         "stat": "int",
@@ -7797,7 +7839,13 @@
       "count_needed": 1,
       "overhead_sec": 300,
       "locations": [
-        {"name": "Godrick the Grafted",    "x": -173.665626, "y": 86.058335,   "level": 1, "zone": "limgrave"}
+        {
+          "name": "Godrick the Grafted",
+          "x": -173.665626,
+          "y": 86.058335,
+          "level": 1,
+          "zone": "limgrave"
+        }
       ],
       "build_req": {
         "stat": "faith",
@@ -7815,8 +7863,20 @@
       "count_needed": 2,
       "overhead_sec": 60,
       "locations": [
-        {"name": "Godrick the Grafted",          "x": -173.665626, "y": 86.058335,  "level": 1, "zone": "limgrave"},
-        {"name": "Rennala, Queen of the Full Moon","x": -133.828125, "y": 56.180885, "level": 1, "zone": "liurnia"}
+        {
+          "name": "Godrick the Grafted",
+          "x": -173.665626,
+          "y": 86.058335,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Rennala, Queen of the Full Moon",
+          "x": -133.828125,
+          "y": 56.180885,
+          "level": 1,
+          "zone": "liurnia"
+        }
       ],
       "build_req": {
         "prerequisite": "must kill one remembrance boss first, exchange at Roundtable"
@@ -8686,125 +8746,6 @@
       "type": "acquire_count",
       "locations": [
         {
-          "name": "Golden Seed (F)",
-          "x": -183.34375,
-          "y": 95.785416,
-          "level": 1,
-          "zone": "limgrave"
-        },
-        {
-          "name": "Golden Seed - Fort Haight",
-          "x": -194.75,
-          "y": 124.168221,
-          "level": 1,
-          "zone": "weeping_peninsula"
-        },
-        {
-          "name": "Golden Seed (A) - Stormveil Castle",
-          "x": -176.34375,
-          "y": 87.699405,
-          "level": 1,
-          "zone": "stormveil"
-        },
-        {
-          "name": "Golden Seed (C)",
-          "x": -102.103125,
-          "y": 99.955805,
-          "level": 1,
-          "zone": "altus_plateau"
-        },
-        {
-          "name": "Golden Seed (B)",
-          "x": -95.0,
-          "y": 104.0,
-          "level": 1,
-          "zone": "altus_plateau"
-        },
-        {
-          "name": "Golden Seed - Academy Gate Town",
-          "x": -143.960937,
-          "y": 64.048781,
-          "level": 1,
-          "zone": "liurnia"
-        },
-        {
-          "name": "Golden Seed - Caria Manor",
-          "x": -107.46875,
-          "y": 59.119957,
-          "level": 1,
-          "zone": "caria_manor"
-        },
-        {
-          "name": "Golden Seed (I)",
-          "x": -104.1875,
-          "y": 72.801234,
-          "level": 1,
-          "zone": "altus_plateau"
-        },
-        {
-          "name": "Golden Seed (J)",
-          "x": -90.15,
-          "y": 71.471529,
-          "level": 1,
-          "zone": "altus_plateau"
-        },
-        {
-          "name": "Golden Seed - Raya Lucaria Academy",
-          "x": -136.007812,
-          "y": 57.21192,
-          "level": 1,
-          "zone": "liurnia"
-        },
-        {
-          "name": "Golden Seed - Lux Ruins",
-          "x": -97.906,
-          "y": 75.9339,
-          "level": 1,
-          "zone": "altus_plateau"
-        },
-        {
-          "name": "Golden Seed - Minor Erdtree Altus Plateau",
-          "x": -84.125,
-          "y": 91.553,
-          "level": 1,
-          "zone": "altus_plateau"
-        },
-        {
-          "name": "Golden Seed - Windmill Village",
-          "x": -84.765625,
-          "y": 100.035264,
-          "level": 1,
-          "zone": "altus_plateau"
-        },
-        {
-          "name": "Golden Seed - Weeping Peninsula",
-          "x": -219.82,
-          "y": 112.25,
-          "level": 1,
-          "zone": "weeping_peninsula"
-        },
-        {
-          "name": "Golden Seed - Liurnia of the Lakes",
-          "x": -129.078,
-          "y": 57.8637,
-          "level": 1,
-          "zone": "liurnia"
-        },
-        {
-          "name": "Golden Seed - Forbidden Lands",
-          "x": -97.406,
-          "y": 142.949,
-          "level": 1,
-          "zone": "mountaintops"
-        },
-        {
-          "name": "Golden Seed (Consecrated Snowfield)",
-          "x": -78.176563,
-          "y": 143.917044,
-          "level": 1,
-          "zone": "consecrated"
-        },
-        {
           "name": "Sacred Tear (Callu Baptismal Church)",
           "x": -215.085937,
           "y": 111.86535,
@@ -8871,6 +8812,20 @@
           "name": "Sacred Tear (Church of Inhibition)",
           "x": -114.42969,
           "y": 70.6523,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Sacred Tear (Church of Dragon Communion)",
+          "x": -232.5,
+          "y": 113.5,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Sacred Tear (Church of Vows)",
+          "x": -131.0,
+          "y": 69.5,
           "level": 1,
           "zone": "liurnia"
         }
@@ -8999,76 +8954,6 @@
           "y": 143.917044,
           "level": 1,
           "zone": "consecrated"
-        },
-        {
-          "name": "Sacred Tear (Callu Baptismal Church)",
-          "x": -215.085937,
-          "y": 111.86535,
-          "level": 1,
-          "zone": "weeping_peninsula"
-        },
-        {
-          "name": "Sacred Tear (Church of Pilgrimage)",
-          "x": -203.25,
-          "y": 105.372507,
-          "level": 1,
-          "zone": "weeping_peninsula"
-        },
-        {
-          "name": "Sacred Tear (Third Church of Marika)",
-          "x": -179.164063,
-          "y": 123.315052,
-          "level": 1,
-          "zone": "limgrave"
-        },
-        {
-          "name": "Sacred Tear (Fourth Church of Marika)",
-          "x": -210.828125,
-          "y": 95.226796,
-          "level": 1,
-          "zone": "weeping_peninsula"
-        },
-        {
-          "name": "Sacred Tear (Bellum Church)",
-          "x": -115.89,
-          "y": 63.47,
-          "level": 1,
-          "zone": "liurnia"
-        },
-        {
-          "name": "Sacred Tear (First Church of Marika)",
-          "x": -74.49,
-          "y": 175.21,
-          "level": 1,
-          "zone": "mountaintops"
-        },
-        {
-          "name": "Sacred Tear (Stormcaller Church)",
-          "x": -97.8875,
-          "y": 89.824407,
-          "level": 1,
-          "zone": "altus_plateau"
-        },
-        {
-          "name": "Sacred Tear (Church of the Plague)",
-          "x": -177.929687,
-          "y": 150.112023,
-          "level": 1,
-          "zone": "caelid"
-        },
-        {
-          "name": "Sacred Tear (Church of Irith)",
-          "x": -172.320312,
-          "y": 82.042775,
-          "level": 1,
-          "zone": "liurnia"
-        },
-        {
-          "name": "Sacred Tear (Church of Inhibition)",
-          "x": -114.42969,
-          "y": 70.6523,
-          "level": 1,
-          "zone": "liurnia"
         }
       ],
       "prerequisites": [],
