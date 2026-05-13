@@ -310,15 +310,16 @@ const UI = (() => {
       State.game.board.forEach(sq => { rawToText[sq.raw.name] = sq.text; });
     }
 
-    // Pre-pass: count how many stops each square rawName appears in (for N/M denominator).
-    // sq_names on objective stops lists every board square that location contributes to.
-    const sqTotals   = {};   // rawName → total stop count
+    // Pre-pass: count stops per square (used only when sq_count_needed is unavailable).
+    const sqTotals   = {};   // rawName → total stop count (fallback denominator)
     const sqCounters = {};   // rawName → running visit index
     rl.stops.forEach(stop => {
       (stop.sq_names || []).forEach(rn => {
         sqTotals[rn] = (sqTotals[rn] || 0) + 1;
       });
     });
+    // Preferred denominator: count_needed from RL response (actual locations required).
+    const sqCountNeeded = rl.sq_count_needed || {};
 
     const stops = rl.stops.map((stop, i) => {
       const isSton = stop.type === 'stone';
@@ -335,8 +336,8 @@ const UI = (() => {
         const primaryRaw = (stop.sq_names || []).find(rn => rawToText[rn]) || null;
         if (primaryRaw) {
           sqCounters[primaryRaw] = (sqCounters[primaryRaw] || 0) + 1;
-          const total = sqTotals[primaryRaw] || 1;
-          const countStr = total > 1 ? ` (${sqCounters[primaryRaw]}/${total})` : '';
+          const needed = sqCountNeeded[primaryRaw] || sqTotals[primaryRaw] || 1;
+          const countStr = needed > 1 ? ` (${sqCounters[primaryRaw]}/${needed})` : '';
           squareName = (rawToText[primaryRaw] || primaryRaw) + countStr;
         } else {
           squareName = stop.completes?.length

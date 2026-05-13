@@ -609,6 +609,11 @@ class BingoGame:
             elif res['type'] == 'any_grace':
                 if not any(g.get('id') in res['grace_ids'] for g in agent.warp_pool):
                     return False
+            elif res['type'] == 'min_graces':
+                grace_ids = set(res.get('grace_ids', []))
+                count = sum(1 for g in agent.warp_pool if g.get('id') in grace_ids)
+                if count < res.get('min', 1):
+                    return False
             elif res['type'] == 'visited':
                 if res['loc_key'] not in agent.visited_keys:
                     return False
@@ -679,6 +684,24 @@ class BingoGame:
                     for i in range(UNIVERSE_SIZE)
                 )
                 if not can_get:
+                    return False
+            elif t == 'min_graces':
+                grace_ids = set(res.get('grace_ids', []))
+                needed = res.get('min', 1)
+                already = sum(1 for g in agent.warp_pool if g.get('id') in grace_ids)
+                if already >= needed:
+                    continue
+                remaining_needed = needed - already
+                can_get = sum(
+                    1 for i in range(UNIVERSE_SIZE)
+                    if self.relevant_mask[i]
+                    and UNIVERSE[i]['type'] in ('objective', 'prereq')
+                    and UNIVERSE[i]['key'] not in agent.visited_keys
+                    and BOSS_GRACES.get(
+                        UNIVERSE[i]['loc'].get('name', '').lower(), {}
+                    ).get('id') in grace_ids
+                )
+                if can_get < remaining_needed:
                     return False
             elif t == 'visited':
                 loc_key_needed = res['loc_key']

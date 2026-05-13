@@ -203,4 +203,5 @@ def generate_route(
         'model_used':  model_label,
         'model_found': model is not None,
         'squares_marked': sum(agent.marks),
+        'sq_count_needed': {sq.raw_name: sq.count_needed for sq in squares},
     }

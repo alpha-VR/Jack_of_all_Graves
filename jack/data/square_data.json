@@ -5539,8 +5539,9 @@
         "grace_id": "bg_margit"
       },
       "capital_access": {
-        "type": "visited",
-        "loc_key": "-936_1202_1"
+        "type": "min_graces",
+        "min": 2,
+        "grace_ids": ["bg_godrick", "bg_radahn", "bg_rykard", "bg_malenia", "bg_mohg"]
       },
       "Kill Fell Twins": {
         "type": "visited",
@@ -5589,7 +5590,8 @@
         "type": "optimistic"
       },
       "explosive_tear": {
-        "type": "optimistic"
+        "type": "visited",
+        "loc_key": "-1496_459_1"
       },
       "rest_at_non_s6_altus_grace": {
         "type": "optimistic"
