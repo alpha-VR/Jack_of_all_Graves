@@ -805,17 +805,6 @@ class BingoGame:
                 # Skip if this location's own prereqs aren't met yet (physical access gate)
                 if not self._check_prereqs(entry.get('loc_prereqs', []), agent):
                     continue
-                # Boss weapon floor gate: block if death probability is too high.
-                # Exceptions: locations with explicit min_weapon_level=0 override.
-                if entry.get('is_boss_loc'):
-                    min_wl = entry.get('min_weapon_level')
-                    if min_wl is None:
-                        p_death = compute_death_probability(
-                            entry['loc'].get('zone', 'unknown'),
-                            agent.weapon_level, agent.is_somber,
-                        )
-                        if p_death >= 0.54:
-                            continue
                 # Valid if it contributes to at least one non-marked, non-opponent-blocked square
                 # whose prerequisites are satisfied (prevents wasted no-credit visits)
                 for raw in entry['sq_names']:
