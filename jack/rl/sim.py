@@ -409,7 +409,8 @@ class BingoGame:
                             break
 
             # Boss kill: compute time + runes + unlock grace
-            boss_name = loc.get('name', '').lower()
+            # boss_name field overrides location name for items dropped by bosses
+            boss_name = (loc.get('boss_name') or loc.get('name', '')).lower()
             boss_data = BOSS_HP.get(boss_name)
             if not boss_data:
                 for k2, v in BOSS_HP.items():
@@ -537,7 +538,8 @@ class BingoGame:
         # ── Auto-mark passive squares (rune threshold) ───────────────────────────
         # passive_runes:  mark "Rune Level 60" when total rune level reaches 60
         # passive_stat:   mark "30 Faith/Int/Arcane" when rune level reaches 30
-        #   (level 30 means enough total levels to have 30 in any one stat from base 10)
+        # consumable_action with runes_threshold: mark when rune_balance hits threshold,
+        #   then drain rune_balance (simulates spending runes on the consumable use)
         for sq in self.board:
             if agent.marks[sq.idx] or self._is_blocked_by_opp(sq.idx, agent_id):
                 continue
@@ -547,6 +549,12 @@ class BingoGame:
             elif sq.sq_type == 'passive_stat' and agent.rune_level >= 30:
                 agent.marks[sq.idx] = True
                 sq_completed.append(sq.idx)
+            elif sq.sq_type == 'consumable_action':
+                threshold = sq.data.get('runes_threshold', 0)
+                if threshold and agent.rune_balance >= threshold:
+                    agent.marks[sq.idx] = True
+                    sq_completed.append(sq.idx)
+                    agent.rune_balance = 0
 
         # ── Reward shaping ───────────────────────────────────────────────────────
         reward = 0.0

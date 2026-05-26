@@ -5589,9 +5589,6 @@
         "type": "visited",
         "loc_key": "-1064_500_1"
       },
-      "academy_glintstone_key": {
-        "type": "optimistic"
-      },
       "deeproot_access": {
         "type": "optimistic"
       },
@@ -5637,6 +5634,9 @@
           "bg_mohg",
           "bg_maliketh"
         ]
+      },
+      "haligtree_medallion": {
+        "type": "optimistic"
       }
     }
   },
@@ -5651,7 +5651,10 @@
           "x": -173.665626,
           "y": 86.058335,
           "level": 1,
-          "zone": "limgrave"
+          "zone": "limgrave",
+          "prerequisites": [
+            "kill_margit"
+          ]
         }
       ],
       "runes": 20000,
@@ -5678,7 +5681,11 @@
           "x": -133.828125,
           "y": 56.180885,
           "level": 1,
-          "zone": "liurnia"
+          "zone": "liurnia",
+          "prerequisites": [
+            "academy_glintstone_key",
+            "kill_red_wolf_of_radagon"
+          ]
         }
       ],
       "runes": 40000,
@@ -5733,7 +5740,10 @@
           "x": -107.320312,
           "y": 120.965331,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         }
       ],
       "runes": 120000,
@@ -5769,7 +5779,10 @@
           "x": -176.148437,
           "y": 132.871666,
           "level": 2,
-          "zone": "siofra"
+          "zone": "siofra",
+          "prerequisites": [
+            "nokron_access"
+          ]
         }
       ],
       "runes": 13000,
@@ -5786,7 +5799,10 @@
           "x": -182.053125,
           "y": 146.246868,
           "level": 2,
-          "zone": "mohgwyn"
+          "zone": "mohgwyn",
+          "prerequisites": [
+            "mohgwyn_access"
+          ]
         }
       ],
       "runes": 420000,
@@ -5924,7 +5940,10 @@
           "x": -107.117,
           "y": 116.465,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         }
       ],
       "runes": 80000,
@@ -5971,7 +5990,10 @@
           "x": -169.65625,
           "y": 133.72412,
           "level": 2,
-          "zone": "siofra"
+          "zone": "siofra",
+          "prerequisites": [
+            "nokron_access"
+          ]
         }
       ],
       "runes": 40000,
@@ -6008,7 +6030,10 @@
           "x": -101.40625,
           "y": 116.520091,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         }
       ],
       "runes": 100000,
@@ -6334,7 +6359,10 @@
           "x": -123.31,
           "y": 216.53,
           "level": 1,
-          "zone": "farum_azula"
+          "zone": "farum_azula",
+          "prerequisites": [
+            "kill_fire_giant"
+          ]
         },
         {
           "id": 4136,
@@ -6370,7 +6398,10 @@
           "x": -106,
           "y": 118,
           "level": 3,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         }
       ],
       "notes": "Candidates: Godrick, Godfrey (Gold Shade), Godfrey (Real/Hoarah Loux), Godefroy, God-Devouring Serpent/Rykard, Godskin Apostle, Godskin Noble (Volcano Manor only â€” Divine Tower of Liurnia version is NOT a boss), Godskin Duo, Soldier of Godrick. Pick any 4."
@@ -6695,7 +6726,7 @@
       "prerequisites": [],
       "notes": "Found in most catacombs. Stormfoot, Impaler's, Minor Erdtree, Wyndham, Cliffbottom."
     },
-    "Kill %numofbosses%": {
+    "Kill %numofbosses% Duelist bosses": {
       "type": "boss_count",
       "boss_search": "Duelist",
       "locations": [
@@ -6729,7 +6760,10 @@
           "x": -95.140625,
           "y": 121.863431,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         }
       ],
       "runes_each": 6000,
@@ -6795,7 +6829,10 @@
           "x": -95.914062,
           "y": 120.457908,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         },
         {
           "id": 6456,
@@ -6819,7 +6856,10 @@
           "y": 87.5,
           "level": 1,
           "zone": "stormveil",
-          "notes": "In a room near the grafted scion in Stormveil. Not a dungeon boss but still counts."
+          "notes": "In a room near the grafted scion in Stormveil. Not a dungeon boss but still counts.",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Crucible Knight (Nokron, before Gargoyles)",
@@ -6827,10 +6867,10 @@
           "y": 132.1,
           "level": 2,
           "zone": "siofra",
+          "notes": "Two Crucible Knights before the Valiant Gargoyle fog gate in Nokron. Both count individually.",
           "prerequisites": [
             "nokron_access"
-          ],
-          "notes": "Two Crucible Knights before the Valiant Gargoyle fog gate in Nokron. Both count individually."
+          ]
         }
       ],
       "runes_each": 3600,
@@ -6946,7 +6986,10 @@
           "y": 216.68,
           "level": 1,
           "zone": "farum_azula",
-          "notes": "Requires: lie down at the coffin in Crumbling Farum Azula (Beside the Great Bridge area)."
+          "notes": "Requires: lie down at the coffin in Crumbling Farum Azula (Beside the Great Bridge area).",
+          "prerequisites": [
+            "kill_fire_giant"
+          ]
         },
         {
           "id": 5798,
@@ -7009,15 +7052,10 @@
           "y": 216.68,
           "level": 1,
           "zone": "farum_azula",
-          "notes": "Requires: lie down at the coffin in Crumbling Farum Azula (Beside the Great Bridge area)."
-        },
-        {
-          "id": 2354,
-          "name": "Elder Dragon Greyoll",
-          "x": -172.082813,
-          "y": 153.186218,
-          "level": 1,
-          "zone": "caelid"
+          "notes": "Requires: lie down at the coffin in Crumbling Farum Azula (Beside the Great Bridge area).",
+          "prerequisites": [
+            "kill_fire_giant"
+          ]
         },
         {
           "id": 8,
@@ -7153,7 +7191,10 @@
           "x": -101.94531,
           "y": 117.05914,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         },
         {
           "id": 5105,
@@ -7242,7 +7283,10 @@
           "x": -99.75625,
           "y": 135.754471,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         }
       ],
       "runes_each": 191900,
@@ -7355,7 +7399,10 @@
           "x": -95.914062,
           "y": 120.457908,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         },
         {
           "id": 3565,
@@ -7475,7 +7522,10 @@
           "x": -93.609375,
           "y": 120.199825,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         },
         {
           "id": 1168,
@@ -7595,7 +7645,10 @@
           "x": -93.609375,
           "y": 120.199825,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         },
         {
           "id": 1205,
@@ -7675,7 +7728,10 @@
           "x": -101.94531,
           "y": 117.05914,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         },
         {
           "id": 3841,
@@ -7691,7 +7747,10 @@
           "x": -124.57,
           "y": 219.23,
           "level": 1,
-          "zone": "farum_azula"
+          "zone": "farum_azula",
+          "prerequisites": [
+            "kill_fire_giant"
+          ]
         },
         {
           "id": 4624,
@@ -7699,7 +7758,10 @@
           "x": -44.523437,
           "y": 150.263866,
           "level": 1,
-          "zone": "haligtree"
+          "zone": "haligtree",
+          "prerequisites": [
+            "haligtree_medallion"
+          ]
         },
         {
           "id": 6255,
@@ -7739,7 +7801,10 @@
           "x": -173.665626,
           "y": 86.058335,
           "level": 1,
-          "zone": "limgrave"
+          "zone": "limgrave",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Starscourge Radahn",
@@ -7763,7 +7828,10 @@
           "x": -173.665626,
           "y": 86.058335,
           "level": 1,
-          "zone": "limgrave"
+          "zone": "limgrave",
+          "prerequisites": [
+            "kill_margit"
+          ]
         }
       ],
       "build_req": {
@@ -7782,7 +7850,10 @@
           "x": -173.665626,
           "y": 86.058335,
           "level": 1,
-          "zone": "limgrave"
+          "zone": "limgrave",
+          "prerequisites": [
+            "kill_margit"
+          ]
         }
       ],
       "build_req": {
@@ -7801,7 +7872,10 @@
           "x": -173.665626,
           "y": 86.058335,
           "level": 1,
-          "zone": "limgrave"
+          "zone": "limgrave",
+          "prerequisites": [
+            "kill_margit"
+          ]
         }
       ],
       "build_req": {
@@ -7821,7 +7895,10 @@
           "x": -173.665626,
           "y": 86.058335,
           "level": 1,
-          "zone": "limgrave"
+          "zone": "limgrave",
+          "prerequisites": [
+            "kill_margit"
+          ]
         }
       ],
       "build_req": {
@@ -7845,7 +7922,10 @@
           "x": -173.665626,
           "y": 86.058335,
           "level": 1,
-          "zone": "limgrave"
+          "zone": "limgrave",
+          "prerequisites": [
+            "kill_margit"
+          ]
         }
       ],
       "build_req": {
@@ -7869,14 +7949,21 @@
           "x": -173.665626,
           "y": 86.058335,
           "level": 1,
-          "zone": "limgrave"
+          "zone": "limgrave",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Rennala, Queen of the Full Moon",
           "x": -133.828125,
           "y": 56.180885,
           "level": 1,
-          "zone": "liurnia"
+          "zone": "liurnia",
+          "prerequisites": [
+            "academy_glintstone_key",
+            "kill_red_wolf_of_radagon"
+          ]
         }
       ],
       "build_req": {
@@ -8004,28 +8091,680 @@
       "region": "limgrave",
       "locations": [],
       "prerequisites": [],
-      "notes": "Kill the required number of bosses in Limgrave."
+      "notes": "Kill the required number of bosses in Limgrave.",
+      "candidates": [
+        {
+          "name": "Bell-Bearing Hunter (Warmaster's Shack)",
+          "x": -188.007812,
+          "y": 110.531601,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Black Knife Assassin",
+          "x": -174.765625,
+          "y": 106.054327,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Bloodhound Knight Darriwil",
+          "x": -202.68,
+          "y": 112.5,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Cemetery Shade",
+          "x": -209.53,
+          "y": 104.06,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Crucible Knight",
+          "x": -186.64,
+          "y": 98.6,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Deathbird (Stormhill)",
+          "x": -180.33,
+          "y": 104.19,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Deathbird (Weeping Peninsula)",
+          "x": -218.890625,
+          "y": 110.973047,
+          "level": 1,
+          "zone": "weeping_peninsula"
+        },
+        {
+          "name": "Erdtree Avatar",
+          "x": -212.65625,
+          "y": 105.620065,
+          "level": 1,
+          "zone": "weeping_peninsula"
+        },
+        {
+          "name": "Erdtree Burial Watchdog (Impaler's Catacombs)",
+          "x": -207.92,
+          "y": 119.67,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Erdtree Burial Watchdog (Stormfoot Catacombs)",
+          "x": -187.492187,
+          "y": 95.713618,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Flying Dragon Agheel",
+          "x": -193.34375,
+          "y": 109.024236,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Godrick the Grafted",
+          "x": -173.665626,
+          "y": 86.058335,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Grafted Scion",
+          "x": -179.290625,
+          "y": 86.072922,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Grafted Scion (Fringefolk Hero's Grave)",
+          "x": -199.1,
+          "y": 100.6,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Grave Warden Duelist (Limgrave)",
+          "x": -179.14,
+          "y": 108.754,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Leonine Misbegotten",
+          "x": -231.75,
+          "y": 106.798824,
+          "level": 1,
+          "zone": "weeping_peninsula"
+        },
+        {
+          "name": "Margit, the Fell Omen",
+          "x": -182.695312,
+          "y": 90.972955,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Night's Cavalry (Limgrave)",
+          "x": -189.1875,
+          "y": 108.048761,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Night's Cavalry (Weeping Peninsula)",
+          "x": -214.81875,
+          "y": 114.052626,
+          "level": 1,
+          "zone": "weeping_peninsula"
+        },
+        {
+          "name": "Patches (Murkwater Cave)",
+          "x": -185.44375,
+          "y": 109.410156,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Soldier of Godrick",
+          "x": -196.703125,
+          "y": 102.633729,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Tibia Mariner (Limgrave)",
+          "x": -175.046875,
+          "y": 119.185564,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Tree Sentinel (Limgrave)",
+          "x": -193.864062,
+          "y": 101.071407,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Ulcerated Tree Spirit (Fringefolk Hero's Grave)",
+          "x": -199.0,
+          "y": 100.3,
+          "level": 1,
+          "zone": "limgrave"
+        },
+        {
+          "name": "Ulcerated Tree Spirit (Limgrave)",
+          "x": -196.210937,
+          "y": 100.617936,
+          "level": 1,
+          "zone": "limgrave"
+        }
+      ]
     },
     "Kill %numofbosses% bosses in Liurnia": {
       "type": "boss_region",
       "region": "liurnia",
       "locations": [],
       "prerequisites": [],
-      "notes": "Kill the required number of bosses in Liurnia."
+      "notes": "Kill the required number of bosses in Liurnia.",
+      "candidates": [
+        {
+          "name": "Bell Bearing Hunter (Church of Vows)",
+          "x": -130.793749,
+          "y": 68.49658,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Black Knife Assassin (Liurnia of the Lakes East)",
+          "x": -117.117187,
+          "y": 81.551821,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Cemetery Shade (Black Knife Catacombs)",
+          "x": -116.703125,
+          "y": 81.465868,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Death Rite Bird (Raya Lucaria Academy East)",
+          "x": -137.359,
+          "y": 62.312,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Deathbird (Liurnia of the Lakes South)",
+          "x": -153.82,
+          "y": 68.76,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Erdtree Avatar (Liurnia Northeast)",
+          "x": -121.653125,
+          "y": 77.245675,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Erdtree Avatar (Liurnia Southwest)",
+          "x": -149.59375,
+          "y": 45.909057,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Erdtree Burial Watchdog (Cliffbottom Catacombs)",
+          "x": -161.125,
+          "y": 84.785717,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Glintstone Dragon Adula (Cathedral of Manus Celes)",
+          "x": -157.5625,
+          "y": 54.085641,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Glintstone Dragon Adula (Three Sisters)",
+          "x": -106.421875,
+          "y": 52.987049,
+          "level": 1,
+          "zone": "caria_manor"
+        },
+        {
+          "name": "Glintstone Dragon Smarag",
+          "x": -137.94,
+          "y": 50,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Grafted Scion (Chapel of Anticipation, via Four Belfries)",
+          "x": -230.4,
+          "y": 70.2,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Night's Cavalry (Liurnia of the Lakes North)",
+          "x": -119.25,
+          "y": 64.36,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Night's Cavalry (Liurnia)",
+          "x": -150.665625,
+          "y": 78.921082,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Omenkiller",
+          "x": -158.273437,
+          "y": 53.010358,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Red Wolf of Radagon",
+          "x": -138,
+          "y": 57,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Rennala, Queen of the Full Moon",
+          "x": -133.828125,
+          "y": 56.180885,
+          "level": 1,
+          "zone": "liurnia"
+        },
+        {
+          "name": "Royal Knight Loretta",
+          "x": -104.635938,
+          "y": 56.783965,
+          "level": 1,
+          "zone": "caria_manor"
+        },
+        {
+          "name": "Tibia Mariner (Liurnia of the Lakes)",
+          "x": -146.117187,
+          "y": 80.731127,
+          "level": 1,
+          "zone": "liurnia"
+        }
+      ]
     },
     "Kill %numofbosses% bosses in Caelid": {
       "type": "boss_region",
       "region": "caelid",
       "locations": [],
       "prerequisites": [],
-      "notes": "Kill the required number of bosses in Caelid."
+      "notes": "Kill the required number of bosses in Caelid.",
+      "candidates": [
+        {
+          "name": "Beastman of Farum Azula Duo (Dragonbarrow Cave)",
+          "x": -150.59375,
+          "y": 162.0,
+          "level": 1,
+          "zone": "dragonbarrow"
+        },
+        {
+          "name": "Bell Bearing Hunter (Isolated Merchant Dragonbarrow)",
+          "x": -164.59375,
+          "y": 136.674478,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Bestial Sanctum",
+          "x": -149.898437,
+          "y": 156.044582,
+          "level": 1,
+          "zone": "dragonbarrow"
+        },
+        {
+          "name": "Black Blade Kindred",
+          "x": -150.953125,
+          "y": 156.880953,
+          "level": 1,
+          "zone": "dragonbarrow"
+        },
+        {
+          "name": "Cemetery Shade (Caelid)",
+          "x": -191,
+          "y": 140,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Cleanrot Knight Duo (Abandoned Cave)",
+          "x": -175.164062,
+          "y": 141.89495,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Commander O'Neil",
+          "x": -181.29687,
+          "y": 143.75635,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Crucible Knight / Misbegotten Warrior",
+          "x": -192,
+          "y": 159,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Crystalians (Trio - Sellia Hideaway)",
+          "x": -174.15625,
+          "y": 154.371962,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Death Rite Bird (Caelid Swamp)",
+          "x": -187.56,
+          "y": 147.04,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Decaying Ekzykes",
+          "x": -188.640625,
+          "y": 136.908546,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Erdtree Avatar (Caelid)",
+          "x": -165.859375,
+          "y": 128.554692,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Erdtree Burial Watchdog (Minor Erdtree Catacombs)",
+          "x": -164.80625,
+          "y": 129.943308,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Fallingstar Beast",
+          "x": -171.634375,
+          "y": 145.286559,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Flying Dragon Greyll",
+          "x": -156.093,
+          "y": 160.3,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Frenzied Duelist",
+          "x": -180.340625,
+          "y": 129.832385,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Godskin Apostle (Caelid)",
+          "x": -163.640625,
+          "y": 145.512771,
+          "level": 1,
+          "zone": "dragonbarrow"
+        },
+        {
+          "name": "Magma Wyrm",
+          "x": -174.54,
+          "y": 127.21,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Night's Cavalry (Caelid)",
+          "x": -186,
+          "y": 144,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Night's Cavalry (Dragonbarrow East)",
+          "x": -160.87,
+          "y": 163.51,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Nox Swordstress & Nox Priest",
+          "x": -173.398437,
+          "y": 146.918723,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Putrid Tree Spirit",
+          "x": -166.66,
+          "y": 163.44,
+          "level": 1,
+          "zone": "caelid"
+        },
+        {
+          "name": "Starscourge Radahn",
+          "x": -194.5625,
+          "y": 159.103951,
+          "level": 1,
+          "zone": "caelid"
+        }
+      ]
     },
     "Kill %numofbosses% bosses in Altus Plateau and Mt. Gelmir": {
       "type": "boss_region",
       "region": "altus_plateau_and_mt_gelmir",
       "locations": [],
       "prerequisites": [],
-      "notes": "Kill the required number of bosses in Altus Plateau and Mt. Gelmir."
+      "notes": "Kill the required number of bosses in Altus Plateau and Mt. Gelmir.",
+      "candidates": [
+        {
+          "name": "Abductor Virgin Duo (Volcano Manor)",
+          "x": -85.476562,
+          "y": 61.743591,
+          "level": 1,
+          "zone": "volcano_manor"
+        },
+        {
+          "name": "Ancient Dragon Lansseax (Altus Plateau)",
+          "x": -95.88,
+          "y": 95.93,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Bell Bearing Hunter",
+          "x": -89.07,
+          "y": 107.313,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Black Knife Assassin (Altus Plateau)",
+          "x": -94.63,
+          "y": 90.59,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Black Knife Assassin (Sage's Cave)",
+          "x": -96.578,
+          "y": 71.6,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Deathbird (Leyndell Capital Outskirts)",
+          "x": -87.10625,
+          "y": 111.824751,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Elemer of the Briar",
+          "x": -80.703125,
+          "y": 80.867853,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Erdtree Burial Watchdog (Wyndham Catacombs)",
+          "x": -91.657813,
+          "y": 73.049536,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Fallingstar Beast",
+          "x": -104.57,
+          "y": 95.74,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Full-Grown Fallingstar Beast",
+          "x": -82.828125,
+          "y": 65.58708,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Godefroy the Grafted",
+          "x": -108.960937,
+          "y": 81.174672,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Godskin Apostle (Windmill Village, Altus Plateau)",
+          "x": -76.5625,
+          "y": 100.1641,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Godskin Noble(Volcano Manor)",
+          "x": -90.821875,
+          "y": 65.661826,
+          "level": 1,
+          "zone": "volcano_manor"
+        },
+        {
+          "name": "Grafted Scion",
+          "x": -81.53125,
+          "y": 71.13729,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Magma Wyrm (Mt Gelmir Lava Pool)",
+          "x": -89.996,
+          "y": 57.927,
+          "level": 1,
+          "zone": "mt_gelmir"
+        },
+        {
+          "name": "Magma Wyrm (Volcano Manor)",
+          "x": -89.710937,
+          "y": 63.816145,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Magma Wyrm Makar",
+          "x": -103.4375,
+          "y": 75.798981,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Miranda the Blighted Bloom / Omenkiller",
+          "x": -99.73,
+          "y": 95.73,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Night's Cavalry (Altus Plateau)",
+          "x": -102.375,
+          "y": 81.857565,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Omenkiller & Miranda the Blighted Bloom (Perfumer's Grotto)",
+          "x": -93.765625,
+          "y": 60.524902,
+          "level": 1,
+          "zone": "mt_gelmir"
+        },
+        {
+          "name": "Red Wolf of the Champion",
+          "x": -88,
+          "y": 73,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Tibia Mariner (Wyndham Ruins)",
+          "x": -95.7625,
+          "y": 73.645844,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Tree Sentinel (Leyndell, Royal Capital)",
+          "x": -101.803124,
+          "y": 96.081352,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Ulcerated Tree Spirit (Mt. Gelmir)",
+          "x": -83.23,
+          "y": 68.64,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Wormface",
+          "x": -86.926563,
+          "y": 92.418343,
+          "level": 1,
+          "zone": "altus_plateau"
+        }
+      ]
     },
     "Complete %num% catacomb dungeons": {
       "type": "dungeon_count",
@@ -8329,7 +9068,10 @@
           "x": -111.5,
           "y": 105.77997,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         },
         {
           "name": "Astel, Stars of Darkness",
@@ -8496,7 +9238,10 @@
           "x": -171.078125,
           "y": 145.606806,
           "level": 1,
-          "zone": "mohgwyn"
+          "zone": "mohgwyn",
+          "prerequisites": [
+            "mohgwyn_access"
+          ]
         },
         {
           "name": "Somberstone Miner's Bell Bearing (2)",
@@ -8517,14 +9262,19 @@
           "x": -124.310938,
           "y": 66.566923,
           "level": 1,
-          "zone": "liurnia"
+          "zone": "liurnia",
+          "boss_name": "Bell Bearing Hunter"
         },
         {
           "name": "Smithing-Stone Miner's Bell Bearing (2)",
           "x": -105.515625,
           "y": 104.77761,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "boss_name": "Bell Bearing Hunter",
+          "prerequisites": [
+            "capital_access"
+          ]
         }
       ],
       "prerequisites": [],
@@ -8538,7 +9288,8 @@
           "x": -91.882812,
           "y": 73.54563,
           "level": 1,
-          "zone": "altus_plateau"
+          "zone": "altus_plateau",
+          "boss_name": "Bell Bearing Hunter"
         },
         {
           "name": "Ghost-Glovewort Picker's Bell Bearing (1)",
@@ -8546,10 +9297,11 @@
           "y": 123.366473,
           "level": 2,
           "zone": "siofra",
+          "notes": "Found in Siofra River / Nokron area. Requires Radahn dead for nokron_access.",
+          "boss_name": "Bell Bearing Hunter",
           "prerequisites": [
             "nokron_access"
-          ],
-          "notes": "Found in Siofra River / Nokron area. Requires Radahn dead for nokron_access."
+          ]
         }
       ],
       "prerequisites": [],
@@ -8563,7 +9315,8 @@
           "x": -124.95625,
           "y": 66.39691,
           "level": 2,
-          "zone": "ainsel"
+          "zone": "ainsel",
+          "boss_name": "Bell Bearing Hunter"
         }
       ],
       "prerequisites": [],
@@ -8655,7 +9408,10 @@
           "x": -109.68,
           "y": 134.781,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         }
       ],
       "runes": 120000,
@@ -8692,24 +9448,29 @@
         },
         {
           "name": "Lhutel the Headless",
-          "x": -209.11,
-          "y": 103.7149,
+          "x": -209.53,
+          "y": 104.06,
           "level": 1,
-          "zone": "weeping_peninsula"
+          "zone": "limgrave",
+          "boss_name": "Cemetery Shade"
         },
         {
           "name": "Black Knife Tiche",
-          "x": -154.726562,
-          "y": 42.924606,
+          "x": -153.76875,
+          "y": 43.724354,
           "level": 1,
-          "zone": "liurnia"
+          "zone": "liurnia",
+          "boss_name": "Alecto, Black Knife Ringleader"
         },
         {
           "name": "Mimic Tear Ashes",
           "x": -183.34687,
           "y": 130.1417,
           "level": 2,
-          "zone": "siofra"
+          "zone": "siofra",
+          "prerequisites": [
+            "nokron_access"
+          ]
         },
         {
           "name": "Ghost Glovewort [1] - Stormfoot Catacombs",
@@ -8730,14 +9491,19 @@
           "x": -184.96875,
           "y": 123.366473,
           "level": 2,
-          "zone": "siofra"
+          "zone": "siofra",
+          "boss_name": "Bell Bearing Hunter",
+          "prerequisites": [
+            "nokron_access"
+          ]
         },
         {
           "name": "Glovewort Picker's Bell Bearing (1)",
           "x": -91.882812,
           "y": 73.54563,
           "level": 1,
-          "zone": "volcano_manor"
+          "zone": "volcano_manor",
+          "boss_name": "Bell Bearing Hunter"
         }
       ],
       "prerequisites": [],
@@ -8856,7 +9622,10 @@
           "x": -176.34375,
           "y": 87.699405,
           "level": 1,
-          "zone": "stormveil"
+          "zone": "stormveil",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Golden Seed (C)",
@@ -9010,7 +9779,10 @@
           "x": -95.289062,
           "y": 122.700222,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         },
         {
           "name": "Cracked Pot - Minor Erdtree (Caelid)",
@@ -9024,7 +9796,10 @@
           "x": -101.554687,
           "y": 115.023978,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         }
       ],
       "prerequisites": [],
@@ -9067,7 +9842,8 @@
           "y": 98.180473,
           "level": 1,
           "zone": "weeping_peninsula",
-          "notes": "Weeping Evergaol, Weeping Peninsula (near Ailing Village). Requires 1 Stonesword Key to enter the evergaol (Ancient Hero of Zamor inside)."
+          "notes": "Weeping Evergaol, Weeping Peninsula (near Ailing Village). Requires 1 Stonesword Key to enter the evergaol (Ancient Hero of Zamor inside).",
+          "boss_name": "Ancient Hero of Zamor"
         },
         {
           "name": "Marika's Scarseal",
@@ -9085,16 +9861,32 @@
     },
     "Take Rya's hand to Volcano Manor": {
       "type": "npc_action",
-      "locations": [],
+      "locations": [
+        {
+          "name": "Rya (Erdtree-Gazing Hill)",
+          "x": -99.328,
+          "y": 75.724,
+          "level": 1,
+          "zone": "altus_plateau"
+        }
+      ],
       "prerequisites": [
         "Talk to Rya at Laskyar Ruins",
-        "Buy Necklace from Blackguard (Boilprawn Shack, Liurnia)"
+        "boggart_necklace_bought"
       ],
-      "notes": "Talk to Rya at Laskyar Ruins in Liurnia after returning her necklace (bought from Blackguard at Boilprawn Shack). She will offer to teleport you to Volcano Manor."
+      "notes": "Talk to Rya at Laskyar Ruins, retrieve her necklace from Boggart at Boilprawn Shack, then find Rya again at the Erdtree-Gazing Hill site of grace in Altus Plateau. Talking to her there triggers the teleport to Volcano Manor."
     },
     "Return Thop's academy key": {
       "type": "npc_action",
-      "locations": [],
+      "locations": [
+        {
+          "name": "Thops (Church of Irith)",
+          "x": -172.57,
+          "y": 81.262,
+          "level": 1,
+          "zone": "liurnia"
+        }
+      ],
       "prerequisites": [
         "academy_glintstone_key",
         "kill_red_wolf_of_radagon"
@@ -9109,7 +9901,10 @@
           "x": -180.796875,
           "y": 129.019964,
           "level": 2,
-          "zone": "siofra"
+          "zone": "siofra",
+          "prerequisites": [
+            "nokron_access"
+          ]
         }
       ],
       "prerequisites": [
@@ -9199,6 +9994,7 @@
       "type": "consumable_action",
       "locations": [],
       "prerequisites": [],
+      "runes_threshold": 50000,
       "notes": "Use a Memory of Grace consumable while carrying 50,000 or more runes."
     },
     "Kill 4 NPC invaders": {
@@ -9294,14 +10090,20 @@
           "x": -120.359375,
           "y": 218.681407,
           "level": 1,
-          "zone": "farum_azula"
+          "zone": "farum_azula",
+          "prerequisites": [
+            "kill_fire_giant"
+          ]
         },
         {
           "name": "Dung Eater (Royal Capital Moat)",
           "x": -93.653126,
           "y": 115.069298,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         },
         {
           "name": "Eleonora, Violet Bloody Finger",
@@ -9630,7 +10432,10 @@
           "x": -179.968,
           "y": 84.40254,
           "level": 1,
-          "zone": "stormveil"
+          "zone": "stormveil",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Golden Vow (Spell)",
@@ -9679,7 +10484,10 @@
           "x": -179.639062,
           "y": 154.434557,
           "level": 2,
-          "zone": "mohgwyn"
+          "zone": "mohgwyn",
+          "prerequisites": [
+            "mohgwyn_access"
+          ]
         }
       ],
       "prerequisites": [],
@@ -9733,6 +10541,7 @@
     },
     "Give Hyetta 3 Shabriri Grapes": {
       "type": "npc_action",
+      "count_needed": 3,
       "locations": [
         {
           "name": "Hyetta (First Location)",
@@ -9818,10 +10627,44 @@
             "deeproot_access"
           ],
           "notes": "Deeproot Depths â€” requires Valiant Gargoyles killed."
+        },
+        {
+          "name": "Ulcerated Tree Spirit (Stormveil Castle)",
+          "x": -176.0,
+          "y": 86.5,
+          "level": 1,
+          "zone": "stormveil",
+          "prerequisites": [
+            "kill_margit"
+          ]
+        },
+        {
+          "name": "Ulcerated Tree Spirit (Altus Plateau)",
+          "x": -85.0,
+          "y": 108.5,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Ulcerated Tree Spirit (Leyndell)",
+          "x": -101.5,
+          "y": 122.0,
+          "level": 1,
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
+        },
+        {
+          "name": "Putrid Tree Spirit (Elphael)",
+          "x": -42.5,
+          "y": 147.5,
+          "level": 2,
+          "zone": "haligtree"
         }
       ],
       "prerequisites": [],
-      "notes": "Includes any Ulcerated or Putrid Tree Spirit, boss or otherwise. Non-boss instances (Fringefolk, Deeproot) also count."
+      "notes": "Includes any Ulcerated or Putrid Tree Spirit, boss or non-boss."
     },
     "Collect 6 unique Staves": {
       "type": "acquire_count",
@@ -9915,7 +10758,10 @@
           "x": -177.1625,
           "y": 85.339626,
           "level": 1,
-          "zone": "stormveil"
+          "zone": "stormveil",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Champion's Song Painting",
@@ -9957,7 +10803,10 @@
           "x": -103.890625,
           "y": 112.599511,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         }
       ],
       "prerequisites": [],
@@ -10078,7 +10927,10 @@
           "y": 128.731198,
           "level": 2,
           "zone": "siofra",
-          "notes": "Nokron, Eternal City. Requires Radahn dead (nokron_access). Unequip all gear before fog gate."
+          "notes": "Nokron, Eternal City. Requires Radahn dead (nokron_access). Unequip all gear before fog gate.",
+          "prerequisites": [
+            "nokron_access"
+          ]
         },
         {
           "name": "Stray Mimic Tear (Hidden Path to the Haligtree)",
@@ -10185,7 +11037,8 @@
           "zone": "leyndell",
           "notes": "Second location, unlocked after buying necklace at first location. Buy 20 Boiled Crabs here.",
           "prerequisites": [
-            "boggart_necklace_bought"
+            "boggart_necklace_bought",
+            "capital_access"
           ]
         }
       ],
@@ -10204,7 +11057,10 @@
           "y": 88.8,
           "level": 1,
           "zone": "stormveil",
-          "notes": "In the main courtyard area of Stormveil Castle."
+          "notes": "In the main courtyard area of Stormveil Castle.",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Lion Guardian (Farum Azula - Dragon Temple)",
@@ -10212,7 +11068,10 @@
           "y": 218.5,
           "level": 1,
           "zone": "farum_azula",
-          "notes": "Found in Crumbling Farum Azula near the Dragon Temple."
+          "notes": "Found in Crumbling Farum Azula near the Dragon Temple.",
+          "prerequisites": [
+            "kill_fire_giant"
+          ]
         },
         {
           "name": "Lion Guardian (Farum Azula - Altar)",
@@ -10220,7 +11079,10 @@
           "y": 215.3,
           "level": 1,
           "zone": "farum_azula",
-          "notes": "Second Lion Guardian in Farum Azula."
+          "notes": "Second Lion Guardian in Farum Azula.",
+          "prerequisites": [
+            "kill_fire_giant"
+          ]
         }
       ],
       "prerequisites": [],
@@ -10235,7 +11097,10 @@
           "x": -105.382812,
           "y": 108.643031,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         }
       ],
       "runes": 18000,
@@ -10257,14 +11122,20 @@
           "x": -108.8125,
           "y": 105.14513,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         },
         {
           "name": "Godslayer's Seal",
           "x": -181.27,
           "y": 86.144,
           "level": 1,
-          "zone": "stormveil"
+          "zone": "stormveil",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Erdtree Seal",
@@ -10278,7 +11149,10 @@
           "x": -103.13281,
           "y": 113.38736,
           "level": 1,
-          "zone": "leyndell"
+          "zone": "leyndell",
+          "prerequisites": [
+            "capital_access"
+          ]
         },
         {
           "name": "Giant's Seal",
@@ -10364,14 +11238,20 @@
           "x": -178.354688,
           "y": 86.308878,
           "level": 1,
-          "zone": "stormveil"
+          "zone": "stormveil",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Boltdrake Talisman",
           "x": -178.474998,
           "y": 90.968995,
           "level": 1,
-          "zone": "stormveil"
+          "zone": "stormveil",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Green Turtle Talisman",
@@ -10392,10 +11272,11 @@
         },
         {
           "name": "Winged Sword Insignia",
-          "x": -169.157812,
-          "y": 82.331098,
+          "x": -169.21875,
+          "y": 82.995025,
           "level": 1,
-          "zone": "liurnia"
+          "zone": "liurnia",
+          "boss_name": "Cleanrot Knight"
         },
         {
           "name": "Sacrificial Twig",
@@ -10445,11 +11326,12 @@
         },
         {
           "name": "Assassin's Crimson Dagger",
-          "x": -174.015625,
-          "y": 105.993343,
+          "x": -174.765625,
+          "y": 106.054327,
           "level": 1,
           "zone": "limgrave",
-          "notes": "Dropped by Black Knife Assassin, found inside Deathtouched Catacombs."
+          "notes": "Dropped by Black Knife Assassin, found inside Deathtouched Catacombs.",
+          "boss_name": "Black Knife Assassin"
         },
         {
           "name": "Curved Sword Talisman",
@@ -10457,15 +11339,19 @@
           "y": 86.519952,
           "level": 1,
           "zone": "stormveil",
-          "notes": "Talisman. Found in a chest inside a dark room in the Wine Cellar with the Banished Knight."
+          "notes": "Talisman. Found in a chest inside a dark room in the Wine Cellar with the Banished Knight.",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Sacred Scorpion Charm",
           "x": -169.421875,
-          "y": 125.196087,
+          "y": 123.180173,
           "level": 1,
-          "zone": "caelid",
-          "notes": "Talisman. Dropped by invader Anastasia, Tarnished-Eater when defeated."
+          "zone": "limgrave",
+          "notes": "Talisman. Dropped by invader Anastasia, Tarnished-Eater when defeated.",
+          "boss_name": "Anastasia, Tarnished-Eater"
         },
         {
           "name": "Fire Scorpion Charm",
@@ -10477,11 +11363,12 @@
         },
         {
           "name": "Assassin's Cerulean Dagger",
-          "x": -116.4375,
-          "y": 81.090801,
+          "x": -117.117187,
+          "y": 81.551821,
           "level": 1,
           "zone": "liurnia",
-          "notes": "Dropped by the Black Knife Assassin found inside Black Knife Catacombs."
+          "notes": "Dropped by the Black Knife Assassin found inside Black Knife Catacombs.",
+          "boss_name": "Black Knife Assassin"
         },
         {
           "name": "Shabriri's Woe",
@@ -10513,7 +11400,8 @@
           "y": 98.180473,
           "level": 1,
           "zone": "weeping_peninsula",
-          "notes": "Weeping Evergaol, Weeping Peninsula. Requires 1 Stonesword Key (Ancient Hero of Zamor fight)."
+          "notes": "Weeping Evergaol, Weeping Peninsula. Requires 1 Stonesword Key (Ancient Hero of Zamor fight).",
+          "boss_name": "Ancient Hero of Zamor"
         },
         {
           "name": "Lance Talisman",
@@ -10557,35 +11445,42 @@
         },
         {
           "name": "Flamedrake Talisman",
-          "x": -187.79375,
-          "y": 98.86968,
+          "x": -188.375,
+          "y": 98.379,
           "level": 1,
           "zone": "limgrave",
-          "notes": "Talisman. Dropped by the Beastman of Farum Azula boss inside Groveside Cave."
+          "notes": "Talisman. Dropped by the Beastman of Farum Azula boss inside Groveside Cave.",
+          "boss_name": "Beastman of Farum Azula"
         },
         {
           "name": "Blue Dancer Charm",
-          "x": -171.96,
-          "y": 108.61,
+          "x": -172.5,
+          "y": 109.09,
           "level": 1,
           "zone": "limgrave",
-          "notes": "Dropped by the Guardian Golem within  Highroad Cave"
+          "notes": "Dropped by the Guardian Golem within  Highroad Cave",
+          "boss_name": "Guardian Golem"
         },
         {
           "name": "Prince of Death's Pustule",
-          "x": -178.85,
-          "y": 84.98,
+          "x": -176.0,
+          "y": 86.5,
           "level": 1,
           "zone": "stormveil",
-          "notes": "Looted off a corpse that can be found at the pit of the castle's crypt after defeating the Ulcerated Tree Spirit. The body can be found next to a giant face."
+          "notes": "Looted off a corpse that can be found at the pit of the castle's crypt after defeating the Ulcerated Tree Spirit. The body can be found next to a giant face.",
+          "boss_name": "Ulcerated Tree Spirit",
+          "prerequisites": [
+            "kill_margit"
+          ]
         },
         {
           "name": "Viridian Amber Medallion",
-          "x": -211.882812,
-          "y": 98.807226,
+          "x": -213.3375,
+          "y": 99.05093,
           "level": 1,
-          "zone": "limgrave",
-          "notes": "Viridian Amber Medallion Raises maximum stamina. It is dropped by Miranda the Blighted Bloom, found inside the Tombsward Cave."
+          "zone": "weeping_peninsula",
+          "notes": "Viridian Amber Medallion Raises maximum stamina. It is dropped by Miranda the Blighted Bloom, found inside the Tombsward Cave.",
+          "boss_name": "Miranda the Blighted Bloom"
         },
         {
           "name": "Arrow's Sting Talisman",
@@ -10597,11 +11492,12 @@
         },
         {
           "name": "Godfrey Icon",
-          "x": -109.36719,
-          "y": 81.1123,
+          "x": -108.960937,
+          "y": 81.174672,
           "level": 1,
           "zone": "altus_plateau",
-          "notes": "Talisman. Dropped by Godefroy the Grafted when defeated."
+          "notes": "Talisman. Dropped by Godefroy the Grafted when defeated.",
+          "boss_name": "Godefroy the Grafted"
         },
         {
           "name": "Taker's Cameo",
@@ -10641,7 +11537,8 @@
           "y": 81.330728,
           "level": 1,
           "zone": "altus_plateau",
-          "notes": "Talisman. Dropped by Rileigh the Idle after successfully invading his world."
+          "notes": "Talisman. Dropped by Rileigh the Idle after successfully invading his world.",
+          "boss_name": "Rileigh the Idle"
         },
         {
           "name": "Kindred of Rot's Exultation",
@@ -10649,7 +11546,8 @@
           "y": 69.98668,
           "level": 1,
           "zone": "mt_gelmir",
-          "notes": "Talisman. Dropped by the Kindred of Rot."
+          "notes": "Talisman. Dropped by the Kindred of Rot.",
+          "boss_name": "Kindred of Rot"
         },
         {
           "name": "Godskin Swaddling Cloth",
@@ -10657,7 +11555,8 @@
           "y": 169.674051,
           "level": 1,
           "zone": "mountaintops",
-          "notes": "Talisman. Dropped by the Godskin Apostle & Godskin Noble upon their defeat in the Spiritcaller's Cave."
+          "notes": "Talisman. Dropped by the Godskin Apostle & Godskin Noble upon their defeat in the Spiritcaller's Cave.",
+          "boss_name": "Spiritcaller Snail"
         },
         {
           "name": "Sacrificial Twig x1 - Castle Morne",
@@ -10677,11 +11576,12 @@
         },
         {
           "name": "Golden Scarab",
-          "x": -174.7,
-          "y": 142.16,
+          "x": -175.164062,
+          "y": 141.89495,
           "level": 1,
           "zone": "caelid",
-          "notes": "Dropped by Cleanrot Knight (Sickle) & Cleanrot Knight (Spear) boss found in Abandoned Cave. It can be accessed by going east from Smoldering Wall site of grace and walking across canyon by using tree branches."
+          "notes": "Dropped by Cleanrot Knight (Sickle) & Cleanrot Knight (Spear) boss found in Abandoned Cave. It can be accessed by going east from Smoldering Wall site of grace and walking across canyon by using tree branches.",
+          "boss_name": "Cleanrot Knight"
         },
         {
           "name": "Spear Talisman",
@@ -10693,27 +11593,30 @@
         },
         {
           "name": "Cerulean Amber Medallion",
-          "x": -163.08,
-          "y": 64.99,
+          "x": -162.75,
+          "y": 65.52,
           "level": 1,
           "zone": "liurnia",
-          "notes": "Talisman dropped by Bloodhound Knight, the miniboss of Lakeside Crystal Cave"
+          "notes": "Talisman dropped by Bloodhound Knight, the miniboss of Lakeside Crystal Cave",
+          "boss_name": "Bloodhound Knight"
         },
         {
           "name": "Blue-Feathered Branchsword",
-          "x": -180.6,
-          "y": 104.87,
+          "x": -180.33,
+          "y": 104.19,
           "level": 1,
           "zone": "limgrave",
-          "notes": "Talisman. Dropped from miniboss that only spawns at night: Deathbird (Stormhill)"
+          "notes": "Talisman. Dropped from miniboss that only spawns at night: Deathbird (Stormhill)",
+          "boss_name": "Deathbird"
         },
         {
           "name": "Concealing Veil",
-          "x": -96.023437,
-          "y": 71.308786,
+          "x": -96.578,
+          "y": 71.6,
           "level": 1,
-          "zone": "mt_gelmir",
-          "notes": "Talisman dropped by the Black Knife Assassin boss within Sage's Cave"
+          "zone": "altus_plateau",
+          "notes": "Talisman dropped by the Black Knife Assassin boss within Sage's Cave",
+          "boss_name": "Black Knife Assassin"
         },
         {
           "name": "Graven-Mass Talisman",
@@ -10769,7 +11672,8 @@
           "y": 74.01,
           "level": 1,
           "zone": "mt_gelmir",
-          "notes": "Located in Lux Ruins, in a chest after defeating Demi-Human Queen Gilika"
+          "notes": "Located in Lux Ruins, in a chest after defeating Demi-Human Queen Gilika",
+          "boss_name": "Demi-Human Queen"
         },
         {
           "name": "Crimson Seed Talisman",
@@ -10781,19 +11685,21 @@
         },
         {
           "name": "Crucible Knot Talisman",
-          "x": -158.507812,
-          "y": 53.596424,
+          "x": -158.273437,
+          "y": 53.010358,
           "level": 1,
           "zone": "liurnia",
-          "notes": "Dropped by Omenkiller, located in the Village of the Albinaurics"
+          "notes": "Dropped by Omenkiller, located in the Village of the Albinaurics",
+          "boss_name": "Omenkiller"
         },
         {
           "name": "Red-Feathered Branchsword",
-          "x": -154.09375,
-          "y": 69.442011,
+          "x": -153.82,
+          "y": 68.76,
           "level": 1,
           "zone": "liurnia",
-          "notes": "Dropped by the Deathbird at  Liurnia of the Lakes"
+          "notes": "Dropped by the Deathbird at  Liurnia of the Lakes",
+          "boss_name": "Deathbird"
         },
         {
           "name": "Cerulean Seed Talisman",

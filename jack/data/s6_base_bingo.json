@@ -171,10 +171,10 @@
     "category": "Base"
   },
   {
-    "name": "Kill %numofbosses%",
+    "name": "Kill %numofbosses% Duelist bosses",
     "numofbosses": [
-      "1 Duelist boss",
-      "2 Duelist bosses"
+      "1",
+      "2"
     ],
     "category": "Base"
   },

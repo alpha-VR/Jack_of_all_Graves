@@ -344,6 +344,13 @@ PREREQ_LOCS = [
      'level': 2, 'zone': 'ainsel',        'prereq_key': 'kill_astel_lake_of_rot'},
     {'name': 'Blackguard Big Boggart',                  'x': -151.88,     'y':  67.387,
      'level': 1, 'zone': 'liurnia',       'prereq_key': 'boggart_necklace_bought'},
+    # Academy Glintstone Keys — Key (A) is outside near Smarag (used to enter Academy),
+    # Key (B) is the spare on the chandelier inside Church of the Cuckoo (given to Thops).
+    # Key (A) listed first so it sets the PREREQ_TABLE entry; Key (B) still enters UNIVERSE.
+    {'name': 'Academy Glintstone Key (A)',              'x': -137.05,     'y':  50.22,
+     'level': 1, 'zone': 'liurnia',       'prereq_key': 'academy_glintstone_key'},
+    {'name': 'Academy Glintstone Key (B)',              'x': -135.929687, 'y':  54.10881,
+     'level': 1, 'zone': 'liurnia',       'prereq_key': 'academy_glintstone_key'},
     # Boss kill prereqs — agent routes here to kill boss and unlock grace even when
     # the standalone kill square isn't on the board.
     {'name': 'Margit, the Fell Omen',                  'x': -182.695312, 'y':  90.972955,
@@ -471,6 +478,10 @@ BOSS_HP = {
     'spiritcaller snail':                    {'hp': 1722,  'def': 107, 'runes': 3000},
     'sanguine noble':                        {'hp': 3128,  'def': 110, 'runes': 8800},
     'beastman of farum azula':               {'hp': 1417,  'def': 101, 'runes': 1000},
+    'miranda the blighted bloom':            {'hp': 2360,  'def': 103, 'runes': 1800},
+    'kindred of rot':                        {'hp': 2100,  'def': 104, 'runes': 1700},
+    'anastasia, tarnished-eater':            {'hp': 2800,  'def': 104, 'runes': 1200},
+    'rileigh the idle':                      {'hp': 2200,  'def': 104, 'runes': 1500},
     'battlemage hugues':                     {'hp': 4095,  'def': 111, 'runes': 7800},
     'red wolf of the champion':              {'hp': 3162,  'def': 111, 'runes': 21000},
     'godfrey (ashen capital)':               {'hp': 21903, 'def': 120, 'runes': 300000},

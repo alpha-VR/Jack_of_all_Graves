@@ -92,8 +92,9 @@ def generate_route(
     model = _load_model(model_path)
     model_label = os.path.basename(model_path or _DEFAULT_MODEL)
 
-    squares = _squares_from_raw_names(raw_names)
-    game    = BingoGame(squares, rng=random.Random(42))
+    squares    = _squares_from_raw_names(raw_names)
+    sq_by_name = {sq.raw_name: sq for sq in squares}
+    game       = BingoGame(squares, rng=random.Random(42))
 
     # Pre-apply existing marks
     my_player  = player
@@ -177,7 +178,21 @@ def generate_route(
             stop['stone_tier']  = entry['stone_tier']
             stop['stone_somber']= entry['stone_somber']
         if entry['type'] == 'objective':
-            stop['sq_names'] = list(entry['sq_names'])
+            sq_names = [n for n in entry['sq_names']
+                        if n in sq_by_name and not agent.marks[sq_by_name[n].idx]]
+            stop['sq_names'] = sq_names
+            progress = {n: len(agent.sq_progress.get(sq_by_name[n].idx, set()))
+                        for n in sq_names if sq_by_name[n].count_needed > 1}
+            if progress:
+                stop['sq_progress'] = progress
+        if entry['type'] == 'prereq':
+            prereq_key = entry.get('prereq_key', '')
+            stop['prereq_key'] = prereq_key
+            stop['unlocks'] = [sq.text for sq in squares
+                               if not agent.marks[sq.idx]
+                               and any(prereq_key in (loc.get('prerequisites') or [])
+                                       for loc in sq.locations)]
+            stop['sq_names'] = []
         if entry['type'] == 'grace':
             stop['grace_id'] = entry.get('grace_id')
 
