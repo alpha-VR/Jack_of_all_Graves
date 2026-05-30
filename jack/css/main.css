@@ -395,6 +395,20 @@ html, body { height:100%; width:100%; overflow:hidden; background:var(--bg); col
 }
 .cell:hover .cell-poi { opacity: 0.55; }
 .cell-poi:hover       { opacity: 1 !important; }
+
+.cell-star {
+  position: absolute;
+  top: 3px; left: 4px;
+  background: transparent; border: none;
+  cursor: pointer; font-size: 13px; line-height: 1;
+  color: var(--gold-dim);
+  opacity: 0; transition: opacity 0.1s, color 0.15s;
+  padding: 0;
+}
+.cell:hover .cell-star        { opacity: 0.5; }
+.cell-star:hover               { opacity: 1 !important; color: var(--gold); }
+.cell.starred .cell-star       { opacity: 1; color: var(--gold-bright); }
+
 .cell.mark-p1 {
   background: linear-gradient(145deg, #1e4a30 0%, #0f2818 100%);
   border-color: var(--p1);
@@ -622,6 +636,17 @@ html, body { height:100%; width:100%; overflow:hidden; background:var(--bg); col
 }
 .build-select:focus { border-color:var(--gold-dim); }
 #build-somber { accent-color: var(--gold-dim); }
+.solver-toggle {
+  display:flex; border:1px solid var(--border2); border-radius:4px; overflow:hidden;
+}
+.solver-btn {
+  flex:1; background:var(--surface); color:var(--text-dim);
+  border:none; padding:3px 8px; font-size:10px; font-family:var(--font-body);
+  cursor:pointer; transition:background 0.15s, color 0.15s;
+}
+.solver-btn:not(:last-child) { border-right:1px solid var(--border2); }
+.solver-btn.active { background:var(--gold-dim); color:#000; font-weight:600; }
+.solver-btn:hover:not(.active) { background:var(--border); color:var(--text); }
 
 .stop-timing-detail {
   padding-left: 21px;

@@ -71,7 +71,58 @@ const Timing = (() => {
     'tree sentinel':                            { hp:2889,  def:103, runes:3200   },
     'tree sentinel duo':                        { hp:6461,  def:113, runes:20000  },
     'valiant gargoyle duo':                     { hp:5671,  def:111, runes:30000  },
+    'valiant gargoyles':                        { hp:5671,  def:111, runes:30000  },
     'wormface':                                 { hp:5876,  def:113, runes:10000  },
+    // Additional bosses synced from constants.py
+    'alecto, black knife ringleader':           { hp:17482, def:120, runes:80000  },
+    'anastasia, tarnished-eater':               { hp:2800,  def:104, runes:1200   },
+    'ancient dragon lansseax':                  { hp:9087,  def:115, runes:60000  },
+    'ancient hero of zamor':                    { hp:3800,  def:108, runes:25000  },
+    'battlemage hugues':                        { hp:4095,  def:111, runes:7800   },
+    'beastman of farum azula':                  { hp:1417,  def:101, runes:1000   },
+    'black blade kindred (forbidden lands)':    { hp:8452,  def:115, runes:60000  },
+    'black knife assassin':                     { hp:2500,  def:107, runes:5000   },
+    'bols, carian knight':                      { hp:5109,  def:110, runes:4600   },
+    'cleanrot knight':                          { hp:2050,  def:108, runes:5000   },
+    'commander niall':                          { hp:15541, def:117, runes:90000  },
+    'crucible knight siluria':                  { hp:4606,  def:117, runes:25000  },
+    'decaying ekzykes':                         { hp:23731, def:114, runes:38000  },
+    'demi-human queen':                         { hp:4000,  def:110, runes:9000   },
+    'dragonkin soldier (lake of rot)':          { hp:7655,  def:117, runes:58000  },
+    'dragonkin soldier of nokstella':           { hp:4372,  def:106, runes:12000  },
+    'erdtree burial watchdog':                  { hp:2000,  def:104, runes:2200   },
+    'fell twins':                               { hp:14410, def:115, runes:29000  },
+    'flying dragon greyll':                     { hp:11550, def:121, runes:80000  },
+    'frenzied duelist':                         { hp:3079,  def:109, runes:6700   },
+    'full-grown fallingstar beast':             { hp:13010, def:114, runes:21000  },
+    'glintstone dragon adula':                  { hp:11550, def:121, runes:120000 },
+    'glintstone dragon smarag':                 { hp:6069,  def:113, runes:14000  },
+    'god-devouring serpent':                    { hp:59174, def:115, runes:130000 },
+    'godefroy the grafted':                     { hp:12419, def:113, runes:26000  },
+    'godfrey (ashen capital)':                  { hp:21903, def:120, runes:300000 },
+    'godskin apostle (caelid)':                 { hp:13596, def:120, runes:94000  },
+    'grave warden duelist':                     { hp:3200,  def:106, runes:2000   },
+    'great wyrm theodorix':                     { hp:25649, def:122, runes:180000 },
+    'guardian golem':                           { hp:5974,  def:101, runes:1700   },
+    'kindred of rot':                           { hp:2100,  def:104, runes:1700   },
+    'lichdragon fortissax':                     { hp:12903, def:114, runes:90000  },
+    'mad pumpkin head':                         { hp:1328,  def:101, runes:1100   },
+    'magma wyrm makar':                         { hp:7141,  def:109, runes:24000  },
+    'miranda the blighted bloom':               { hp:2360,  def:103, runes:1800   },
+    'night cavalry (forbidden lands)':          { hp:6602,  def:118, runes:36000  },
+    'onyx lord':                                { hp:4500,  def:111, runes:10000  },
+    'putrid avatar':                            { hp:10000, def:117, runes:90000  },
+    'putrid grave warden duelist':              { hp:8800,  def:120, runes:78000  },
+    'putrid tree spirit':                       { hp:18144, def:120, runes:64000  },
+    'red wolf of the champion':                 { hp:3162,  def:111, runes:21000  },
+    'rileigh the idle':                         { hp:2200,  def:104, runes:1500   },
+    'royal revenant':                           { hp:3077,  def:107, runes:3100   },
+    'runebear':                                 { hp:3311,  def:102, runes:2600   },
+    'rykard, lord of blasphemy':                { hp:59174, def:115, runes:130000 },
+    'sanguine noble':                           { hp:3128,  def:110, runes:8800   },
+    'spiritcaller snail':                       { hp:1722,  def:107, runes:3000   },
+    'stonedigger troll':                        { hp:2100,  def:104, runes:4000   },
+    'ulcerated tree spirit':                    { hp:6147,  def:107, runes:15000  },
   };
 
   // ── Weapon class DPS factors (MV/100 × hits_per_sec) ──────────────────────
@@ -316,6 +367,18 @@ const Timing = (() => {
     "fia's champions":                             2.0,
     'fire giant':                                  1.8,
     'mohg, the omen':                              1.7,
+    'anastasia, tarnished-eater':                  1.4,
+    'dragonkin soldier (lake of rot)':             1.3,
+    'dragonkin soldier of nokstella':              1.2,
+    'demi-human queen':                            1.1,
+    'godskin apostle (caelid)':                    1.6,
+    'kindred of rot':                              1.0,
+    'miranda the blighted bloom':                  0.8,
+    'rileigh the idle':                            1.3,
+    'royal revenant':                              1.1,
+    'stonedigger troll':                           0.8,
+    'valiant gargoyle duo':                        1.8,
+    'valiant gargoyles':                           1.8,
     // Hard
     'morgott, the omen king':                      2.0,
     'godskin duo':                                 2.1,
@@ -456,11 +519,16 @@ const Timing = (() => {
 
     if (isStart) return { killSec:0, travelSec:0, overheadSec:0, totalSec:0, label:'Start' };
 
-    // Travel time
-    const travelDist = stop.warpFrom && stop.location
-      ? Math.sqrt((stop.warpFrom.x - stop.location.x)**2 + (stop.warpFrom.y - stop.location.y)**2)
-      : 0;
-    const travelSec = computeTravelTime(travelDist, stop.zoneId);
+    // Travel time — prefer backend-computed value when available (RL/Det routes have no warpFrom)
+    let travelSec;
+    if (stop.backendTravelSec !== undefined) {
+      travelSec = stop.backendTravelSec;
+    } else {
+      const travelDist = stop.warpFrom && stop.location
+        ? Math.sqrt((stop.warpFrom.x - stop.location.x)**2 + (stop.warpFrom.y - stop.location.y)**2)
+        : 0;
+      travelSec = computeTravelTime(travelDist, stop.zoneId);
+    }
 
     // Kill time
     let killSec = 0;

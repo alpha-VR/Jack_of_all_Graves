@@ -58,19 +58,23 @@ const UI = (() => {
   // Shared RL route fetch — called from button and on mark changes
   async function _computeRlRoute({ silent = false } = {}) {
     try {
+      const isDet = State.build.solver === 'det';
       const res = await fetch('/api/rl/route', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           raw_names: State.game.board.map(sq => sq.raw.name),
+          texts:     State.game.board.map(sq => sq.text),
           marks:     [...State.game.marks],
           player:    0,
           build:     State.build,
+          solver:    State.build.solver ?? 'rl',
         }),
       });
       const rl = await res.json();
       if (rl.error) throw new Error(rl.error);
       const adapted = _adaptRlRoute(rl);
+      const routeLabel = isDet ? 'Det Route' : 'AI Route';
       State.route.computed       = true;
       State.route.isRlRoute      = true;
       State.route.stops          = adapted.stops;
@@ -78,11 +82,11 @@ const UI = (() => {
       State.route.warnings       = rl.model_found ? [] : ['Model not ready — showing random play'];
       State.route.summary        = {};
       State.route.targetLine     = null;
-      State.route.targetLineName = `AI Route`;
+      State.route.targetLineName = routeLabel;
       State.route.lineSummary    = [];
       State.route.activeStop     = 0;
       State.emit('route:ready', State.route);
-      if (!silent) toast(`AI route ready — ${adapted.stops.length} stops`, 'ok');
+      if (!silent) toast(`${routeLabel} ready — ${adapted.stops.length} stops`, 'ok');
       return true;
     } catch(e) {
       return false;
@@ -321,6 +325,7 @@ const UI = (() => {
     // Preferred denominator: count_needed from RL response (actual locations required).
     const sqCountNeeded = rl.sq_count_needed || {};
 
+    let runeAcc = 0;
     const stops = rl.stops.map((stop, i) => {
       const isSton  = stop.type === 'stone';
       const isRT    = stop.type === 'roundtable';
@@ -393,10 +398,11 @@ const UI = (() => {
         location:      stop.x != null ? { x: stop.x, y: stop.y, zone: stop.zone,
                          level: ['siofra','ainsel','deeproot','mohgwyn'].includes(stop.zone) ? 2 : 1 } : null,
         warpFrom:      null,
+        backendTravelSec: stop.travel_sec || 0,
         flags:         allFlags,
         notes:         sqNotes,
-        runes:         0,
-        runeTotal:     0,
+        runes:         stop.runes || 0,
+        runeTotal:     (runeAcc += (stop.runes || 0)),
         isRemembrance: false,
         isPrereq:      false,
         timing: {
@@ -679,6 +685,13 @@ const UI = (() => {
         <label class="build-label">Somber weapon?</label>
         <input type="checkbox" id="build-somber" ${State.build.isSomber?'checked':''}>
       </div>
+      <div class="build-row">
+        <label class="build-label">Solver</label>
+        <div class="solver-toggle" id="solver-toggle">
+          <button class="solver-btn ${State.build.solver!=='det'?'active':''}" data-solver="rl">AI Agent</button>
+          <button class="solver-btn ${State.build.solver==='det'?'active':''}" data-solver="det">Deterministic</button>
+        </div>
+      </div>
     `;
 
     panel.querySelector('#build-wc')?.addEventListener('change', e =>
@@ -687,6 +700,13 @@ const UI = (() => {
       State.setBuild({ primaryStat: e.target.value }));
     panel.querySelector('#build-somber')?.addEventListener('change', e =>
       State.setBuild({ isSomber: e.target.checked }));
+    panel.querySelector('#solver-toggle')?.addEventListener('click', e => {
+      const btn = e.target.closest('.solver-btn');
+      if (!btn) return;
+      State.setBuild({ solver: btn.dataset.solver });
+      panel.querySelectorAll('.solver-btn').forEach(b =>
+        b.classList.toggle('active', b === btn));
+    });
   }
 
   // ── Line scores modal ────────────────────────────────────────────────────

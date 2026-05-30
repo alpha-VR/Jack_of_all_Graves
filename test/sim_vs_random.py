@@ -25,6 +25,11 @@ from jack.rl.constants import BINGO_LINES
 
 
 def _load_model(path):
+    if path == 'det':
+        from jack.solver.det_solver import DeterministicSolver
+        print("[+] Loaded model: DeterministicSolver (TSP-based, no ML)")
+        return DeterministicSolver()
+
     from sb3_contrib import MaskablePPO
     from jack.rl.train import BingoExtractor  # noqa: F401
 
@@ -81,7 +86,10 @@ def run_game(model, seed: int) -> dict:
         prev_r = list(env.game.agents[1].marks)
 
         mask = env.action_masks()
-        action, _ = model.predict(obs, action_masks=mask, deterministic=True)
+        if hasattr(model, 'act'):
+            action = model.act(env.game, 0, mask)
+        else:
+            action, _ = model.predict(obs, action_masks=mask, deterministic=True)
         obs, _, terminated, truncated, info = env.step(action)
         done = terminated or truncated
         steps += 1

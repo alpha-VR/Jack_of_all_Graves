@@ -31,6 +31,7 @@ const State = (() => {
     players:   ['P1', 'P2'],
     board:     [],          // [{raw, text, rolled}] x25
     marks:     new Array(25).fill(-1),  // -1=none, 0=P1, 1=P2
+    stars:     new Set(),               // set of square indices starred by local player
     scores:    [0, 0],
     bingoLines:[[], []],    // line indices complete per player
     createdAt: null,
@@ -56,6 +57,7 @@ const State = (() => {
     weaponClass: 'Greatsword',
     isSomber:    false,
     primaryStat: 'Strength',
+    solver:      'rl',
     // weaponLevel and runeLevel are computed from route progress
   };
 
@@ -153,6 +155,7 @@ const State = (() => {
         return { raw, text, rolled };
       });
       game.marks      = new Array(25).fill(-1);
+      game.stars      = new Set();
       game.scores     = [0, 0];
       game.bingoLines = [[], []];
       game.createdAt  = new Date().toISOString();
@@ -175,6 +178,7 @@ const State = (() => {
         return { raw: entry, text, rolled };
       });
       game.marks      = new Array(25).fill(-1);
+      game.stars      = new Set();
       game.scores     = [0, 0];
       game.bingoLines = [[], []];
       game.createdAt  = new Date().toISOString();
@@ -195,6 +199,14 @@ const State = (() => {
       const threats = opponentThreats(0);
       emit('square:marked', { idx, mark: game.marks[idx], marks: [...game.marks] });
       emit('scores:updated', { scores: [...game.scores], bingoLines: game.bingoLines, threats, noBingo: noBingoPossible() });
+    },
+
+    // ── Star a square ──
+    starSquare(idx) {
+      if (idx < 0 || idx > 24) return;
+      if (game.stars.has(idx)) game.stars.delete(idx);
+      else game.stars.add(idx);
+      emit('square:starred', { idx, starred: game.stars.has(idx), stars: new Set(game.stars) });
     },
 
     opponentThreats,
@@ -294,6 +306,7 @@ const State = (() => {
       const payload = {
         name: game.name, mode: game.mode, season: game.season,
         players: game.players, board: game.board, marks: game.marks,
+        stars: [...game.stars],
         p1score: game.scores[0], p2score: game.scores[1],
         route: route.computed
           ? { stops: route.stops, passive: route.passive, warnings: route.warnings, summary: route.summary }
@@ -317,6 +330,7 @@ const State = (() => {
       game.players   = d.players   || ['P1','P2'];
       game.board     = d.board     || [];
       game.marks     = d.marks     || new Array(25).fill(-1);
+      game.stars     = new Set(d.stars || []);
       game.savedAt   = d.savedAt;
       _recomputeScores();
       if (d.route) {
@@ -331,6 +345,7 @@ const State = (() => {
       }
       emit('board:new', game.board);
       emit('scores:updated', { scores: [...game.scores], bingoLines: game.bingoLines, threats: opponentThreats(0), noBingo: noBingoPossible() });
+      if (game.stars.size) emit('stars:loaded', new Set(game.stars));
       if (route.computed) emit('route:ready', route);
       emit('game:loaded', game);
     },

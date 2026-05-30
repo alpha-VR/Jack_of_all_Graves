@@ -8,12 +8,15 @@ const Board = (() => {
     _el = containerEl;
     State.on('board:new',       _render);
     State.on('square:marked',   ({ marks }) => _applyMarks(marks));
+    State.on('square:starred',  ({ stars }) => _applyStars(stars));
+    State.on('stars:loaded',    stars => _applyStars(stars));
     State.on('scores:updated',  ({ bingoLines }) => _highlightLines(bingoLines));
     State.on('board:poisReady', ({ synergies }) => _applySynergies(synergies));
     State.on('game:loaded',     () => {
       _render(State.game.board);
       _applyMarks(State.game.marks);
       _highlightLines(State.game.bingoLines);
+      _applyStars(State.game.stars);
     });
   }
 
@@ -29,6 +32,15 @@ const Board = (() => {
       label.className = 'cell-text';
       label.textContent = sq.text;
 
+      const star = document.createElement('button');
+      star.className = 'cell-star';
+      star.textContent = '☆';
+      star.title = 'Star this square';
+      star.addEventListener('click', e => {
+        e.stopPropagation();
+        State.starSquare(idx);
+      });
+
       const poi = document.createElement('button');
       poi.className = 'cell-poi';
       poi.textContent = '📍';
@@ -41,6 +53,7 @@ const Board = (() => {
       });
 
       cell.appendChild(label);
+      cell.appendChild(star);
       cell.appendChild(poi);
       cell.addEventListener('click', () => {
         const player = UI.getActivePlayer();
@@ -71,6 +84,17 @@ const Board = (() => {
     bingoLines[1].forEach(li =>
       State.BINGO_LINES[li].forEach(idx => _el.querySelector(`[data-idx="${idx}"]`)?.classList.add('bingo-p2'))
     );
+  }
+
+  function _applyStars(stars) {
+    if (!_el) return;
+    _el.querySelectorAll('.cell').forEach(cell => {
+      const idx = +cell.dataset.idx;
+      const isStarred = stars.has(idx);
+      cell.classList.toggle('starred', isStarred);
+      const btn = cell.querySelector('.cell-star');
+      if (btn) btn.textContent = isStarred ? '★' : '☆';
+    });
   }
 
   // ── Synergy badges ──────────────────────────────────────────────────────────

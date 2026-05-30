@@ -42,14 +42,20 @@ def _load_model(model_path: Optional[str] = None):
         return None
 
 
-def _squares_from_raw_names(raw_names: List[str]) -> List[Square]:
-    """Build Square objects from a list of raw template names (from the JS board)."""
+def _squares_from_raw_names(raw_names: List[str], texts: List[str] = None) -> List[Square]:
+    """Build Square objects from a list of raw template names (from the JS board).
+
+    texts: resolved display texts (e.g. "Kill 6 bosses in Altus Plateau...").
+    Used for count extraction so template variables like %numofbosses% resolve
+    to the correct number instead of defaulting to 1.
+    """
     squares = []
     for i, raw_name in enumerate(raw_names):
         sq_data = _SQUARE_DB.get(raw_name, {})
         sq_type = sq_data.get('type', 'unknown')
         locs    = _extract_locations(raw_name, sq_data) if sq_data else []
-        count   = _extract_count(raw_name, sq_data) if sq_data else 1
+        count_text = (texts[i] if texts and i < len(texts) else None) or raw_name
+        count   = _extract_count(count_text, sq_data) if sq_data else 1
         is_passive = sq_type in ('passive_runes', 'passive_stat') or not locs
 
         squares.append(Square(
@@ -75,6 +81,8 @@ def generate_route(
     build:       Dict       = None,  # {weaponClass, isSomber, primaryStat, weaponLevel}
     model_path:  str        = None,
     max_steps:   int        = 60,
+    solver:      str        = 'rl',  # 'rl' or 'det'
+    texts:       List[str]  = None,  # resolved display texts (e.g. "Kill 6 bosses...")
 ) -> Dict:
     """
     Run the trained agent on the current board state and return a detailed route.
@@ -89,10 +97,19 @@ def generate_route(
     """
     import random, numpy as np
 
-    model = _load_model(model_path)
-    model_label = os.path.basename(model_path or _DEFAULT_MODEL)
+    use_det = (solver == 'det')
+    if use_det:
+        from jack.solver.det_solver import DeterministicSolver
+        det = DeterministicSolver()
+        model = None
+        model_label = 'deterministic'
+        model_found = True
+    else:
+        model = _load_model(model_path)
+        model_label = os.path.basename(model_path or _DEFAULT_MODEL)
+        model_found = model is not None
 
-    squares    = _squares_from_raw_names(raw_names)
+    squares    = _squares_from_raw_names(raw_names, texts=texts)
     sq_by_name = {sq.raw_name: sq for sq in squares}
     game       = BingoGame(squares, rng=random.Random(42))
 
@@ -131,8 +148,10 @@ def generate_route(
         if not mask.any():
             break
 
-        # Pick action: model if available, else random valid
-        if model is not None:
+        # Pick action: deterministic solver, RL model, or random fallback
+        if use_det:
+            action = int(det.act(game, 0, mask))
+        elif model is not None:
             try:
                 action, _ = model.predict(obs, action_masks=mask, deterministic=True)
                 action = int(action)
@@ -172,6 +191,7 @@ def generate_route(
             'weapon_level': agent.weapon_level,
             'rune_level':   agent.rune_level,
             'completes':    [squares[i].text for i in info.get('sq_completed', [])],
+            'runes':        sum(squares[i].runes_on_complete for i in info.get('sq_completed', [])),
         }
 
         if entry['type'] == 'stone':
@@ -215,10 +235,11 @@ def generate_route(
             break
 
     return {
-        'stops':       stops,
-        'total_sec':   int(agent.time),
-        'model_used':  model_label,
-        'model_found': model is not None,
+        'stops':         stops,
+        'total_sec':     int(agent.time),
+        'model_used':    model_label,
+        'model_found':   model_found,
+        'solver_used':   'det' if use_det else 'rl',
         'squares_marked': sum(agent.marks),
         'sq_count_needed': {sq.raw_name: sq.count_needed for sq in squares},
     }

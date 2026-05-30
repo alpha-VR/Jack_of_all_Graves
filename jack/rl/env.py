@@ -21,7 +21,7 @@ class BingoEnv(gym.Env):
     metadata = {'render_modes': []}
 
     def __init__(self, opponent_policy=None, board_seed=None, noise_scale=0.05,
-                 max_steps=300):
+                 max_steps=300, solver=None, solver_prob=0.0):
         super().__init__()
         self._opponent_latest  = opponent_policy
         self._opponent_pool    = []          # past snapshots (max 10)
@@ -30,6 +30,8 @@ class BingoEnv(gym.Env):
         self._noise_scale      = noise_scale
         self._max_steps        = max_steps
         self._steps            = 0
+        self._solver           = solver      # DeterministicSolver instance (optional)
+        self._solver_prob      = solver_prob # fraction of episodes to face solver
 
         # Temporary game to get obs size
         _tmp_board = generate_board(seed=0)
@@ -125,14 +127,20 @@ class BingoEnv(gym.Env):
     def _sample_opponent(self):
         """Sample an opponent policy for the current episode.
 
-        Fixed fractions: 60% latest, 25% pool (recency-weighted), 15% random.
-        Recency weighting (1.5^i, newest = highest) ensures stale opponents
-        don't crowd out recent ones as the pool fills.
+        With solver: solver_prob → solver, remainder split 60/25/15 latest/pool/random.
+        Without solver: 60% latest, 25% pool (recency-weighted), 15% random.
         """
         r = self._ep_rng.random()
-        if r < 0.60 and self._opponent_latest is not None:
+
+        # Solver slot — fixed probability regardless of training stage
+        if self._solver is not None and r < self._solver_prob:
+            return self._solver
+
+        # Renormalise remaining probability over latest/pool/random
+        r2 = (r - self._solver_prob) / max(1.0 - self._solver_prob, 1e-9)
+        if r2 < 0.60 and self._opponent_latest is not None:
             return self._opponent_latest
-        if r < 0.85 and self._opponent_pool:
+        if r2 < 0.85 and self._opponent_pool:
             n = len(self._opponent_pool)
             # Weight[i] = 1.5^i: index 0 = oldest, index n-1 = newest
             weights = [1.5 ** i for i in range(n)]
@@ -150,22 +158,24 @@ class BingoEnv(gym.Env):
             p1_time = self.game.agents[1].time
             if p1_time >= p0_time:
                 break
-            # Pick opponent action
-            opp_obs  = self.game.get_obs(1)
             opp_mask = self.game.get_action_mask(1)
-            action   = self._opponent_action(opp_obs, opp_mask)
+            action   = self._opponent_action(1, opp_mask)
             _, done, _ = self.game.step(1, action)
             if done:
                 return True
         return self.game.done
 
-    def _opponent_action(self, obs, mask):
+    def _opponent_action(self, agent_id: int, mask) -> int:
         if self._current_opponent is not None:
             try:
+                # Strategy subclasses (DeterministicSolver, RLStrategy) expose .act()
+                if hasattr(self._current_opponent, 'act'):
+                    return int(self._current_opponent.act(self.game, agent_id, mask))
+                # Raw SB3 model fallback
+                obs = self.game.get_obs(agent_id)
                 action, _ = self._current_opponent.predict(obs, action_masks=mask, deterministic=False)
                 return int(action)
             except Exception:
                 pass
-        # Fallback: random valid action
         valid = np.where(mask)[0]
         return int(np.random.choice(valid)) if len(valid) > 0 else 0

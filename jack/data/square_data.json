@@ -5582,8 +5582,7 @@
         "loc_key": "-570_1575_1"
       },
       "physick_flask": {
-        "type": "visited",
-        "loc_key": "-1801_1234_1"
+        "type": "optimistic"
       },
       "ranni_quest_p1": {
         "type": "visited",
@@ -5593,8 +5592,7 @@
         "type": "optimistic"
       },
       "explosive_tear": {
-        "type": "visited",
-        "loc_key": "-1496_459_1"
+        "type": "optimistic"
       },
       "rest_at_non_s6_altus_grace": {
         "type": "optimistic"

@@ -98,6 +98,7 @@ class SelfPlayCallback(BaseCallback):
         save_dir: str,
         update_interval: int = 50_000,
         eval_episodes:   int = 100,
+        solver=None,
         verbose:         int = 1,
     ):
         super().__init__(verbose)
@@ -109,6 +110,7 @@ class SelfPlayCallback(BaseCallback):
         self._win_history      = deque(maxlen=200)
         self._snapshot: Optional[MaskablePPO] = None
         self._opponent_pool: list = []          # past frozen snapshots (max 20)
+        self._solver           = solver         # DeterministicSolver for eval (optional)
 
     def _on_step(self) -> bool:
         if self.num_timesteps - self._last_update >= self._update_interval:
@@ -140,8 +142,14 @@ class SelfPlayCallback(BaseCallback):
         ckpt_path = os.path.join(self._save_dir, f'ckpt_{self.num_timesteps:09d}')
         self.model.save(ckpt_path)
 
+        # Optionally eval vs solver
+        solver_wr_str = ""
+        if self._solver is not None:
+            swr = self._solver_win_rate()
+            solver_wr_str = f"  |  vs solver: {swr:.1%}"
+
         if self.verbose:
-            print(f"[{self.num_timesteps:>9,}] Saved {ckpt_path}.zip  |  win-rate vs prev: {wr:.1%}")
+            print(f"[{self.num_timesteps:>9,}] Saved {ckpt_path}.zip  |  win-rate vs prev: {wr:.1%}{solver_wr_str}")
 
     def _quick_win_rate(self) -> float:
         """Play `_eval_episodes` games vs uniformly-sampled past snapshots.
@@ -181,6 +189,32 @@ class SelfPlayCallback(BaseCallback):
                     wins += 0.5
         return wins / self._eval_episodes
 
+    def _solver_win_rate(self) -> float:
+        """Play eval_episodes/2 games vs the deterministic solver."""
+        wins = 0
+        n    = self._eval_episodes // 2
+        eval_env = BingoEnv()
+        eval_env._current_opponent = self._solver
+        rng = random.Random()
+        for _ in range(n):
+            obs, _ = eval_env.reset()
+            eval_env._current_opponent = self._solver
+            done = False
+            while not done:
+                mask = eval_env.action_masks()
+                action, _ = self.model.predict(obs, action_masks=mask, deterministic=False)
+                obs, _, terminated, truncated, info = eval_env.step(action)
+                done = terminated or truncated
+            w = info.get('winner')
+            if w == 0:
+                wins += 1
+            elif w is None:
+                a0, a1 = eval_env.game.agents[0], eval_env.game.agents[1]
+                m0, m1 = sum(a0.marks), sum(a1.marks)
+                if m0 > m1:   wins += 1
+                elif m0 == m1: wins += 0.5
+        return wins / n
+
 
 # ── Entropy schedule callback ──────────────────────────────────────────────────
 class EntropyScheduleCallback(BaseCallback):
@@ -211,16 +245,24 @@ def train(
     gamma:                    float = 0.995,
     ent_coef:                 float = 0.10,
     resume_from:              str   = None,
+    solver_opp:               float = 0.0,   # fraction of episodes vs solver
 ):
     os.makedirs(save_dir, exist_ok=True)
 
+    # Load solver if requested
+    solver = None
+    if solver_opp > 0:
+        from jack.solver.det_solver import DeterministicSolver
+        solver = DeterministicSolver()
+        print(f"[solver] DeterministicSolver enabled as {solver_opp:.0%} of training opponents")
+
     # Single env for self-play callback evaluation (no normalization needed)
-    eval_env = BingoEnv()
+    eval_env = BingoEnv(solver=solver, solver_prob=solver_opp)
 
     # Vectorised training envs wrapped with reward normalization.
     # norm_obs=False because we manually normalize all obs features in get_obs().
     def _make():
-        return BingoEnv()
+        return BingoEnv(solver=solver, solver_prob=solver_opp)
 
     vec_env = VecNormalize(
         make_vec_env(_make, n_envs=n_envs),
@@ -228,7 +270,6 @@ def train(
         norm_reward=True,
         clip_reward=10.0,
     )
-
 
     if resume_from and os.path.exists(resume_from):
         print(f"Resuming from {resume_from}")
@@ -256,10 +297,11 @@ def train(
             env=eval_env,
             save_dir=save_dir,
             update_interval=opponent_update_interval,
+            solver=solver,
             verbose=1,
         ),
         EntropyScheduleCallback(
-            initial_ent=0.15,
+            initial_ent=0.15 if not resume_from else 0.05,
             final_ent=0.02,
             total_steps=total_timesteps,
         ),
@@ -310,14 +352,16 @@ def evaluate(model_path: str, n_episodes: int = 200, verbose: bool = True):
 # ── CLI ────────────────────────────────────────────────────────────────────────
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Train bingo RL agent')
-    parser.add_argument('--timesteps',  type=int,   default=1_000_000)
-    parser.add_argument('--save-dir',   type=str,   default=DEFAULT_SAVE_DIR)
-    parser.add_argument('--n-envs',     type=int,   default=8)
-    parser.add_argument('--lr',         type=float, default=3e-4)
-    parser.add_argument('--resume',     type=str,   default=None)
-    parser.add_argument('--log',        type=str,   default=None,
+    parser.add_argument('--timesteps',   type=int,   default=1_000_000)
+    parser.add_argument('--save-dir',    type=str,   default=DEFAULT_SAVE_DIR)
+    parser.add_argument('--n-envs',      type=int,   default=8)
+    parser.add_argument('--lr',          type=float, default=3e-4)
+    parser.add_argument('--resume',      type=str,   default=None)
+    parser.add_argument('--solver-opp',  type=float, default=0.0,
+                        help='Fraction of training episodes to face the deterministic solver (e.g. 0.2)')
+    parser.add_argument('--log',         type=str,   default=None,
                         help='Path to log file (appends; also prints to terminal)')
-    parser.add_argument('--eval',       type=str,   default=None,
+    parser.add_argument('--eval',        type=str,   default=None,
                         help='Path to saved model to evaluate instead of training')
     args = parser.parse_args()
 
@@ -331,6 +375,7 @@ if __name__ == '__main__':
                 n_envs=args.n_envs,
                 learning_rate=args.lr,
                 resume_from=args.resume,
+                solver_opp=args.solver_opp,
             )
 
     if args.log:
