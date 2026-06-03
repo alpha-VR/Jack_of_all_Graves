@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 920" font-family="'Segoe UI', Arial, sans-serif">
+  <!-- Background -->
+  <rect width="780" height="920" fill="#0f0e0c"/>
+
+  <!-- Title -->
+  <text x="390" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#c8a96e" letter-spacing="2">DETERMINISTIC SOLVER — DECISION LOOP</text>
+  <text x="390" y="56" text-anchor="middle" font-size="10" fill="#6b6355">Runs every step (every act() call)</text>
+
+  <!-- Helper: rounded rect macro via reuse -->
+
+  <!-- ── Box 1: Endgame Check ── -->
+  <rect x="240" y="75" width="300" height="52" rx="6" fill="#1c1810" stroke="#c8a96e" stroke-width="1.5"/>
+  <text x="390" y="97" text-anchor="middle" font-size="12" font-weight="700" fill="#c8a96e">1. ENDGAME CHECK</text>
+  <text x="390" y="114" text-anchor="middle" font-size="10" fill="#8a7a62">Is bingo still possible for either player?</text>
+
+  <!-- Arrow down -->
+  <line x1="390" y1="127" x2="390" y2="148" stroke="#4a4235" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Diamond: bingo possible? -->
+  <polygon points="390,148 480,175 390,202 300,175" fill="#1c1810" stroke="#4a4235" stroke-width="1.5"/>
+  <text x="390" y="171" text-anchor="middle" font-size="10" fill="#8a7a62">Bingo</text>
+  <text x="390" y="184" text-anchor="middle" font-size="10" fill="#8a7a62">possible?</text>
+
+  <!-- No branch → greedy -->
+  <line x1="300" y1="175" x2="180" y2="175" stroke="#4a4235" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="237" y="167" text-anchor="middle" font-size="9" fill="#6b6355">No</text>
+  <rect x="80" y="155" width="100" height="40" rx="4" fill="#1a1208" stroke="#5a4a2a" stroke-width="1"/>
+  <text x="130" y="172" text-anchor="middle" font-size="9" fill="#8a7a62">Greedy cheapest</text>
+  <text x="130" y="184" text-anchor="middle" font-size="9" fill="#8a7a62">mark (nearest)</text>
+  <text x="130" y="200" text-anchor="middle" font-size="8" fill="#c8a96e">→ RETURN</text>
+
+  <!-- Yes arrow down -->
+  <line x1="390" y1="202" x2="390" y2="222" stroke="#4a4235" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="397" y="215" font-size="9" fill="#6b6355">Yes</text>
+
+  <!-- ── Box 2: Score Squares ── -->
+  <rect x="190" y="222" width="400" height="80" rx="6" fill="#1c1810" stroke="#c8a96e" stroke-width="1.5"/>
+  <text x="390" y="244" text-anchor="middle" font-size="12" font-weight="700" fill="#c8a96e">2. SCORE ALL SQUARES</text>
+  <text x="390" y="261" text-anchor="middle" font-size="10" fill="#8a7a62">score = (offensive + defensive + 0.5) / travel_time</text>
+  <text x="280" y="278" text-anchor="middle" font-size="9" fill="#6b6355">OFF: 3.0^marks  (+200 if line complete)</text>
+  <text x="510" y="278" text-anchor="middle" font-size="9" fill="#6b6355">DEF: 4.0^opp_marks  (+150 if block)</text>
+  <text x="390" y="294" text-anchor="middle" font-size="9" fill="#5a8a5a">+ contention bonus if lookahead predicts opp wants it &amp; you're faster</text>
+
+  <!-- Arrow -->
+  <line x1="390" y1="302" x2="390" y2="322" stroke="#4a4235" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── Box 3: Race Condition ── -->
+  <rect x="190" y="322" width="400" height="72" rx="6" fill="#1c1810" stroke="#c8a96e" stroke-width="1.5"/>
+  <text x="390" y="344" text-anchor="middle" font-size="12" font-weight="700" fill="#c8a96e">3. RACE CONDITION</text>
+  <text x="390" y="361" text-anchor="middle" font-size="10" fill="#8a7a62">Compare my_bingo_ETA vs opp_bingo_ETA</text>
+  <text x="310" y="378" text-anchor="middle" font-size="9" fill="#6b6355">ratio &lt; 0.85 + forced block?</text>
+  <text x="310" y="390" text-anchor="middle" font-size="9" fill="#c86e6e">→ Take forced block immediately</text>
+  <text x="510" y="378" text-anchor="middle" font-size="9" fill="#6b6355">ratio &lt; 1.0?</text>
+  <text x="510" y="390" text-anchor="middle" font-size="9" fill="#e8a838">→ def_mult = 2.0 (double defense)</text>
+
+  <!-- Arrow -->
+  <line x1="390" y1="394" x2="390" y2="414" stroke="#4a4235" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── Box 4: Candidate Selection ── -->
+  <rect x="190" y="414" width="400" height="60" rx="6" fill="#1c1810" stroke="#c8a96e" stroke-width="1.5"/>
+  <text x="390" y="436" text-anchor="middle" font-size="12" font-weight="700" fill="#c8a96e">4. CANDIDATE SELECTION</text>
+  <text x="390" y="453" text-anchor="middle" font-size="10" fill="#8a7a62">Top N squares by adjusted score (N = tsp_depth, default 8)</text>
+  <text x="390" y="467" text-anchor="middle" font-size="9" fill="#6b6355">Forced-block squares always included regardless of rank</text>
+
+  <!-- Arrow -->
+  <line x1="390" y1="474" x2="390" y2="494" stroke="#4a4235" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── Box 5: TSP ── -->
+  <rect x="140" y="494" width="500" height="100" rx="6" fill="#1c1810" stroke="#c8a96e" stroke-width="1.5"/>
+  <text x="390" y="516" text-anchor="middle" font-size="12" font-weight="700" fill="#c8a96e">5. TSP ROUTE PLANNING</text>
+  <text x="390" y="533" text-anchor="middle" font-size="10" fill="#8a7a62">Expand squares → physical map nodes (locations + prereq nodes)</text>
+  <text x="390" y="549" text-anchor="middle" font-size="10" fill="#8a7a62">① Greedy nearest-neighbour pre-ordering (near-optimal first path)</text>
+  <text x="390" y="564" text-anchor="middle" font-size="10" fill="#8a7a62">② Branch-and-bound DFS — prune if partial cost ≥ best found</text>
+  <text x="390" y="579" text-anchor="middle" font-size="10" fill="#8a7a62">③ Respect prereq ordering constraints (e.g. kill Margit before Stormveil)</text>
+  <text x="390" y="593" text-anchor="middle" font-size="9" fill="#c8a96e">→ Best first node = planned next action</text>
+
+  <!-- Arrow -->
+  <line x1="390" y1="594" x2="390" y2="614" stroke="#4a4235" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── Box 6: Upgrade Intercept ── -->
+  <rect x="190" y="614" width="400" height="72" rx="6" fill="#1c1810" stroke="#c8a96e" stroke-width="1.5"/>
+  <text x="390" y="636" text-anchor="middle" font-size="12" font-weight="700" fill="#c8a96e">6. UPGRADE INTERCEPT</text>
+  <text x="390" y="653" text-anchor="middle" font-size="10" fill="#8a7a62">Skip if opponent is very close to bingo</text>
+  <text x="310" y="670" text-anchor="middle" font-size="9" fill="#6b6355">Stone detour &lt; 60s?</text>
+  <text x="310" y="682" text-anchor="middle" font-size="9" fill="#5a8a5a">→ Pick up stone first</text>
+  <text x="510" y="670" text-anchor="middle" font-size="9" fill="#6b6355">Roundtable detour &lt; 90s?</text>
+  <text x="510" y="682" text-anchor="middle" font-size="9" fill="#5a8a5a">→ Upgrade weapon first</text>
+
+  <!-- Arrow -->
+  <line x1="390" y1="686" x2="390" y2="706" stroke="#4a4235" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Return box -->
+  <rect x="290" y="706" width="200" height="36" rx="6" fill="#2a1f08" stroke="#c8a96e" stroke-width="2"/>
+  <text x="390" y="729" text-anchor="middle" font-size="13" font-weight="700" fill="#c8a96e">RETURN ACTION</text>
+
+  <!-- ── Lookahead sidebar ── -->
+  <rect x="20" y="355" width="145" height="130" rx="6" fill="#0f1a0f" stroke="#5a8a5a" stroke-width="1.2"/>
+  <text x="93" y="375" text-anchor="middle" font-size="11" font-weight="700" fill="#5a8a5a">OPPONENT</text>
+  <text x="93" y="389" text-anchor="middle" font-size="11" font-weight="700" fill="#5a8a5a">LOOKAHEAD</text>
+  <text x="93" y="407" text-anchor="middle" font-size="9" fill="#6b6355">Run same scoring</text>
+  <text x="93" y="419" text-anchor="middle" font-size="9" fill="#6b6355">from opp perspective</text>
+  <text x="93" y="435" text-anchor="middle" font-size="9" fill="#6b6355">Top N opp targets:</text>
+  <text x="93" y="449" text-anchor="middle" font-size="9" fill="#6b6355">my_ETA &lt; opp_ETA?</text>
+  <text x="93" y="463" text-anchor="middle" font-size="9" fill="#5a8a5a">→ add contention</text>
+  <text x="93" y="475" text-anchor="middle" font-size="9" fill="#5a8a5a">   bonus to score</text>
+  <!-- Connector to box 2 -->
+  <line x1="165" y1="420" x2="190" y2="280" stroke="#5a8a5a" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <!-- ── State inputs sidebar (right) ── -->
+  <rect x="615" y="222" width="148" height="180" rx="6" fill="#0a0f1a" stroke="#3a5a8a" stroke-width="1.2"/>
+  <text x="689" y="243" text-anchor="middle" font-size="11" font-weight="700" fill="#6a9ada">EXACT STATE</text>
+  <text x="689" y="257" text-anchor="middle" font-size="11" font-weight="700" fill="#6a9ada">(both players)</text>
+  <text x="689" y="275" text-anchor="middle" font-size="9" fill="#6b6355">• current position (x,y)</text>
+  <text x="689" y="289" text-anchor="middle" font-size="9" fill="#6b6355">• warp pool (graces)</text>
+  <text x="689" y="303" text-anchor="middle" font-size="9" fill="#6b6355">• weapon level</text>
+  <text x="689" y="317" text-anchor="middle" font-size="9" fill="#6b6355">• marks (completed)</text>
+  <text x="689" y="331" text-anchor="middle" font-size="9" fill="#6b6355">• sq_progress (visits)</text>
+  <text x="689" y="349" text-anchor="middle" font-size="9" fill="#e87a5a">⚠ sq_progress NOT used</text>
+  <text x="689" y="361" text-anchor="middle" font-size="9" fill="#e87a5a">in ETA estimation</text>
+  <text x="689" y="375" text-anchor="middle" font-size="9" fill="#e87a5a">(known blind spot)</text>
+  <text x="689" y="393" text-anchor="middle" font-size="9" fill="#6b6355">Opp position: exact,</text>
+  <text x="689" y="405" text-anchor="middle" font-size="9" fill="#6b6355">not estimated</text>
+  <!-- connector -->
+  <line x1="615" y1="310" x2="590" y2="310" stroke="#3a5a8a" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- ── Complexity note ── -->
+  <rect x="140" y="780" width="500" height="50" rx="4" fill="#0f0e0c" stroke="#2a2520" stroke-width="1"/>
+  <text x="390" y="800" text-anchor="middle" font-size="10" fill="#6b6355">TSP complexity (branch-and-bound with greedy NN pre-ordering):</text>
+  <text x="390" y="816" text-anchor="middle" font-size="10" fill="#6b6355">depth=4 ~6ms  |  depth=6 ~13ms  |  depth=8 ~68ms  |  depth=10 ~3300ms</text>
+
+  <!-- ── Legend ── -->
+  <rect x="140" y="845" width="500" height="58" rx="4" fill="#0f0e0c" stroke="#2a2520" stroke-width="1"/>
+  <text x="390" y="863" text-anchor="middle" font-size="10" font-weight="600" fill="#8a7a62">SCORING BASES</text>
+  <text x="220" y="878" text-anchor="middle" font-size="9" fill="#6b6355">OFF base = 3.0</text>
+  <text x="220" y="890" text-anchor="middle" font-size="9" fill="#6b6355">Bingo bonus = 200</text>
+  <text x="390" y="878" text-anchor="middle" font-size="9" fill="#6b6355">DEF base = 4.0</text>
+  <text x="390" y="890" text-anchor="middle" font-size="9" fill="#6b6355">Block bonus = 150</text>
+  <text x="565" y="878" text-anchor="middle" font-size="9" fill="#6b6355">Contention mult = 0.6</text>
+  <text x="565" y="890" text-anchor="middle" font-size="9" fill="#6b6355">Race threshold = 0.85</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4a4235"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5a8a5a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#3a5a8a"/>
+    </marker>
+  </defs>
+</svg>
