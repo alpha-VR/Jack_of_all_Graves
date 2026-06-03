@@ -24,14 +24,16 @@ def _rl_route(payload):
     try:
         from jack.rl.agent import generate_route
         return generate_route(
-            raw_names  = payload.get('raw_names', []),
-            texts      = payload.get('texts', []),
-            marks      = payload.get('marks', [-1]*25),
-            player     = payload.get('player', 0),
-            build      = payload.get('build'),
-            model_path = payload.get('model_path'),
-            max_steps  = payload.get('max_steps', 60),
-            solver     = payload.get('solver', 'rl'),
+            raw_names       = payload.get('raw_names', []),
+            texts           = payload.get('texts', []),
+            marks           = payload.get('marks', [-1]*25),
+            player          = payload.get('player', 0),
+            build           = payload.get('build'),
+            model_path      = payload.get('model_path'),
+            max_steps       = payload.get('max_steps', 60),
+            solver          = payload.get('solver', 'rl'),
+            tsp_depth       = payload.get('tsp_depth', 8),
+            lookahead_depth = payload.get('lookahead_depth', 2),
         )
     except Exception as e:
         import traceback

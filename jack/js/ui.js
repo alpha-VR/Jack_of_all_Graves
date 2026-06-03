@@ -63,12 +63,14 @@ const UI = (() => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          raw_names: State.game.board.map(sq => sq.raw.name),
-          texts:     State.game.board.map(sq => sq.text),
-          marks:     [...State.game.marks],
-          player:    0,
-          build:     State.build,
-          solver:    State.build.solver ?? 'rl',
+          raw_names:       State.game.board.map(sq => sq.raw.name),
+          texts:           State.game.board.map(sq => sq.text),
+          marks:           [...State.game.marks],
+          player:          0,
+          build:           State.build,
+          solver:          State.build.solver ?? 'det',
+          tsp_depth:       State.build.tspDepth ?? 8,
+          lookahead_depth: State.build.lookaheadDepth ?? 2,
         }),
       });
       const rl = await res.json();
@@ -692,6 +694,19 @@ const UI = (() => {
           <button class="solver-btn ${State.build.solver==='det'?'active':''}" data-solver="det">Deterministic</button>
         </div>
       </div>
+      <div class="build-row" id="det-options" style="display:${State.build.solver==='det'?'flex':'none'}">
+        <label class="build-label">Route depth</label>
+        <select id="build-tsp-depth">
+          ${[4,6,8,10,12].map(d => `<option value="${d}" ${(State.build.tspDepth??8)===d?'selected':''}>${d} squares</option>`).join('')}
+        </select>
+      </div>
+      <div class="build-row" id="det-lookahead" style="display:${State.build.solver==='det'?'flex':'none'}">
+        <label class="build-label">Opp. lookahead</label>
+        <select id="build-lookahead">
+          ${[{v:0,l:'Off'},{v:1,l:'1 move'},{v:2,l:'2 moves'},{v:3,l:'3 moves'}].map(({v,l}) =>
+            `<option value="${v}" ${(State.build.lookaheadDepth??2)===v?'selected':''}>${l}</option>`).join('')}
+        </select>
+      </div>
     `;
 
     panel.querySelector('#build-wc')?.addEventListener('change', e =>
@@ -706,7 +721,14 @@ const UI = (() => {
       State.setBuild({ solver: btn.dataset.solver });
       panel.querySelectorAll('.solver-btn').forEach(b =>
         b.classList.toggle('active', b === btn));
+      const isDet = btn.dataset.solver === 'det';
+      panel.querySelector('#det-options').style.display  = isDet ? 'flex' : 'none';
+      panel.querySelector('#det-lookahead').style.display = isDet ? 'flex' : 'none';
     });
+    panel.querySelector('#build-tsp-depth')?.addEventListener('change', e =>
+      State.setBuild({ tspDepth: parseInt(e.target.value) }));
+    panel.querySelector('#build-lookahead')?.addEventListener('change', e =>
+      State.setBuild({ lookaheadDepth: parseInt(e.target.value) }));
   }
 
   // ── Line scores modal ────────────────────────────────────────────────────

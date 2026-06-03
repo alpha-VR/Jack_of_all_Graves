@@ -75,14 +75,16 @@ def _squares_from_raw_names(raw_names: List[str], texts: List[str] = None) -> Li
 
 
 def generate_route(
-    raw_names:   List[str],         # 25 raw template names from JS board
-    marks:       List[int],          # -1=none, 0=P1, 1=P2  (JS format)
-    player:      int        = 0,     # which player is requesting the route (0 or 1)
-    build:       Dict       = None,  # {weaponClass, isSomber, primaryStat, weaponLevel}
-    model_path:  str        = None,
-    max_steps:   int        = 60,
-    solver:      str        = 'rl',  # 'rl' or 'det'
-    texts:       List[str]  = None,  # resolved display texts (e.g. "Kill 6 bosses...")
+    raw_names:       List[str],         # 25 raw template names from JS board
+    marks:           List[int],          # -1=none, 0=P1, 1=P2  (JS format)
+    player:          int        = 0,     # which player is requesting the route (0 or 1)
+    build:           Dict       = None,  # {weaponClass, isSomber, primaryStat, weaponLevel}
+    model_path:      str        = None,
+    max_steps:       int        = 60,
+    solver:          str        = 'rl',  # 'rl' or 'det'
+    texts:           List[str]  = None,  # resolved display texts (e.g. "Kill 6 bosses...")
+    tsp_depth:       int        = 8,     # TSP node cap for deterministic solver
+    lookahead_depth: int        = 2,     # opponent prediction depth (0 = off)
 ) -> Dict:
     """
     Run the trained agent on the current board state and return a detailed route.
@@ -100,7 +102,7 @@ def generate_route(
     use_det = (solver == 'det')
     if use_det:
         from jack.solver.det_solver import DeterministicSolver
-        det = DeterministicSolver()
+        det = DeterministicSolver(max_tsp_nodes=tsp_depth, lookahead_depth=lookahead_depth)
         model = None
         model_label = 'deterministic'
         model_found = True

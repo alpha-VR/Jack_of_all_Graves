@@ -39,18 +39,20 @@ from ..rl.sim import BingoGame, AgentState, _PREREQ_TABLE
 
 
 # Default TSP node cap — 8! = 40k permutations, good quality for UI use
-_DEFAULT_TSP_NODES = 8
+_DEFAULT_TSP_NODES    = 8
+_DEFAULT_LOOKAHEAD    = 2
 
 
 class DeterministicSolver(Strategy):
     # ── Scoring constants ──────────────────────────────────────────────────────
-    OFF_BASE        = 3.0    # exponential base: offensive line progress
-    DEF_BASE        = 4.0    # steeper base: defensive urgency
-    MAJ_FLAT        = 0.5    # flat bonus per mark for majority path
-    BINGO_WIN_BONUS = 200.0  # completing MY line (4 → 5)
-    BLOCK_BONUS     = 150.0  # blocking OPP 4-in-line
-    DEF_MULT_URGENT = 2.0    # defensive weight when opponent ETA < mine
-    RACE_THRESHOLD  = 0.85   # opp_eta / my_eta below this → forced block if available
+    OFF_BASE         = 3.0    # exponential base: offensive line progress
+    DEF_BASE         = 4.0    # steeper base: defensive urgency
+    MAJ_FLAT         = 0.5    # flat bonus per mark for majority path
+    BINGO_WIN_BONUS  = 200.0  # completing MY line (4 → 5)
+    BLOCK_BONUS      = 150.0  # blocking OPP 4-in-line
+    DEF_MULT_URGENT  = 2.0    # defensive weight when opponent ETA < mine
+    RACE_THRESHOLD   = 0.85   # opp_eta / my_eta below this → forced block if available
+    CONTENTION_MULT  = 0.6    # fraction of opponent's score added as contention bonus
 
     # ── Pre-indexed UNIVERSE lookups (built once, reused every step) ───────────
     _IDX_OBJECTIVE  : List[int] = []   # indices where type == 'objective'
@@ -77,8 +79,10 @@ class DeterministicSolver(Strategy):
                 cls._IDX_STONES.setdefault(key, []).append(i)
         cls._INDEXED = True
 
-    def __init__(self, max_tsp_nodes: int = _DEFAULT_TSP_NODES):
-        self._max_tsp_nodes = max_tsp_nodes
+    def __init__(self, max_tsp_nodes: int = _DEFAULT_TSP_NODES,
+                 lookahead_depth: int = _DEFAULT_LOOKAHEAD):
+        self._max_tsp_nodes   = max_tsp_nodes
+        self._lookahead_depth = lookahead_depth
         self._build_index()
 
     def act(self, game: BingoGame, agent_id: int, mask: np.ndarray) -> int:
@@ -143,7 +147,52 @@ class DeterministicSolver(Strategy):
             est = self._square_time_est(sq, agent)
             scores[sq.idx] = (off + dfn + self.MAJ_FLAT) / max(est, 30.0)
 
+        # ── Opponent prediction: contention bonus ──────────────────────────────
+        if self._lookahead_depth > 0:
+            predictions = self._predict_opponent_moves(game, agent_id)
+            for pred in predictions:
+                sq_idx = pred['sq_idx']
+                if sq_idx not in scores:
+                    continue
+                # Only add bonus if we can reach it before the opponent
+                if pred['my_eta'] < pred['opp_eta']:
+                    scores[sq_idx] += pred['opp_score'] * self.CONTENTION_MULT
+
         return scores
+
+    def _predict_opponent_moves(self, game: BingoGame, agent_id: int) -> list:
+        """Score the board from the opponent's perspective, return their top N squares
+        with both players' ETAs for contention analysis."""
+        opp_id = 1 - agent_id
+        agent  = game.agents[agent_id]
+        opp    = game.agents[opp_id]
+
+        opp_scores: Dict[int, float] = {}
+        for sq in game.board:
+            if opp.marks[sq.idx] or agent.marks[sq.idx]:
+                continue
+            if sq.requires_zero_weapon and opp.has_upgraded:
+                continue
+            if not game._prereqs_ever_satisfiable(sq, opp):
+                continue
+            off = self._offensive_score(sq.idx, opp)
+            dfn = self._defensive_score(sq.idx, agent)
+            est = self._square_time_est(sq, opp)
+            opp_scores[sq.idx] = (off + dfn + self.MAJ_FLAT) / max(est, 30.0)
+
+        top = sorted(opp_scores, key=opp_scores.get, reverse=True)[:self._lookahead_depth]
+        result = []
+        for sq_idx in top:
+            sq = game.sq_by_idx.get(sq_idx)
+            if sq is None:
+                continue
+            result.append({
+                'sq_idx':    sq_idx,
+                'opp_eta':   self._square_time_est(sq, opp),
+                'my_eta':    self._square_time_est(sq, agent),
+                'opp_score': opp_scores[sq_idx],
+            })
+        return result
 
     def _offensive_score(self, sq_idx: int, agent: AgentState) -> float:
         score = 0.0
