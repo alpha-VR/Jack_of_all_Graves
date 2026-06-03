@@ -57,7 +57,7 @@ const State = (() => {
     weaponClass: 'Greatsword',
     isSomber:    false,
     primaryStat: 'Strength',
-    solver:      'rl',
+    solver:      'det',
     // weaponLevel and runeLevel are computed from route progress
   };
 
