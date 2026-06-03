@@ -59,7 +59,7 @@ const State = (() => {
     primaryStat: 'Strength',
     solver:         'det',
     tspDepth:       8,
-    lookaheadDepth: 2,
+    lookaheadDepth: 3,
     // weaponLevel and runeLevel are computed from route progress
   };
 

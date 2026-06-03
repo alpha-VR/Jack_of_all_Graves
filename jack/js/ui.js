@@ -696,16 +696,20 @@ const UI = (() => {
       </div>
       <div class="build-row" id="det-options" style="display:${State.build.solver==='det'?'flex':'none'}">
         <label class="build-label">Route depth</label>
-        <select id="build-tsp-depth">
-          ${[4,6,8,10,12].map(d => `<option value="${d}" ${(State.build.tspDepth??8)===d?'selected':''}>${d} squares</option>`).join('')}
+        <select id="build-tsp-depth" class="build-select">
+          ${[{v:4,l:'4 squares'},{v:6,l:'6 squares'},{v:8,l:'8 squares'},{v:10,l:'10 squares ⚠️ slow'}]
+            .map(({v,l}) => `<option value="${v}" ${(State.build.tspDepth??8)===v?'selected':''}>${l}</option>`).join('')}
         </select>
       </div>
       <div class="build-row" id="det-lookahead" style="display:${State.build.solver==='det'?'flex':'none'}">
         <label class="build-label">Opp. lookahead</label>
-        <select id="build-lookahead">
+        <select id="build-lookahead" class="build-select">
           ${[{v:0,l:'Off'},{v:1,l:'1 move'},{v:2,l:'2 moves'},{v:3,l:'3 moves'}].map(({v,l}) =>
-            `<option value="${v}" ${(State.build.lookaheadDepth??2)===v?'selected':''}>${l}</option>`).join('')}
+            `<option value="${v}" ${(State.build.lookaheadDepth??3)===v?'selected':''}>${l}</option>`).join('')}
         </select>
+      </div>
+      <div id="det-depth-warning" style="display:${(State.build.tspDepth??8)===10&&State.build.solver==='det'?'block':'none'};color:#e8a838;font-size:11px;padding:2px 0 0 90px">
+        ⚠️ Depth 10 takes ~3s per route computation
       </div>
     `;
 
@@ -722,11 +726,17 @@ const UI = (() => {
       panel.querySelectorAll('.solver-btn').forEach(b =>
         b.classList.toggle('active', b === btn));
       const isDet = btn.dataset.solver === 'det';
-      panel.querySelector('#det-options').style.display  = isDet ? 'flex' : 'none';
-      panel.querySelector('#det-lookahead').style.display = isDet ? 'flex' : 'none';
+      panel.querySelector('#det-options').style.display    = isDet ? 'flex' : 'none';
+      panel.querySelector('#det-lookahead').style.display  = isDet ? 'flex' : 'none';
+      const warn = panel.querySelector('#det-depth-warning');
+      if (warn) warn.style.display = (isDet && (State.build.tspDepth??8) === 10) ? 'block' : 'none';
     });
-    panel.querySelector('#build-tsp-depth')?.addEventListener('change', e =>
-      State.setBuild({ tspDepth: parseInt(e.target.value) }));
+    panel.querySelector('#build-tsp-depth')?.addEventListener('change', e => {
+      const v = parseInt(e.target.value);
+      State.setBuild({ tspDepth: v });
+      const warn = panel.querySelector('#det-depth-warning');
+      if (warn) warn.style.display = v === 10 ? 'block' : 'none';
+    });
     panel.querySelector('#build-lookahead')?.addEventListener('change', e =>
       State.setBuild({ lookaheadDepth: parseInt(e.target.value) }));
   }
