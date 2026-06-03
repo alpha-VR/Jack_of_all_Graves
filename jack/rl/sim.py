@@ -410,7 +410,7 @@ class BingoGame:
 
             # Boss kill: compute time + runes + unlock grace
             # boss_name field overrides location name for items dropped by bosses
-            boss_name = (loc.get('boss_name') or loc.get('name', '')).lower()
+            boss_name = (loc.get('boss_name') or loc.get('name', '')).lower().replace('-', ' ')
             boss_data = BOSS_HP.get(boss_name)
             if not boss_data:
                 for k2, v in BOSS_HP.items():

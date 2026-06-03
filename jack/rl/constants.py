@@ -177,6 +177,20 @@ BOSS_DIFFICULTY = {
 
     # ── Very hard: almost no safe windows ─────────────────────────────────────
     'malenia, blade of miquella':                3.0,  # waterfowl + lifesteal
+
+    # ── NPC fights / special encounters ──────────────────────────────────────
+    'elder dragon greyoll':                      1.1,  # 5 small dragons, hit hard, no fire
+    'gurranq':                                   2.0,  # huge HP, huge hits, bad arena
+    'esgar, priest of blood':                    1.4,  # bleed spells, mobile
+    'magnus the beast claw':                     1.5,  # self-heals
+    'milicent invader':                          0.9,
+    'stray mimic tear':                          0.9,
+    'lion guardian stormveil':                   1.4,
+    'lion guardian redmane':                     1.4,
+    'lion guardian leyndell':                    1.4,
+    'lion guardian caelid':                      1.4,
+    'lion guardian castle sol':                  1.5,  # harder late-game variant
+    'putrid crystalian trio':                    1.8,  # immune to slash/thrust
 }
 
 # Flat extra seconds added for scripted phase transitions, cutscenes, and
@@ -414,7 +428,7 @@ BOSS_HP = {
     "night's cavalry":                          {'hp': 1665,  'def': 103, 'runes': 2400},
     "night's cavalry duo":                      {'hp': 7246,  'def': 122, 'runes': 84000},
     'omenkiller':                               {'hp': 2306,  'def': 110, 'runes': 4900},
-    'putrid crystalian trio':                   {'hp': 3358,  'def': 109, 'runes': 7100},
+    'putrid crystalian trio':                   {'hp': 10074, 'def': 109, 'runes': 7100},
     'red wolf of radagon':                      {'hp': 2204,  'def': 107, 'runes': 14000},
     'regal ancestor spirit':                    {'hp': 6301,  'def': 111, 'runes': 24000},
     'rennala, queen of the full moon':          {'hp': 7590,  'def': 109, 'runes': 40000},
@@ -485,6 +499,21 @@ BOSS_HP = {
     'battlemage hugues':                     {'hp': 4095,  'def': 111, 'runes': 7800},
     'red wolf of the champion':              {'hp': 3162,  'def': 111, 'runes': 21000},
     'godfrey (ashen capital)':               {'hp': 21903, 'def': 120, 'runes': 300000},
+
+    # ── NPC fights / special encounters ──────────────────────────────────────
+    'elder dragon greyoll':                  {'hp': 17350, 'def': 110, 'runes': 50000},  # 5x small dragons (3470 each)
+    'gurranq':                               {'hp': 10620, 'def': 116, 'runes': 10000},
+    'esgar, priest of blood':                {'hp': 3511,  'def': 94,  'runes': 30000},
+    'magnus the beast claw':                 {'hp': 4345,  'def': 110, 'runes': 1754},
+    'milicent invader':                      {'hp': 1000,  'def': 95,  'runes': 316},
+    'stray mimic tear':                      {'hp': 1242,  'def': 75,  'runes': 50000},
+
+    # ── Lion Guardians (zone-specific HP) ────────────────────────────────────
+    'lion guardian stormveil':               {'hp': 2119,  'def': 103, 'runes': 1500},
+    'lion guardian redmane':                 {'hp': 3440,  'def': 110, 'runes': 5000},
+    'lion guardian leyndell':                {'hp': 4739,  'def': 113, 'runes': 8000},
+    'lion guardian caelid':                  {'hp': 3079,  'def': 109, 'runes': 6000},
+    'lion guardian castle sol':              {'hp': 7019,  'def': 117, 'runes': 15000},
 }
 
 WEAPON_DPS_FACTOR = {
@@ -575,7 +604,7 @@ def compute_ar(weapon_class, weapon_level, is_somber, primary_stat, rune_level):
 
 def get_boss_difficulty(boss_name: str) -> float:
     """Returns the difficulty rating for a boss (1.0 = easy, 3.0 = Malenia)."""
-    key = boss_name.lower().strip()
+    key = boss_name.lower().strip().replace('-', ' ')
     if key in BOSS_DIFFICULTY:
         return BOSS_DIFFICULTY[key]
     for k in BOSS_DIFFICULTY:
@@ -595,7 +624,7 @@ def compute_kill_time(boss_name, weapon_class, weapon_level, is_somber,
       3. +0 struggle       — low weapon = cautious play + more flask usage;
                              ~2× longer at +0, decays quadratically to 1× at max
     """
-    key = boss_name.lower().strip()
+    key = boss_name.lower().strip().replace('-', ' ')
     boss_data = BOSS_HP.get(key)
     if not boss_data:
         for k, v in BOSS_HP.items():

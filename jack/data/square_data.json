@@ -5960,7 +5960,8 @@
           "x": -84.289062,
           "y": 142.088624,
           "level": 1,
-          "zone": "consecrated"
+          "zone": "consecrated",
+          "boss_name": "stray mimic tear"
         },
         {
           "id": 1565,
@@ -6248,7 +6249,8 @@
           "x": -174.15625,
           "y": 154.371962,
           "level": 1,
-          "zone": "caelid"
+          "zone": "caelid",
+          "boss_name": "putrid crystalian trio"
         }
       ],
       "runes": 14000,
@@ -6299,7 +6301,8 @@
           "x": -172.082813,
           "y": 153.186218,
           "level": 1,
-          "zone": "caelid"
+          "zone": "caelid",
+          "boss_name": "elder dragon greyoll"
         }
       ],
       "runes": 50000,
@@ -6951,7 +6954,8 @@
           "x": -172.082813,
           "y": 153.186218,
           "level": 1,
-          "zone": "caelid"
+          "zone": "caelid",
+          "boss_name": "elder dragon greyoll"
         },
         {
           "id": 2911,
@@ -8877,7 +8881,8 @@
           "x": -84.289062,
           "y": 142.088624,
           "level": 1,
-          "zone": "consecrated"
+          "zone": "consecrated",
+          "boss_name": "stray mimic tear"
         },
         {
           "name": "Cemetery Shade (Caelid)",
@@ -9920,7 +9925,8 @@
           "x": -85.99,
           "y": 87.23,
           "level": 1,
-          "zone": "altus_plateau"
+          "zone": "altus_plateau",
+          "boss_name": "magnus the beast claw"
         }
       ],
       "prerequisites": [],
@@ -10238,7 +10244,8 @@
           "x": -149.898437,
           "y": 156.044582,
           "level": 1,
-          "zone": "dragonbarrow"
+          "zone": "dragonbarrow",
+          "boss_name": "gurranq"
         }
       ],
       "runes": 50000,
@@ -10936,7 +10943,8 @@
           "y": 142.088624,
           "level": 1,
           "zone": "consecrated",
-          "notes": "Hidden Path to the Haligtree, Consecrated Snowfield area."
+          "notes": "Hidden Path to the Haligtree, Consecrated Snowfield area.",
+          "boss_name": "stray mimic tear"
         },
         {
           "name": "Roundtable Knight Vyke (Volcano Manor)",
@@ -10955,7 +10963,8 @@
           "prerequisites": [
             "capital_access"
           ],
-          "notes": "Leyndell Royal Capital sewers. Requires capital access."
+          "notes": "Leyndell Royal Capital sewers. Requires capital access.",
+          "boss_name": "esgar, priest of blood"
         },
         {
           "name": "Bell-Bearing Hunter (Warmaster's Shack)",
@@ -11051,35 +11060,48 @@
       "locations": [
         {
           "name": "Lion Guardian (Stormveil Castle)",
+          "boss_name": "lion guardian stormveil",
           "x": -174.2,
           "y": 88.8,
           "level": 1,
           "zone": "stormveil",
-          "notes": "In the main courtyard area of Stormveil Castle.",
           "prerequisites": [
             "kill_margit"
           ]
         },
         {
-          "name": "Lion Guardian (Farum Azula - Dragon Temple)",
-          "x": -124.5,
-          "y": 218.5,
+          "name": "Lion Guardian (Redmane Castle)",
+          "boss_name": "lion guardian redmane",
+          "x": -155.8,
+          "y": 143.2,
           "level": 1,
-          "zone": "farum_azula",
-          "notes": "Found in Crumbling Farum Azula near the Dragon Temple.",
-          "prerequisites": [
-            "kill_fire_giant"
-          ]
+          "zone": "caelid"
         },
         {
-          "name": "Lion Guardian (Farum Azula - Altar)",
-          "x": -122.8,
-          "y": 215.3,
+          "name": "Lion Guardian (Fort Gael, Caelid)",
+          "boss_name": "lion guardian caelid",
+          "x": -172.1,
+          "y": 148.4,
           "level": 1,
-          "zone": "farum_azula",
-          "notes": "Second Lion Guardian in Farum Azula.",
+          "zone": "caelid"
+        },
+        {
+          "name": "Lion Guardian (Capital Outskirts)",
+          "boss_name": "lion guardian leyndell",
+          "x": -130.5,
+          "y": 72.8,
+          "level": 1,
+          "zone": "altus_plateau"
+        },
+        {
+          "name": "Lion Guardian (Castle Sol)",
+          "boss_name": "lion guardian castle sol",
+          "x": -116.9,
+          "y": 212.5,
+          "level": 1,
+          "zone": "mountaintops",
           "prerequisites": [
-            "kill_fire_giant"
+            "kill_morgott"
           ]
         }
       ],
@@ -11173,7 +11195,8 @@
           "y": 141.0,
           "level": 1,
           "zone": "caelid",
-          "min_weapon_level": 0
+          "min_weapon_level": 0,
+          "boss_name": "milicent invader"
         }
       ],
       "prerequisites": [],

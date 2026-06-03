@@ -1,0 +1,1651 @@
+==============================================================================================================
+TIMING ENGINE AUDIT — all squares
+Weapon class: standard  |  stat: str  |  somber  |  rune level: 60
+==============================================================================================================
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_count]  Spirit Ash +4 summon
+  type: non-boss  |  overhead_sec=?
+    loc: Lone Wolf Ashes  zone=limgrave
+    loc: Spirit Jellyfish Ashes  zone=limgrave
+    loc: Banished Knight Oleg Ashes  zone=limgrave
+    loc: Lhutel the Headless  zone=limgrave
+    loc: Black Knife Tiche  zone=liurnia
+    loc: Mimic Tear Ashes  zone=siofra
+    loc: Ghost Glovewort [1] - Stormfoot Catacombs  zone=limgrave
+    loc: Ghost Glovewort [1] - Tombsward Catacombs  zone=weeping_peninsula
+    loc: Ghost-Glovewort Picker's Bell Bearing (1)  zone=siofra
+    loc: Glovewort Picker's Bell Bearing (1)  zone=volcano_manor
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_count]  Sacred Flask + %num%
+  type: non-boss  |  overhead_sec=?
+    loc: Sacred Tear (Callu Baptismal Church)  zone=weeping_peninsula
+    loc: Sacred Tear (Church of Pilgrimage)  zone=weeping_peninsula
+    loc: Sacred Tear (Third Church of Marika)  zone=limgrave
+    loc: Sacred Tear (Fourth Church of Marika)  zone=weeping_peninsula
+    loc: Sacred Tear (Bellum Church)  zone=liurnia
+    loc: Sacred Tear (First Church of Marika)  zone=mountaintops
+    loc: Sacred Tear (Stormcaller Church)  zone=altus_plateau
+    loc: Sacred Tear (Church of the Plague)  zone=caelid
+    loc: Sacred Tear (Church of Irith)  zone=liurnia
+    loc: Sacred Tear (Church of Inhibition)  zone=liurnia
+    loc: Sacred Tear (Church of Dragon Communion)  zone=limgrave
+    loc: Sacred Tear (Church of Vows)  zone=liurnia
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_count]  10 Sacred Flask charges
+  type: non-boss  |  overhead_sec=?
+    loc: Golden Seed (F)  zone=limgrave
+    loc: Golden Seed - Fort Haight  zone=weeping_peninsula
+    loc: Golden Seed (A) - Stormveil Castle  zone=stormveil
+    loc: Golden Seed (C)  zone=altus_plateau
+    loc: Golden Seed (B)  zone=altus_plateau
+    loc: Golden Seed - Academy Gate Town  zone=liurnia
+    loc: Golden Seed - Caria Manor  zone=caria_manor
+    loc: Golden Seed (I)  zone=altus_plateau
+    loc: Golden Seed (J)  zone=altus_plateau
+    loc: Golden Seed - Raya Lucaria Academy  zone=liurnia
+    loc: Golden Seed - Lux Ruins  zone=altus_plateau
+    loc: Golden Seed - Minor Erdtree Altus Plateau  zone=altus_plateau
+    loc: Golden Seed - Windmill Village  zone=altus_plateau
+    loc: Golden Seed - Weeping Peninsula  zone=weeping_peninsula
+    loc: Golden Seed - Liurnia of the Lakes  zone=liurnia
+    loc: Golden Seed - Forbidden Lands  zone=mountaintops
+    loc: Golden Seed (Consecrated Snowfield)  zone=consecrated
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_count]  Learn 12 different sorceries
+  type: non-boss  |  overhead_sec=?
+    loc: Rock Sling  zone=caelid
+    loc: Meteorite Staff  zone=caelid
+    loc: Comet  zone=liurnia
+    loc: Comet Azur  zone=mt_gelmir
+    loc: Stars of Ruin  zone=caelid
+    loc: Adula's Moonblade  zone=caria_manor
+    loc: Rock Blaster  zone=caelid
+    loc: Ranni's Dark Moon  zone=liurnia
+    loc: Crystal Burst  zone=weeping_peninsula
+    loc: Night Comet  zone=caelid
+    loc: Gravity Well  zone=liurnia
+    loc: Frozen Armament  zone=caria_manor
+    loc: Meteorite of Astel  zone=consecrated
+    loc: Loretta's Greatbow  zone=caria_manor
+    loc: Founding Rain of Stars  zone=mountaintops
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_count]  Learn 14 different incantations
+  type: non-boss  |  overhead_sec=?
+    loc: Dragonfire  zone=limgrave
+    loc: The Flame of Frenzy  zone=weeping_peninsula
+    loc: Lightning Strike  zone=weeping_peninsula
+    loc: Flame, Cleanse Me  zone=liurnia
+    loc: Bloodflame Blade  zone=liurnia
+    loc: Flame of the Fell God  zone=liurnia
+    loc: Aspects of the Crucible: Horns  zone=stormveil
+    loc: Golden Vow (Spell)  zone=mt_gelmir
+    loc: Magma Shot  zone=volcano_manor
+    loc: Beast Claw  zone=dragonbarrow
+    loc: Gurranq's Beast Claw  zone=dragonbarrow
+    loc: Theodorix's Magma  zone=consecrated
+    loc: Elden Stars  zone=deeproot
+    loc: Swarm of Flies  zone=mohgwyn
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_count]  Collect 6 unique Staves
+  type: non-boss  |  overhead_sec=?
+    loc: Meteorite Staff  zone=caelid
+    loc: Demi-Human Queen's Staff  zone=weeping_peninsula
+    loc: Azur's Glintstone Staff  zone=liurnia
+    loc: Carian Glintstone Staff  zone=liurnia
+    loc: Carian Glintblade Staff  zone=liurnia
+    loc: Staff of Loss  zone=caelid
+    loc: Lusat's Glintstone Staff  zone=caelid
+    loc: Digger's Staff  zone=liurnia
+    loc: Crystal Staff  zone=liurnia
+    loc: Academy Glintstone Staff  zone=liurnia
+    loc: Albinauric Staff  zone=volcano_manor
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_count]  Collect 3 Painting rewards
+  type: non-boss  |  overhead_sec=?
+    loc: Prophecy Painting  zone=stormveil
+    loc: Champion's Song Painting  zone=altus_plateau
+    loc: Redmane Painting  zone=caelid
+    loc: Sorcerer Painting  zone=mountaintops
+    loc: Homecoming Painting  zone=limgrave
+    loc: Resurrection Painting  zone=liurnia
+    loc: Flightless Bird Painting  zone=leyndell
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_count]  Collect %num% unique Seals
+  type: non-boss  |  overhead_sec=?
+    loc: Dragon Communion Seal  zone=limgrave
+    loc: Golden Order Seal  zone=leyndell
+    loc: Godslayer's Seal  zone=stormveil
+    loc: Erdtree Seal  zone=volcano_manor
+    loc: Gravel Stone Seal  zone=leyndell
+    loc: Giant's Seal  zone=mountaintops
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_count]  Acquire 9 different Talismans (only 1 Sacrificial Twig)
+  type: non-boss  |  overhead_sec=?
+    loc: Spelldrake Talisman  zone=limgrave
+    loc: Haligdrake Talisman  zone=limgrave
+    loc: Roar Medallion  zone=limgrave
+    loc: Hammer Talisman  zone=limgrave
+    loc: Twinblade Talisman  zone=weeping_peninsula
+    loc: Two Fingers Heirloom  zone=liurnia
+    loc: Axe Talisman  zone=limgrave
+    loc: Claw Talisman  zone=stormveil
+    loc: Boltdrake Talisman  zone=stormveil
+    loc: Green Turtle Talisman  zone=limgrave
+    loc: Blessed Dew Talisman  zone=leyndell
+    loc: Winged Sword Insignia  zone=liurnia
+    loc: Sacrificial Twig  zone=liurnia
+    loc: Radagon Icon  zone=liurnia
+    loc: Stargazer Heirloom  zone=liurnia
+    loc: Erdtree's Favor  zone=limgrave
+    loc: Sacrificial Twig - Mistwood Ruins  zone=limgrave
+    loc: Arrow's Reach Talisman  zone=limgrave
+    loc: Assassin's Crimson Dagger  zone=limgrave
+    loc: Curved Sword Talisman  zone=stormveil
+    loc: Sacred Scorpion Charm  zone=limgrave
+    loc: Fire Scorpion Charm  zone=mt_gelmir
+    loc: Assassin's Cerulean Dagger  zone=liurnia
+    loc: Shabriri's Woe  zone=liurnia
+    loc: Dragoncrest Shield Talisman  zone=caelid
+    loc: Longtail Cat Talisman  zone=liurnia
+    loc: Radagon's Scarseal  zone=weeping_peninsula
+    loc: Lance Talisman  zone=limgrave
+    loc: Graven-School Talisman  zone=liurnia
+    loc: Starscourge Heirloom  zone=caelid
+    loc: Radagon's Soreseal  zone=caelid
+    loc: Bull-Goat's Talisman  zone=caelid
+    loc: Flamedrake Talisman  zone=limgrave
+    loc: Blue Dancer Charm  zone=limgrave
+    loc: Prince of Death's Pustule  zone=stormveil
+    loc: Viridian Amber Medallion  zone=weeping_peninsula
+    loc: Arrow's Sting Talisman  zone=caelid
+    loc: Godfrey Icon  zone=altus_plateau
+    loc: Taker's Cameo  zone=mt_gelmir
+    loc: Dragoncrest Greatshield Talisman  zone=haligtree
+    loc: Marika's Soreseal  zone=haligtree
+    loc: Primal Glintstone Blade  zone=consecrated
+    loc: Crepus's Vial  zone=altus_plateau
+    loc: Kindred of Rot's Exultation  zone=mt_gelmir
+    loc: Godskin Swaddling Cloth  zone=mountaintops
+    loc: Sacrificial Twig x1 - Castle Morne  zone=weeping_peninsula
+    loc: Greatshield Talisman  zone=altus_plateau
+    loc: Golden Scarab  zone=caelid
+    loc: Spear Talisman  zone=liurnia
+    loc: Cerulean Amber Medallion  zone=liurnia
+    loc: Blue-Feathered Branchsword  zone=limgrave
+    loc: Concealing Veil  zone=altus_plateau
+    loc: Graven-Mass Talisman  zone=consecrated
+    loc: Faithful's Canvas Talisman  zone=caelid
+    loc: Great-Jar's Arsenal  zone=caelid
+    loc: Prosthesis-Wearer Heirloom  zone=caelid
+    loc: Perfumer's Talisman  zone=mt_gelmir
+    loc: Lightning Scorpion Charm  zone=mt_gelmir
+    loc: Ritual Sword Talisman  zone=mt_gelmir
+    loc: Crimson Seed Talisman  zone=altus_plateau
+    loc: Crucible Knot Talisman  zone=liurnia
+    loc: Red-Feathered Branchsword  zone=liurnia
+    loc: Cerulean Seed Talisman  zone=liurnia
+    loc: Stalwart Horn Charm  zone=liurnia
+    loc: Sacrificial Twig (Altus Plateau)  zone=altus_plateau
+    loc: Ritual Shield Talisman  zone=leyndell
+    loc: Silver Scarab  zone=consecrated
+    loc: Lord of Blood's Exultation  zone=leyndell
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_fixed]  Acquire Fingerslayer Blade
+  prereqs: ['kill_loretta', 'ranni_quest_p1', 'nokron_access']
+  type: non-boss  |  overhead_sec=?
+    loc: Fingerslayer Blade  zone=siofra
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_fixed]  Acquire Moon of Nokstella
+  type: non-boss  |  overhead_sec=?
+    loc: Moon of Nokstella  zone=ainsel
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_multi]  Acquire Somberstone Bell Bearing [1] and [2]
+  type: non-boss  |  overhead_sec=?
+    loc: Somberstone Miner's Bell Bearing (1)  zone=mohgwyn
+    loc: Somberstone Miner's Bell Bearing (2)  zone=altus_plateau
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_multi]  Acquire Smithing-stone Bell Bearing [1] and [2]
+  type: non-boss  |  overhead_sec=?
+    loc: Smithing-Stone Miner's Bell Bearing (1)  zone=liurnia
+    loc: Smithing-Stone Miner's Bell Bearing (2)  zone=leyndell
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_multi]  Acquire Grave and Ghost Glovewort Bell Bearings [1]
+  type: non-boss  |  overhead_sec=?
+    loc: Glovewort Picker's Bell Bearing (1)  zone=altus_plateau
+    loc: Ghost-Glovewort Picker's Bell Bearing (1)  zone=siofra
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_multi]  Acquire Grave and Ghost Glovewort Bell Bearings [2]
+  type: non-boss  |  overhead_sec=?
+    loc: Ghost-Glovewort Picker's Bell Bearing (2)  zone=ainsel
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_multi]  Acquire Margit's and Mohg's Shackles
+  type: non-boss  |  overhead_sec=?
+    loc: Margit's Shackle (Patches - Murkwater Cave)  zone=limgrave
+    loc: Mohg's Shackle (Leyndell Sewers)  zone=leyndell
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_multi]  Acquire 10 Cracked Pots
+  type: non-boss  |  overhead_sec=?
+    loc: Cracked Pot - Caria Manor  zone=liurnia
+    loc: Cracked Pot - 2x Stormveil Castle  zone=limgrave
+    loc: Cracked Pot - Raya Lucaria Academy  zone=liurnia
+    loc: Cracked Pot - Groveside Cave  zone=limgrave
+    loc: Cracked Pot - x3 - Merchant Kale (Church of Elleh)  zone=limgrave
+    loc: Cracked Pot - x3 - Jarburg  zone=liurnia
+    loc: Cracked Pot - x2 - Auriza Side Tomb  zone=leyndell
+    loc: Cracked Pot - Minor Erdtree (Caelid)  zone=caelid
+    loc: Cracked Pot - Leyndell, Royal Capital  zone=leyndell
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_multi]  Acquire 5 Ritual Pots
+  type: non-boss  |  overhead_sec=?
+    loc: Ritual Pot - Laskyar Ruins  zone=liurnia
+    loc: Ritual Pot - Raya Lucaria Academy  zone=liurnia
+    loc: Ritual Pot - 2x Jarburg  zone=liurnia
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_multi]  Acquire both Scarseal talismans
+  type: non-boss  |  overhead_sec=?
+    loc: Radagon's Scarseal  zone=weeping_peninsula
+    loc: Marika's Scarseal  zone=siofra
+
+--------------------------------------------------------------------------------------------------------------
+[acquire_multi]  Collect the full Haligtree Medallion
+  prereqs: ['Kill Commander Niall for left half']
+  type: non-boss  |  overhead_sec=?
+    loc: Haligtree Secret Medallion (Right)  zone=liurnia
+    loc: Haligtree Secret Medallion (Left)  zone=mountaintops
+
+--------------------------------------------------------------------------------------------------------------
+[boss_any]  Kill an Ancestor Spirit
+  loc: Ancestor Spirit
+       zone=siofra  tier=2  weapon_floor(somber)=+2
+       BOSS_HP match: 'ancestor spirit'  hp=4393  def=107  difficulty=0.9
+       kill_sec (somber): +0=62s | +3=35s | +6=23s | +9=17s
+       death prob: +0=36% | +2=0% | +4=0% | +6=0%
+  loc: Regal Ancestor Spirit
+       zone=siofra  tier=2  weapon_floor(somber)=+2
+       BOSS_HP match: 'regal ancestor spirit'  hp=6301  def=111  difficulty=0.9
+       kill_sec (somber): +0=88s | +3=51s | +6=33s | +9=24s
+       death prob: +0=36% | +2=0% | +4=0% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_any]  Kill a Red Wolf Boss
+  loc: Red Wolf of Radagon
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'red wolf of radagon'  hp=2204  def=107  difficulty=1.3
+       kill_sec (somber): +0=44s | +3=27s | +6=17s | +9=12s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Red Wolf of the Champion
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'red wolf of the champion'  hp=3162  def=111  difficulty=1.4
+       kill_sec (somber): +0=70s | +3=40s | +6=25s | +9=19s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_any]  Kill a Godskin Apostle
+  loc: Godskin Apostle (Caelid)
+       zone=dragonbarrow  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'godskin apostle (caelid)'  hp=13596  def=120  difficulty=1.6
+       kill_sec (somber): +0=346s | +3=196s | +6=123s | +9=93s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Godskin Apostle & Godskin Noble
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'godskin apostle'  hp=10562  def=116  difficulty=1.6
+       kill_sec (somber): +0=266s | +3=151s | +6=95s | +9=72s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+  loc: Godskin Apostle (Windmill Village, Altus Plateau)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'godskin apostle'  hp=10562  def=116  difficulty=1.6
+       kill_sec (somber): +0=266s | +3=151s | +6=95s | +9=72s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_any]  Kill a Dragonkin Soldier
+  loc: Dragonkin Soldier
+       zone=siofra  tier=2  weapon_floor(somber)=+2
+       BOSS_HP match: 'dragonkin soldier'  hp=5758  def=114  difficulty=1.2
+       kill_sec (somber): +0=108s | +3=63s | +6=39s | +9=30s
+       death prob: +0=36% | +2=0% | +4=0% | +6=0%
+  loc: Dragonkin Soldier
+       zone=ainsel  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: 'dragonkin soldier'  hp=5758  def=114  difficulty=1.2
+       kill_sec (somber): +0=108s | +3=63s | +6=39s | +9=30s
+       death prob: +0=90% | +2=90% | +4=54% | +6=18%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_any]  Kill a Magma Wyrm boss
+  loc: Magma Wyrm Makar
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'magma wyrm makar'  hp=7141  def=109  difficulty=1.3
+       kill_sec (somber): +0=144s | +3=81s | +6=52s | +9=39s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Magma Wyrm
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'magma wyrm'  hp=7141  def=109  difficulty=1.2
+       kill_sec (somber): +0=132s | +3=76s | +6=48s | +9=36s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Magma Wyrm (Volcano Manor)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'magma wyrm'  hp=7141  def=109  difficulty=1.2
+       kill_sec (somber): +0=132s | +3=76s | +6=48s | +9=36s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Magma Wyrm (Mt Gelmir Lava Pool)
+       zone=mt_gelmir  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: 'magma wyrm'  hp=7141  def=109  difficulty=1.2
+       kill_sec (somber): +0=132s | +3=76s | +6=48s | +9=36s
+       death prob: +0=90% | +2=90% | +4=54% | +6=18%
+  loc: Great Wyrm Theodorix
+       zone=consecrated  tier=7  weapon_floor(somber)=+9
+       BOSS_HP match: 'great wyrm theodorix'  hp=25649  def=122  difficulty=1.5
+       kill_sec (somber): +0=616s | +3=347s | +6=217s | +9=165s
+       death prob: +0=90% | +2=90% | +4=90% | +6=54%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_any]  Kill a Fallingstar Beast
+  loc: Full-Grown Fallingstar Beast
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'full-grown fallingstar beast'  hp=13010  def=114  difficulty=1.5
+       kill_sec (somber): +0=118s | +3=67s | +6=43s | +9=32s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Fallingstar Beast
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'fallingstar beast'  hp=5780  def=111  difficulty=1.3
+       kill_sec (somber): +0=118s | +3=67s | +6=43s | +9=32s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Fallingstar Beast
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'fallingstar beast'  hp=5780  def=111  difficulty=1.3
+       kill_sec (somber): +0=118s | +3=67s | +6=43s | +9=32s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_any]  Kill a Black Blade Kindred
+  loc: Black Blade Kindred
+       zone=dragonbarrow  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'black blade kindred'  hp=12297  def=121  difficulty=1.8
+       kill_sec (somber): +0=354s | +3=200s | +6=125s | +9=95s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Black Blade Kindred B
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'black blade kindred'  hp=12297  def=121  difficulty=1.8
+       kill_sec (somber): +0=354s | +3=200s | +6=125s | +9=95s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_any]  Kill Lansseax
+  loc: Ancient Dragon Lansseax (Altus Plateau)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'ancient dragon lansseax'  hp=9087  def=115  difficulty=1.4
+       kill_sec (somber): +0=200s | +3=113s | +6=72s | +9=54s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %num% Grafted Scions
+  loc: Grafted Scion
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'grafted scion'  hp=2596  def=107  difficulty=0.9
+       kill_sec (somber): +0=36s | +3=21s | +6=14s | +9=10s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Grafted Scion (Tutorial)
+       zone=stormveil  tier=2  weapon_floor(somber)=+2
+       BOSS_HP match: 'grafted scion'  hp=2596  def=107  difficulty=0.9
+       kill_sec (somber): +0=36s | +3=21s | +6=14s | +9=10s
+       death prob: +0=36% | +2=0% | +4=0% | +6=0%
+  loc: Grafted Scion
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'grafted scion'  hp=2596  def=107  difficulty=0.9
+       kill_sec (somber): +0=36s | +3=21s | +6=14s | +9=10s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Grafted Scion (Fringefolk Hero's Grave)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'grafted scion'  hp=2596  def=107  difficulty=0.9
+       kill_sec (somber): +0=36s | +3=21s | +6=14s | +9=10s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Grafted Scion (Chapel of Anticipation, via Four Belfries)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'grafted scion'  hp=2596  def=107  difficulty=0.9
+       kill_sec (somber): +0=36s | +3=21s | +6=14s | +9=10s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Grafted Scion (Mt. Gelmir)
+       zone=mt_gelmir  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: 'grafted scion'  hp=2596  def=107  difficulty=0.9
+       kill_sec (somber): +0=36s | +3=21s | +6=14s | +9=10s
+       death prob: +0=90% | +2=90% | +4=54% | +6=18%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %numofbosses% Omenkiller boss
+  loc: Omenkiller
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'omenkiller'  hp=2306  def=110  difficulty=1.1
+       kill_sec (somber): +0=40s | +3=24s | +6=15s | +9=11s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Miranda the Blighted Bloom / Omenkiller
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'omenkiller'  hp=2306  def=110  difficulty=1.1
+       kill_sec (somber): +0=40s | +3=24s | +6=15s | +9=11s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %numofbosses% Cemetery Shades
+  loc: Cemetery Shade
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'cemetery shade'  hp=781  def=102  difficulty=0.8
+       kill_sec (somber): +0=10s | +3=6s | +6=5s | +9=3s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Cemetery Shade (Caelid)
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'cemetery shade'  hp=781  def=102  difficulty=0.8
+       kill_sec (somber): +0=10s | +3=6s | +6=5s | +9=3s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Cemetery Shade (Black Knife Catacombs)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'cemetery shade'  hp=781  def=102  difficulty=0.8
+       kill_sec (somber): +0=10s | +3=6s | +6=5s | +9=3s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %numofbosses% Watchdogs
+  loc: Erdtree Burial Watchdog (Stormfoot Catacombs)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'erdtree burial watchdog'  hp=2000  def=104  difficulty=0.8
+       kill_sec (somber): +0=26s | +3=15s | +6=9s | +9=7s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Erdtree Burial Watchdog (Impaler's Catacombs)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'erdtree burial watchdog'  hp=2000  def=104  difficulty=0.8
+       kill_sec (somber): +0=26s | +3=15s | +6=9s | +9=7s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Erdtree Burial Watchdog (Minor Erdtree Catacombs)
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'erdtree burial watchdog'  hp=2000  def=104  difficulty=0.8
+       kill_sec (somber): +0=26s | +3=15s | +6=9s | +9=7s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Erdtree Burial Watchdog (Cliffbottom Catacombs)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'erdtree burial watchdog'  hp=2000  def=104  difficulty=0.8
+       kill_sec (somber): +0=26s | +3=15s | +6=9s | +9=7s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Erdtree Burial Watchdog (Wyndham Catacombs)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'erdtree burial watchdog'  hp=2000  def=104  difficulty=0.8
+       kill_sec (somber): +0=26s | +3=15s | +6=9s | +9=7s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %numofbosses% Duelist bosses
+  loc: Grave Warden Duelist (Limgrave)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'grave warden duelist'  hp=3200  def=106  difficulty=1.0
+       kill_sec (somber): +0=50s | +3=29s | +6=18s | +9=14s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Putrid Grave Warden Duelist
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'putrid grave warden duelist'  hp=8800  def=120  difficulty=1.1
+       kill_sec (somber): +0=154s | +3=87s | +6=55s | +9=42s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+  loc: Frenzied Duelist
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'frenzied duelist'  hp=3079  def=109  difficulty=1.1
+       kill_sec (somber): +0=54s | +3=31s | +6=19s | +9=15s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Grave Warden Duelist (Auriza Side Tomb)
+       zone=leyndell  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'grave warden duelist'  hp=3200  def=106  difficulty=1.0
+       kill_sec (somber): +0=50s | +3=29s | +6=18s | +9=14s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %numofbosses% Black Knife Assassins
+  loc: Black Knife Assassin
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'black knife assassin'  hp=2500  def=107  difficulty=1.2
+       kill_sec (somber): +0=46s | +3=27s | +6=17s | +9=13s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Black Knife Assassin (Altus Plateau)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'black knife assassin'  hp=2500  def=107  difficulty=1.2
+       kill_sec (somber): +0=46s | +3=27s | +6=17s | +9=13s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Black Knife Assassin (Sage's Cave)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'black knife assassin'  hp=2500  def=107  difficulty=1.2
+       kill_sec (somber): +0=46s | +3=27s | +6=17s | +9=13s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Black Knife Assassin (Liurnia of the Lakes East)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'black knife assassin'  hp=2500  def=107  difficulty=1.2
+       kill_sec (somber): +0=46s | +3=27s | +6=17s | +9=13s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %numofbosses% Crucible Knights
+  loc: Crucible Knight
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'crucible knight'  hp=2782  def=103  difficulty=1.8
+       kill_sec (somber): +0=76s | +3=44s | +6=28s | +9=21s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Crucible Knight & Crucible Knight Ordovis
+       zone=leyndell  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'crucible knight'  hp=2782  def=103  difficulty=1.8
+       kill_sec (somber): +0=76s | +3=44s | +6=28s | +9=21s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+  loc: Crucible Knight / Misbegotten Warrior
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'crucible knight'  hp=2782  def=103  difficulty=1.8
+       kill_sec (somber): +0=76s | +3=44s | +6=28s | +9=21s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Crucible Knight Siluria
+       zone=deeproot  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: 'crucible knight siluria'  hp=4606  def=117  difficulty=1.8
+       kill_sec (somber): +0=132s | +3=74s | +6=47s | +9=36s
+       death prob: +0=90% | +2=90% | +4=54% | +6=18%
+  loc: Crucible Knight (Stormveil Castle)
+       zone=stormveil  tier=2  weapon_floor(somber)=+2
+       BOSS_HP match: 'crucible knight'  hp=2782  def=103  difficulty=1.8
+       kill_sec (somber): +0=76s | +3=44s | +6=28s | +9=21s
+       death prob: +0=36% | +2=0% | +4=0% | +6=0%
+  loc: Crucible Knight (Nokron, before Gargoyles)
+       zone=siofra  tier=2  weapon_floor(somber)=+2
+       BOSS_HP match: 'crucible knight'  hp=2782  def=103  difficulty=1.8
+       kill_sec (somber): +0=76s | +3=44s | +6=28s | +9=21s
+       death prob: +0=36% | +2=0% | +4=0% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %numofbosses% Dragon Heart bosses
+  loc: Flying Dragon Agheel
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'flying dragon agheel'  hp=3200  def=106  difficulty=1.2
+       kill_sec (somber): +0=60s | +3=34s | +6=22s | +9=16s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Decaying Ekzykes
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'decaying ekzykes'  hp=23731  def=114  difficulty=1.3
+       kill_sec (somber): +0=482s | +3=272s | +6=172s | +9=130s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Flying Dragon Greyll
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'flying dragon greyll'  hp=11550  def=121  difficulty=1.3
+       kill_sec (somber): +0=240s | +3=136s | +6=85s | +9=65s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Glintstone Dragon Adula (Cathedral of Manus Celes)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'glintstone dragon adula'  hp=11550  def=121  difficulty=1.4
+       kill_sec (somber): +0=258s | +3=146s | +6=92s | +9=69s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Magma Wyrm Makar
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'magma wyrm makar'  hp=7141  def=109  difficulty=1.3
+       kill_sec (somber): +0=144s | +3=81s | +6=52s | +9=39s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Glintstone Dragon Adula (Three Sisters)
+       zone=caria_manor  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'glintstone dragon adula'  hp=11550  def=121  difficulty=1.4
+       kill_sec (somber): +0=258s | +3=146s | +6=92s | +9=69s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Glintstone Dragon Smarag
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'glintstone dragon smarag'  hp=6069  def=113  difficulty=1.2
+       kill_sec (somber): +0=114s | +3=66s | +6=42s | +9=31s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Borealis the Freezing Fog
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'borealis the freezing fog'  hp=11268  def=120  difficulty=1.5
+       kill_sec (somber): +0=270s | +3=152s | +6=96s | +9=72s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+  loc: Elder Dragon Greyoll
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       boss_name override: 'elder dragon greyoll'
+       BOSS_HP match: 'elder dragon greyoll'  hp=17350  def=110  difficulty=1.1
+       kill_sec (somber): +0=296s | +3=168s | +6=106s | +9=80s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Magma Wyrm
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'magma wyrm'  hp=7141  def=109  difficulty=1.2
+       kill_sec (somber): +0=132s | +3=76s | +6=48s | +9=36s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Magma Wyrm (Volcano Manor)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'magma wyrm'  hp=7141  def=109  difficulty=1.2
+       kill_sec (somber): +0=132s | +3=76s | +6=48s | +9=36s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Great Wyrm Theodorix
+       zone=consecrated  tier=7  weapon_floor(somber)=+9
+       BOSS_HP match: 'great wyrm theodorix'  hp=25649  def=122  difficulty=1.5
+       kill_sec (somber): +0=616s | +3=347s | +6=217s | +9=165s
+       death prob: +0=90% | +2=90% | +4=90% | +6=54%
+  loc: Dragonlord Placidusax
+       zone=farum_azula  tier=8  weapon_floor(somber)=+9
+       BOSS_HP match: 'dragonlord placidusax'  hp=26651  def=121  difficulty=1.4
+       kill_sec (somber): +0=616s | +3=350s | +6=222s | +9=170s
+       death prob: +0=90% | +2=90% | +4=90% | +6=54%
+  loc: Ancient Dragon Lansseax (Altus Plateau)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'ancient dragon lansseax'  hp=9087  def=115  difficulty=1.4
+       kill_sec (somber): +0=200s | +3=113s | +6=72s | +9=54s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Magma Wyrm (Mt Gelmir Lava Pool)
+       zone=mt_gelmir  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: 'magma wyrm'  hp=7141  def=109  difficulty=1.2
+       kill_sec (somber): +0=132s | +3=76s | +6=48s | +9=36s
+       death prob: +0=90% | +2=90% | +4=54% | +6=18%
+  loc: Lichdragon Fortissax
+       zone=deeproot  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: 'lichdragon fortissax'  hp=12903  def=114  difficulty=1.4
+       kill_sec (somber): +0=284s | +3=161s | +6=100s | +9=76s
+       death prob: +0=90% | +2=90% | +4=54% | +6=18%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %numofbosses% Erdtree Avatars
+  loc: Erdtree Avatar
+       zone=weeping_peninsula  tier=1  weapon_floor(somber)=+1
+       BOSS_HP match: 'erdtree avatar'  hp=3163  def=105  difficulty=0.9
+       kill_sec (somber): +0=44s | +3=25s | +6=16s | +9=12s
+       death prob: +0=18% | +2=0% | +4=0% | +6=0%
+  loc: Erdtree Avatar (Liurnia Southwest)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'erdtree avatar'  hp=3163  def=105  difficulty=0.9
+       kill_sec (somber): +0=44s | +3=25s | +6=16s | +9=12s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Erdtree Avatar (Liurnia Northeast)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'erdtree avatar'  hp=3163  def=105  difficulty=0.9
+       kill_sec (somber): +0=44s | +3=25s | +6=16s | +9=12s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Erdtree Avatar (Caelid)
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'erdtree avatar'  hp=3163  def=105  difficulty=0.9
+       kill_sec (somber): +0=44s | +3=25s | +6=16s | +9=12s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Erdtree Avatar (Mountaintops East)
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'erdtree avatar'  hp=3163  def=105  difficulty=0.9
+       kill_sec (somber): +0=44s | +3=25s | +6=16s | +9=12s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+  loc: Erdtree Avatar (Leyndell)
+       zone=leyndell  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'erdtree avatar'  hp=3163  def=105  difficulty=0.9
+       kill_sec (somber): +0=44s | +3=25s | +6=16s | +9=12s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+  loc: Erdtree Avatar
+       zone=deeproot  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: 'erdtree avatar'  hp=3163  def=105  difficulty=0.9
+       kill_sec (somber): +0=44s | +3=25s | +6=16s | +9=12s
+       death prob: +0=90% | +2=90% | +4=54% | +6=18%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %numofbosses% Night's Cavalry
+  loc: Night's Cavalry (Weeping Peninsula)
+       zone=weeping_peninsula  tier=1  weapon_floor(somber)=+1
+       BOSS_HP match: "night's cavalry"  hp=1665  def=103  difficulty=1.3
+       kill_sec (somber): +0=34s | +3=19s | +6=13s | +9=9s
+       death prob: +0=18% | +2=0% | +4=0% | +6=0%
+  loc: Night's Cavalry (Limgrave)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: "night's cavalry"  hp=1665  def=103  difficulty=1.3
+       kill_sec (somber): +0=34s | +3=19s | +6=13s | +9=9s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Night's Cavalry (Caelid)
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: "night's cavalry"  hp=1665  def=103  difficulty=1.3
+       kill_sec (somber): +0=34s | +3=19s | +6=13s | +9=9s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Night's Cavalry (Liurnia)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: "night's cavalry"  hp=1665  def=103  difficulty=1.3
+       kill_sec (somber): +0=34s | +3=19s | +6=13s | +9=9s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Night's Cavalry - 2x (Consecrated Snowfield)
+       zone=consecrated  tier=7  weapon_floor(somber)=+9
+       BOSS_HP match: "night's cavalry"  hp=1665  def=103  difficulty=1.3
+       kill_sec (somber): +0=34s | +3=19s | +6=13s | +9=9s
+       death prob: +0=90% | +2=90% | +4=90% | +6=54%
+  loc: Night's Cavalry (Liurnia of the Lakes North)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: "night's cavalry"  hp=1665  def=103  difficulty=1.3
+       kill_sec (somber): +0=34s | +3=19s | +6=13s | +9=9s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Night's Cavalry (Altus Plateau)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: "night's cavalry"  hp=1665  def=103  difficulty=1.3
+       kill_sec (somber): +0=34s | +3=19s | +6=13s | +9=9s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Night's Cavalry (Dragonbarrow East)
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: "night's cavalry"  hp=1665  def=103  difficulty=1.3
+       kill_sec (somber): +0=34s | +3=19s | +6=13s | +9=9s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Night's Cavalry (Forbidden Lands)
+       zone=leyndell  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: "night's cavalry"  hp=1665  def=103  difficulty=1.3
+       kill_sec (somber): +0=34s | +3=19s | +6=13s | +9=9s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %numofbosses% Tibia Mariners
+  loc: Tibia Mariner (Limgrave)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'tibia mariner'  hp=3176  def=103  difficulty=0.7
+       kill_sec (somber): +0=34s | +3=21s | +6=13s | +9=10s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Tibia Mariner (Liurnia of the Lakes)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'tibia mariner'  hp=3176  def=103  difficulty=0.7
+       kill_sec (somber): +0=34s | +3=21s | +6=13s | +9=10s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Tibia Mariner (Wyndham Ruins)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'tibia mariner'  hp=3176  def=103  difficulty=0.7
+       kill_sec (somber): +0=34s | +3=21s | +6=13s | +9=10s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill %numofbosses% Bell Bearing Hunters
+  loc: Bell Bearing Hunter
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'bell bearing hunter'  hp=2495  def=103  difficulty=1.7
+       kill_sec (somber): +0=66s | +3=38s | +6=24s | +9=18s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Bell Bearing Hunter (Church of Vows)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'bell bearing hunter'  hp=2495  def=103  difficulty=1.7
+       kill_sec (somber): +0=66s | +3=38s | +6=24s | +9=18s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Bell Bearing Hunter
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'bell bearing hunter'  hp=2495  def=103  difficulty=1.7
+       kill_sec (somber): +0=66s | +3=38s | +6=24s | +9=18s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Bell Bearing Hunter (Isolated Merchant Dragonbarrow)
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'bell bearing hunter'  hp=2495  def=103  difficulty=1.7
+       kill_sec (somber): +0=66s | +3=38s | +6=24s | +9=18s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill 4 NPC invaders
+  loc: Recusant Henricus
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Anastasia, Tarnished-Eater A
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'anastasia, tarnished-eater'  hp=2800  def=104  difficulty=1.3
+       kill_sec (somber): +0=N/A | +3=N/A | +6=N/A | +9=N/A
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Bloody Finger Nerijus
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Edgar the Revenger
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Maleigh Marais, Shaded Castle Castellan
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Moongrum, Carian Knight
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Sanguine Noble
+       zone=consecrated  tier=7  weapon_floor(somber)=+9
+       BOSS_HP match: 'sanguine noble'  hp=3128  def=110  difficulty=1.1
+       kill_sec (somber): +0=54s | +3=31s | +6=19s | +9=15s
+       death prob: +0=90% | +2=90% | +4=90% | +6=54%
+  loc: Inquisitor Ghiza
+       zone=volcano_manor  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Old Knight Istvan
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Bloody Finger Okina
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Great Horned Tragoth
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Juno Hoslow, Knight of Blood
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Recusant Bernahl
+       zone=farum_azula  tier=8  weapon_floor(somber)=+9
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Dung Eater (Royal Capital Moat)
+       zone=leyndell  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Eleonora, Violet Bloody Finger
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Preceptor Miriam
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Baleful Shadow
+       zone=ainsel  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill 3 Tree spirits
+  loc: Ulcerated Tree Spirit (Mt. Gelmir)
+       zone=mt_gelmir  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: 'ulcerated tree spirit'  hp=6147  def=107  difficulty=1.3
+       kill_sec (somber): +0=124s | +3=70s | +6=45s | +9=34s
+       death prob: +0=90% | +2=90% | +4=54% | +6=18%
+  loc: Ulcerated Tree Spirit (Limgrave)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'ulcerated tree spirit'  hp=6147  def=107  difficulty=1.3
+       kill_sec (somber): +0=124s | +3=70s | +6=45s | +9=34s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Putrid Tree Spirit
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'putrid tree spirit'  hp=18144  def=120  difficulty=1.5
+       kill_sec (somber): +0=434s | +3=245s | +6=154s | +9=116s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Ulcerated Tree Spirit (Giants' Mountaintop Catacombs)
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'ulcerated tree spirit'  hp=6147  def=107  difficulty=1.3
+       kill_sec (somber): +0=124s | +3=70s | +6=45s | +9=34s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+  loc: Ulcerated Tree Spirit (Fringefolk Hero's Grave)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'ulcerated tree spirit'  hp=6147  def=107  difficulty=1.3
+       kill_sec (somber): +0=124s | +3=70s | +6=45s | +9=34s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+  loc: Ulcerated Tree Spirit (Deeproot Depths)
+       zone=deeproot  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: 'ulcerated tree spirit'  hp=6147  def=107  difficulty=1.3
+       kill_sec (somber): +0=124s | +3=70s | +6=45s | +9=34s
+       death prob: +0=90% | +2=90% | +4=54% | +6=18%
+  loc: Ulcerated Tree Spirit (Stormveil Castle)
+       zone=stormveil  tier=2  weapon_floor(somber)=+2
+       BOSS_HP match: 'ulcerated tree spirit'  hp=6147  def=107  difficulty=1.3
+       kill_sec (somber): +0=124s | +3=70s | +6=45s | +9=34s
+       death prob: +0=36% | +2=0% | +4=0% | +6=0%
+  loc: Ulcerated Tree Spirit (Altus Plateau)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'ulcerated tree spirit'  hp=6147  def=107  difficulty=1.3
+       kill_sec (somber): +0=124s | +3=70s | +6=45s | +9=34s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Ulcerated Tree Spirit (Leyndell)
+       zone=leyndell  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'ulcerated tree spirit'  hp=6147  def=107  difficulty=1.3
+       kill_sec (somber): +0=124s | +3=70s | +6=45s | +9=34s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+  loc: Putrid Tree Spirit (Elphael)
+       zone=haligtree  tier=8  weapon_floor(somber)=+9
+       BOSS_HP match: 'putrid tree spirit'  hp=18144  def=120  difficulty=1.5
+       kill_sec (somber): +0=434s | +3=245s | +6=154s | +9=116s
+       death prob: +0=90% | +2=90% | +4=90% | +6=54%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill 4 NPC Bosses
+  loc: Patches (Murkwater Cave)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Mimic Tear (Nokron)
+       zone=siofra  tier=2  weapon_floor(somber)=+2
+       BOSS_HP match: 'mimic tear'  hp=1242  def=75  difficulty=0.9
+       kill_sec (somber): +0=16s | +3=11s | +6=7s | +9=5s
+       death prob: +0=36% | +2=0% | +4=0% | +6=0%
+  loc: Stray Mimic Tear (Hidden Path to the Haligtree)
+       zone=consecrated  tier=7  weapon_floor(somber)=+9
+       boss_name override: 'stray mimic tear'
+       BOSS_HP match: 'stray mimic tear'  hp=1242  def=75  difficulty=0.9
+       kill_sec (somber): +0=16s | +3=11s | +6=7s | +9=5s
+       death prob: +0=90% | +2=90% | +4=90% | +6=54%
+  loc: Roundtable Knight Vyke (Volcano Manor)
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'roundtable knight vyke'  hp=5366  def=104  difficulty=1.9
+       kill_sec (somber): +0=156s | +3=89s | +6=56s | +9=42s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+  loc: Esgar, Priest of Blood (Leyndell Sewers)
+       zone=leyndell  tier=6  weapon_floor(somber)=+8
+       boss_name override: 'esgar, priest of blood'
+       BOSS_HP match: 'esgar, priest of blood'  hp=3511  def=94  difficulty=1.4
+       kill_sec (somber): +0=74s | +3=42s | +6=27s | +9=20s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+  loc: Bell-Bearing Hunter (Warmaster's Shack)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+
+--------------------------------------------------------------------------------------------------------------
+[boss_count]  Kill 2 Elder Lions
+  loc: Lion Guardian (Stormveil Castle)
+       zone=stormveil  tier=2  weapon_floor(somber)=+2
+       boss_name override: 'lion guardian stormveil'
+       BOSS_HP match: 'lion guardian stormveil'  hp=2119  def=103  difficulty=1.4
+       kill_sec (somber): +0=46s | +3=27s | +6=17s | +9=13s
+       death prob: +0=36% | +2=0% | +4=0% | +6=0%
+  loc: Lion Guardian (Redmane Castle)
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       boss_name override: 'lion guardian redmane'
+       BOSS_HP match: 'lion guardian redmane'  hp=3440  def=110  difficulty=1.4
+       kill_sec (somber): +0=76s | +3=44s | +6=27s | +9=21s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Lion Guardian (Fort Gael, Caelid)
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       boss_name override: 'lion guardian caelid'
+       BOSS_HP match: 'lion guardian caelid'  hp=3079  def=109  difficulty=1.4
+       kill_sec (somber): +0=68s | +3=38s | +6=25s | +9=18s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Lion Guardian (Capital Outskirts)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       boss_name override: 'lion guardian leyndell'
+       BOSS_HP match: 'lion guardian leyndell'  hp=4739  def=113  difficulty=1.4
+       kill_sec (somber): +0=104s | +3=60s | +6=37s | +9=28s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+  loc: Lion Guardian (Castle Sol)
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       boss_name override: 'lion guardian castle sol'
+       BOSS_HP match: 'lion guardian castle sol'  hp=7019  def=117  difficulty=1.5
+       kill_sec (somber): +0=166s | +3=94s | +6=59s | +9=45s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_modifier]  Kill a Remembrance boss hitless
+  loc: Godrick the Grafted
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'godrick the grafted'  hp=6080  def=105  difficulty=1.1
+       kill_sec (somber): +0=142s | +3=87s | +6=59s | +9=48s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+       modifier constraint='hitless'  kill_mult={'Strength': 1.5, 'Dexterity': 1.5, 'Int': 1.5, 'Faith': 1.5, 'Quality': 1.5}  overhead_sec=0
+  loc: Starscourge Radahn
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'starscourge radahn'  hp=9572  def=113  difficulty=1.7
+       kill_sec (somber): +0=284s | +3=165s | +6=107s | +9=84s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+       modifier constraint='hitless'  kill_mult={'Strength': 1.5, 'Dexterity': 1.5, 'Int': 1.5, 'Faith': 1.5, 'Quality': 1.5}  overhead_sec=0
+
+--------------------------------------------------------------------------------------------------------------
+[boss_modifier]  Kill a Remembrance boss colossal armaments only
+  loc: Godrick the Grafted
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'godrick the grafted'  hp=6080  def=105  difficulty=1.1
+       kill_sec (somber): +0=142s | +3=87s | +6=59s | +9=48s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+       modifier constraint='colossal_only'  kill_mult={'Strength': 1.0, 'Dexterity': 1.5, 'Int': 2.0, 'Faith': 2.0, 'Quality': 1.2}  overhead_sec=150
+
+--------------------------------------------------------------------------------------------------------------
+[boss_modifier]  Kill a Remembrance boss daggers, claws, or fists only
+  loc: Godrick the Grafted
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'godrick the grafted'  hp=6080  def=105  difficulty=1.1
+       kill_sec (somber): +0=142s | +3=87s | +6=59s | +9=48s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+       modifier constraint='dagger_claw_fist'  kill_mult={'Strength': 2.5, 'Dexterity': 2.0, 'Int': 2.5, 'Faith': 2.5, 'Quality': 2.0}  overhead_sec=150
+
+--------------------------------------------------------------------------------------------------------------
+[boss_modifier]  Kill a Remembrance boss bow only
+  loc: Godrick the Grafted
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'godrick the grafted'  hp=6080  def=105  difficulty=1.1
+       kill_sec (somber): +0=142s | +3=87s | +6=59s | +9=48s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+       modifier constraint='bow_only'  kill_mult={'Strength': 3.0, 'Dexterity': 2.5, 'Int': 3.0, 'Faith': 3.0, 'Quality': 2.8}  overhead_sec=150
+
+--------------------------------------------------------------------------------------------------------------
+[boss_modifier]  Kill a Remembrance boss sorcery only
+  loc: Godrick the Grafted
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'godrick the grafted'  hp=6080  def=105  difficulty=1.1
+       kill_sec (somber): +0=142s | +3=87s | +6=59s | +9=48s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+       modifier constraint='sorcery_only'  kill_mult={'Strength': 2.0, 'Dexterity': 2.0, 'Int': 1.0, 'Faith': 2.5, 'Quality': 2.0}  overhead_sec=300
+
+--------------------------------------------------------------------------------------------------------------
+[boss_modifier]  Kill a Remembrance boss incantations only
+  loc: Godrick the Grafted
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'godrick the grafted'  hp=6080  def=105  difficulty=1.1
+       kill_sec (somber): +0=142s | +3=87s | +6=59s | +9=48s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+       modifier constraint='incantation_only'  kill_mult={'Strength': 2.0, 'Dexterity': 2.0, 'Int': 2.5, 'Faith': 1.0, 'Quality': 2.0}  overhead_sec=300
+
+--------------------------------------------------------------------------------------------------------------
+[boss_modifier]  Kill a Remembrance boss w/ remembrance weapon only
+  loc: Godrick the Grafted
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'godrick the grafted'  hp=6080  def=105  difficulty=1.1
+       kill_sec (somber): +0=142s | +3=87s | +6=59s | +9=48s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+       modifier constraint='remembrance_weapon'  kill_mult={'Strength': 1.5, 'Dexterity': 1.5, 'Int': 1.5, 'Faith': 1.5, 'Quality': 1.5}  overhead_sec=60
+  loc: Rennala, Queen of the Full Moon
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'rennala, queen of the full moon'  hp=7590  def=109  difficulty=1.0
+       kill_sec (somber): +0=188s | +3=118s | +6=82s | +9=67s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+       modifier constraint='remembrance_weapon'  kill_mult={'Strength': 1.5, 'Dexterity': 1.5, 'Int': 1.5, 'Faith': 1.5, 'Quality': 1.5}  overhead_sec=60
+
+--------------------------------------------------------------------------------------------------------------
+[boss_multi_specific]  Kill Astel and Astel, Stars of Darkness
+
+--------------------------------------------------------------------------------------------------------------
+[boss_multi_type]  Kill 2 Deathbirds and 1 Death Rite Bird
+
+--------------------------------------------------------------------------------------------------------------
+[boss_region]  Kill %numofbosses% bosses in Limgrave
+
+--------------------------------------------------------------------------------------------------------------
+[boss_region]  Kill %numofbosses% bosses in Liurnia
+
+--------------------------------------------------------------------------------------------------------------
+[boss_region]  Kill %numofbosses% bosses in Caelid
+
+--------------------------------------------------------------------------------------------------------------
+[boss_region]  Kill %numofbosses% bosses in Altus Plateau and Mt. Gelmir
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Godrick while summoning Nepheli Loux
+  prereqs: ['kill_margit']
+  loc: Godrick the Grafted
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'godrick the grafted'  hp=6080  def=105  difficulty=1.1
+       kill_sec (somber): +0=142s | +3=87s | +6=59s | +9=48s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Rennala after she summons 4 spirits
+  prereqs: ['academy_glintstone_key', 'kill_red_wolf_of_radagon']
+  loc: Rennala, Queen of the Full Moon
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'rennala, queen of the full moon'  hp=7590  def=109  difficulty=1.0
+       kill_sec (somber): +0=188s | +3=118s | +6=82s | +9=67s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Radahn without summoning NPCs
+  prereqs: ['rest_at_non_s6_altus_grace']
+  loc: Starscourge Radahn
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'starscourge radahn'  hp=9572  def=113  difficulty=1.7
+       kill_sec (somber): +0=284s | +3=165s | +6=107s | +9=84s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Morgott
+  prereqs: ['capital_access', 'kill_godfrey_gold_spirit']
+  loc: Morgott, The Omen King
+       zone=leyndell  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'morgott, the omen king'  hp=10399  def=114  difficulty=2.0
+       kill_sec (somber): +0=346s | +3=198s | +6=127s | +9=98s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Mohg, Lord of Blood
+  prereqs: ['mohgwyn_access']
+  loc: Mohg, Lord of Blood
+       zone=mohgwyn  tier=7  weapon_floor(somber)=+9
+       BOSS_HP match: 'mohg, lord of blood'  hp=18389  def=122  difficulty=2.1
+       kill_sec (somber): +0=688s | +3=398s | +6=257s | +9=200s
+       death prob: +0=90% | +2=90% | +4=90% | +6=54%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Margit with 6+ parries
+  loc: Margit, the Fell Omen
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'margit, the fell omen'  hp=4174  def=103  difficulty=1.5
+       kill_sec (somber): +0=96s | +3=55s | +6=35s | +9=26s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Leonine Misbegotten
+  loc: Leonine Misbegotten
+       zone=weeping_peninsula  tier=1  weapon_floor(somber)=+1
+       BOSS_HP match: 'leonine misbegotten'  hp=2199  def=103  difficulty=1.0
+       kill_sec (somber): +0=34s | +3=21s | +6=13s | +9=10s
+       death prob: +0=18% | +2=0% | +4=0% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Godskin Noble (Volcano Manor) without status effects
+  loc: Godskin Noble(Volcano Manor)
+       zone=volcano_manor  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: 'godskin noble'  hp=10060  def=114  difficulty=1.5
+       kill_sec (somber): +0=236s | +3=133s | +6=85s | +9=64s
+       death prob: +0=90% | +2=90% | +4=54% | +6=18%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Godfrey (Gold Spirit)
+  prereqs: ['capital_access']
+  loc: Godfrey, First Elden Lord (Golden Shade)
+       zone=leyndell  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'godfrey, first elden lord'  hp=7099  def=114  difficulty=1.8
+       kill_sec (somber): +0=200s | +3=113s | +6=72s | +9=54s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Mimic Tear consumables only
+  loc: Stray Mimic Tear
+       zone=consecrated  tier=7  weapon_floor(somber)=+9
+       boss_name override: 'stray mimic tear'
+       BOSS_HP match: 'stray mimic tear'  hp=1242  def=75  difficulty=0.9
+       kill_sec (somber): +0=16s | +3=11s | +6=7s | +9=5s
+       death prob: +0=90% | +2=90% | +4=90% | +6=54%
+  loc: Mimic Tear
+       zone=siofra  tier=2  weapon_floor(somber)=+2
+       BOSS_HP match: 'mimic tear'  hp=1242  def=75  difficulty=0.9
+       kill_sec (somber): +0=16s | +3=11s | +6=7s | +9=5s
+       death prob: +0=36% | +2=0% | +4=0% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Valiant Gargoyles
+  prereqs: ['nokron_access']
+  loc: Valiant Gargoyle
+       zone=siofra  tier=2  weapon_floor(somber)=+2
+       BOSS_HP match: 'valiant gargoyles'  hp=5671  def=111  difficulty=1.3
+       kill_sec (somber): +0=116s | +3=66s | +6=42s | +9=31s
+       death prob: +0=36% | +2=0% | +4=0% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Fia's Champions
+  prereqs: ['deeproot_access']
+  loc: Fia's Champions Arena
+       zone=deeproot  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: "fia's champions"  hp=12217  def=130  difficulty=2.0
+       kill_sec (somber): +0=400s | +3=224s | +6=140s | +9=107s
+       death prob: +0=90% | +2=90% | +4=54% | +6=18%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Mohg (Sewers)
+  prereqs: ['capital_access']
+  loc: Mohg, the Omen
+       zone=leyndell  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'mohg, the omen'  hp=14000  def=117  difficulty=1.7
+       kill_sec (somber): +0=376s | +3=213s | +6=134s | +9=101s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Loretta (Blue Spirit)
+  loc: Royal Knight Loretta
+       zone=caria_manor  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'royal knight loretta'  hp=4214  def=107  difficulty=1.5
+       kill_sec (somber): +0=98s | +3=55s | +6=35s | +9=27s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Commander O'Neil
+  loc: Commander O'Neil
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: "commander o'neil"  hp=9210  def=111  difficulty=1.2
+       kill_sec (somber): +0=172s | +3=97s | +6=62s | +9=47s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Soldier of Godrick bare fist only
+  loc: Soldier of Godrick
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'soldier of godrick'  hp=384  def=100  difficulty=0.6
+       kill_sec (somber): +0=4s | +3=3s | +6=3s | +9=1s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Limgrave Tree Sentinel with a +0 weapon only
+  loc: Tree Sentinel (Limgrave)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'tree sentinel'  hp=2889  def=103  difficulty=1.4
+       kill_sec (somber): +0=62s | +3=35s | +6=23s | +9=17s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Agheel with a +0 weapon only
+  loc: Flying Dragon Agheel
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'flying dragon agheel'  hp=3200  def=106  difficulty=1.2
+       kill_sec (somber): +0=60s | +3=34s | +6=22s | +9=16s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Tree Sentinel duo
+  loc: Tree Sentinel (Leyndell, Royal Capital)
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'tree sentinel'  hp=2889  def=103  difficulty=1.4
+       kill_sec (somber): +0=62s | +3=35s | +6=23s | +9=17s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Crucible Knight and Misbegotten Warrior duo
+  loc: Crucible Knight / Misbegotten Warrior
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'crucible knight'  hp=2782  def=103  difficulty=1.8
+       kill_sec (somber): +0=76s | +3=44s | +6=28s | +9=21s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Elemer of the Briar
+  loc: Elemer of the Briar
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'elemer of the briar'  hp=4897  def=111  difficulty=1.5
+       kill_sec (somber): +0=114s | +3=66s | +6=42s | +9=31s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Putrid Crystalian trio
+  loc: Crystalians (Trio - Sellia Hideaway)
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       boss_name override: 'putrid crystalian trio'
+       BOSS_HP match: 'putrid crystalian trio'  hp=10074  def=109  difficulty=1.8
+       kill_sec (somber): +0=280s | +3=159s | +6=100s | +9=76s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Wormface
+  loc: Wormface
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       BOSS_HP match: 'wormface'  hp=5876  def=113  difficulty=1.1
+       kill_sec (somber): +0=102s | +3=58s | +6=37s | +9=28s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Bloodhound Knight while summoning Blaidd
+  loc: Bloodhound Knight Darriwil
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: 'bloodhound knight darriwil'  hp=1450  def=103  difficulty=1.7
+       kill_sec (somber): +0=38s | +3=22s | +6=14s | +9=11s
+       death prob: +0=0% | +2=0% | +4=0% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Greyoll without status effects
+  loc: Elder Dragon Greyoll
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       boss_name override: 'elder dragon greyoll'
+       BOSS_HP match: 'elder dragon greyoll'  hp=17350  def=110  difficulty=1.1
+       kill_sec (somber): +0=296s | +3=168s | +6=106s | +9=80s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Fire Giant
+  loc: Fire Giant
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'fire giant'  hp=43263  def=118  difficulty=1.8
+       kill_sec (somber): +0=1272s | +3=723s | +6=457s | +9=350s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Gurranq
+  loc: Bestial Sanctum
+       zone=dragonbarrow  tier=4  weapon_floor(somber)=+6
+       boss_name override: 'gurranq'
+       BOSS_HP match: 'gurranq'  hp=10620  def=116  difficulty=2.0
+       kill_sec (somber): +0=334s | +3=190s | +6=119s | +9=90s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Malenia
+  loc: Malenia, Blade of Miquella
+       zone=haligtree  tier=8  weapon_floor(somber)=+9
+       BOSS_HP match: 'malenia, blade of miquella'  hp=33251  def=123  difficulty=3.0
+       kill_sec (somber): +0=1640s | +3=928s | +6=585s | +9=447s
+       death prob: +0=90% | +2=90% | +4=90% | +6=54%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Borealis
+  loc: Borealis the Freezing Fog
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'borealis the freezing fog'  hp=11268  def=120  difficulty=1.5
+       kill_sec (somber): +0=270s | +3=152s | +6=96s | +9=72s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Misbegotten Crusader
+  loc: Misbegotten Crusader
+       zone=consecrated  tier=7  weapon_floor(somber)=+9
+       BOSS_HP match: 'misbegotten crusader'  hp=9130  def=120  difficulty=1.7
+       kill_sec (somber): +0=248s | +3=139s | +6=88s | +9=67s
+       death prob: +0=90% | +2=90% | +4=90% | +6=54%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill Roundtable Knight Vyke
+  loc: Roundtable Knight Vyke
+       zone=mountaintops  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: 'roundtable knight vyke'  hp=5366  def=104  difficulty=1.9
+       kill_sec (somber): +0=156s | +3=89s | +6=56s | +9=42s
+       death prob: +0=90% | +2=90% | +4=72% | +6=36%
+
+--------------------------------------------------------------------------------------------------------------
+[boss_specific]  Kill the Sleeping Golem in Leyndell
+  loc: Giant Golem
+       zone=leyndell  tier=6  weapon_floor(somber)=+8
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+
+--------------------------------------------------------------------------------------------------------------
+[boss_tag]  Kill 4 Bosses with the word God in it
+
+--------------------------------------------------------------------------------------------------------------
+[boss_tag]  Kill 3 duo/trio bosses
+
+--------------------------------------------------------------------------------------------------------------
+[boss_tag]  Kill 5 bosses that ride a horse
+
+--------------------------------------------------------------------------------------------------------------
+[boss_tag]  Kill 5 bosses with 'tree' in their name
+
+--------------------------------------------------------------------------------------------------------------
+[consumable_action]  Finish off a boss with the explosive physick
+  prereqs: ['physick_flask', 'explosive_tear']
+  type: non-boss  |  overhead_sec=?
+    loc: Soldier of Godrick  zone=limgrave
+    loc: Beastman of Farum Azula (Groveside Cave)  zone=limgrave
+    loc: Demi-Human Chief  zone=limgrave
+    loc: Bloodhound Knight Darriwil  zone=limgrave
+    loc: Grafted Scion  zone=limgrave
+    loc: Mad Pumpkin Head (Waypoint Ruins)  zone=limgrave
+    loc: Tibia Mariner (Limgrave)  zone=limgrave
+    loc: Erdtree Burial Watchdog (Stormfoot Catacombs)  zone=limgrave
+    loc: Cemetery Shade  zone=weeping_peninsula
+    loc: Tibia Mariner (Liurnia of the Lakes)  zone=liurnia
+    loc: Erdtree Burial Watchdog (Cliffbottom Catacombs)  zone=liurnia
+    loc: Tibia Mariner (Wyndham Ruins)  zone=altus_plateau
+    loc: Erdtree Burial Watchdog (Wyndham Catacombs)  zone=altus_plateau
+    loc: Beastman of Farum Azula (Dragonbarrow Cave)  zone=dragonbarrow
+    loc: Mad Pumpkin Head (Caelem Ruins)  zone=caelid
+
+--------------------------------------------------------------------------------------------------------------
+[consumable_action]  Dupe a Remembrance at a Mausoleum
+  prereqs: ['killed_any_remembrance_boss']
+  type: non-boss  |  overhead_sec=180
+    loc: Walking Mausoleum (Weeping Peninsula)  zone=weeping_peninsula
+    loc: Walking Mausoleum (Bellum Highway)  zone=liurnia
+    loc: Walking Mausoleum (Mausoleum Compound South)  zone=liurnia
+    loc: Walking Mausoleum (Deeproot Depths)  zone=deeproot
+    loc: Walking Mausoleum (Mountaintops)  zone=mountaintops
+    loc: Walking Mausoleum (Consecrated Snowfield)  zone=consecrated
+    loc: Walking Mausoleum (Mausoleum Compound North)  zone=liurnia
+
+--------------------------------------------------------------------------------------------------------------
+[consumable_action]  Memory of Grace with 50k+ Runes
+  type: non-boss  |  overhead_sec=?
+
+--------------------------------------------------------------------------------------------------------------
+[consumable_action]  Use AoW Lightning Ram to kill 10 sheep
+  prereqs: ['Acquire Ash of War: Lightning Ram']
+  type: non-boss  |  overhead_sec=?
+    loc: Ash of War: Lightning Ram  zone=altus_plateau
+    loc: Sheep herd (Stormhill)  zone=limgrave
+
+--------------------------------------------------------------------------------------------------------------
+[dungeon_count]  Complete %num% catacomb dungeons
+  type: non-boss  |  overhead_sec=?
+    loc: Erdtree Burial Watchdog (Stormfoot Catacombs)  zone=limgrave
+    loc: Black Knife Assassin  zone=liurnia
+    loc: Cemetery Shade  zone=weeping_peninsula
+    loc: Erdtree Burial Watchdog (Impaler's Catacombs)  zone=weeping_peninsula
+    loc: Grave Warden Duelist (Limgrave)  zone=limgrave
+    loc: Spirit-Caller Snail  zone=liurnia
+    loc: Perfumer Tricia  zone=altus_plateau
+    loc: Erdtree Burial Watchdog (Minor Erdtree Catacombs)  zone=caelid
+    loc: Erdtree Burial Watchdog (Cliffbottom Catacombs)  zone=liurnia
+    loc: Erdtree Burial Watchdog (Wyndham Catacombs)  zone=altus_plateau
+    loc: Putrid Grave Warden Duelist  zone=consecrated
+    loc: Black Knife Assassin (Liurnia of the Lakes East)  zone=liurnia
+    loc: Misbegotten Warrior  zone=volcano_manor
+    loc: Putrid Tree Spirit  zone=caelid
+    loc: Ulcerated Tree Spirit (Giants' Mountaintop Catacombs)  zone=mountaintops
+    loc: Stray Mimic Tear  zone=consecrated
+    loc: Cemetery Shade (Caelid)  zone=caelid
+    loc: Cemetery Shade (Black Knife Catacombs)  zone=liurnia
+
+--------------------------------------------------------------------------------------------------------------
+[dungeon_count]  Complete %num% cave or grotto dungeons
+  type: non-boss  |  overhead_sec=?
+    loc: Beastman of Farum Azula (Groveside Cave)  zone=limgrave
+    loc: Demi-Human Chief Duo (Coastal Cave)  zone=limgrave
+    loc: Runebear  zone=weeping_peninsula
+    loc: Crystalians  zone=liurnia
+    loc: Patches (Bossfight)  zone=limgrave
+    loc: Cleanrot Knight - Stillwater Cave  zone=liurnia
+    loc: Beastman of Farum Azula (Dragonbarrow Cave)  zone=dragonbarrow
+    loc: Guardian Golem  zone=limgrave
+    loc: Demi-Human Queen Margot  zone=mt_gelmir
+    loc: Miranda the Blighted Bloom  zone=weeping_peninsula
+    loc: Godskin Apostle & Godskin Noble  zone=mountaintops
+    loc: Kindred of Rot  zone=mt_gelmir
+    loc: Frenzied Duelist  zone=caelid
+    loc: Bloodhound Knight  zone=liurnia
+    loc: Necromancer Garris  zone=mt_gelmir
+    loc: Black Knife Assassin (Sage's Cave)  zone=liurnia
+    loc: Misbegotten Crusader  zone=consecrated
+    loc: Cleanrot Knight Duo (Abandoned Cave)  zone=caelid
+
+--------------------------------------------------------------------------------------------------------------
+[dungeon_count]  Complete %num% tunnel or precipice dungeons
+  type: non-boss  |  overhead_sec=?
+    loc: Crystalian (Ring Blade)  zone=liurnia
+    loc: Scaly Misbegotten  zone=weeping_peninsula
+    loc: Magma Wyrm  zone=caelid
+    loc: Fallingstar Beast  zone=caelid
+    loc: Onyx Lord  zone=leyndell
+    loc: Astel, Stars of Darkness  zone=consecrated
+    loc: Stonedigger Troll (Limgrave Tunnels)  zone=limgrave
+    loc: Stonedigger Troll (Old Altus Tunnel)  zone=altus_plateau
+    loc: Crystalian Duo (Altus Tunnel)  zone=altus_plateau
+    loc: Magma Wyrm Makar (Ruin-Strewn Precipice)  zone=altus_plateau
+
+--------------------------------------------------------------------------------------------------------------
+[dungeon_count]  Complete %num% evergaols
+  type: non-boss  |  overhead_sec=?
+    loc: Ancient Hero of Zamor  zone=weeping_peninsula
+    loc: Adan, Thief of Fire  zone=liurnia
+    loc: Crucible Knight  zone=limgrave
+    loc: Bloodhound Knight Darriwil  zone=weeping_peninsula
+    loc: Alabaster Lord  zone=liurnia
+    loc: Bols, Carian Knight  zone=liurnia
+    loc: Godefroy the Grafted  zone=altus_plateau
+    loc: Roundtable Knight Vyke  zone=mountaintops
+    loc: Alecto, Black Knife Ringleader  zone=liurnia
+    loc: Battlemage Hugues  zone=caelid
+
+--------------------------------------------------------------------------------------------------------------
+[dungeon_specific]  Complete an Altus Plateau Hero's Grave
+  type: non-boss  |  overhead_sec=?
+    loc: Auriza Hero's Grave  zone=altus_plateau
+    loc: Gelmir Hero's Grave  zone=mt_gelmir
+
+--------------------------------------------------------------------------------------------------------------
+[npc_action]  Take Rya's hand to Volcano Manor
+  prereqs: ['Talk to Rya at Laskyar Ruins', 'boggart_necklace_bought']
+  type: non-boss  |  overhead_sec=?
+    loc: Rya (Erdtree-Gazing Hill)  zone=altus_plateau
+
+--------------------------------------------------------------------------------------------------------------
+[npc_action]  Return Thop's academy key
+  prereqs: ['academy_glintstone_key', 'kill_red_wolf_of_radagon']
+  type: non-boss  |  overhead_sec=?
+    loc: Thops (Church of Irith)  zone=liurnia
+
+--------------------------------------------------------------------------------------------------------------
+[npc_action]  Give Hyetta 3 Shabriri Grapes
+  prereqs: ['Find Shabriri Grapes (dropped by Fingerprint enemies, or Festering Bloody Fingers)']
+  type: non-boss  |  overhead_sec=?
+    loc: Hyetta (First Location)  zone=liurnia
+    loc: Hyetta (Second Location)  zone=liurnia
+    loc: Hyetta (Third Location)  zone=liurnia
+    loc: Hyetta (Fourth location)  zone=liurnia
+
+--------------------------------------------------------------------------------------------------------------
+[npc_action]  Buy 20 Boiled Crab from Boggart
+  prereqs: ['capital_access']
+  type: non-boss  |  overhead_sec=?
+    loc: Blackguard Big Boggart (Boilprawn Shack)  zone=liurnia
+    loc: Blackguard Big Boggart (Capital Outer Moat)  zone=leyndell
+
+--------------------------------------------------------------------------------------------------------------
+[npc_invasion]  Invade and defeat Magnus the Beast Claw
+  loc: Writheblood Ruins
+       zone=altus_plateau  tier=4  weapon_floor(somber)=+6
+       boss_name override: 'magnus the beast claw'
+       BOSS_HP match: 'magnus the beast claw'  hp=4345  def=110  difficulty=1.5
+       kill_sec (somber): +0=102s | +3=58s | +6=37s | +9=28s
+       death prob: +0=90% | +2=72% | +4=36% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[npc_invasion]  Kill the Milicent invader in Caelid
+  loc: Aeonia Swamp (Caelid)
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       boss_name override: 'milicent invader'
+       BOSS_HP match: 'milicent invader'  hp=1000  def=95  difficulty=0.9
+       kill_sec (somber): +0=14s | +3=9s | +6=6s | +9=4s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+
+--------------------------------------------------------------------------------------------------------------
+[npc_kill]  Kill 3 friendly NPCs (no hermit merchants)
+  loc: White-Faced Varre (First Location)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Boc the Seamster (First Location)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Miriel, Pastor of Vows
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: War Counselor Iji
+       zone=caria_manor  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Thops
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Gurranq, Beast Clergyman
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: 'beast clergyman'  hp=16461  def=120  difficulty=2.2
+       kill_sec (somber): +0=596s | +3=339s | +6=215s | +9=165s
+       death prob: +0=90% | +2=54% | +4=18% | +6=0%
+  loc: Tanith
+       zone=mt_gelmir  tier=5  weapon_floor(somber)=+7
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Iron Fist Alexander (First Location)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Gowry
+       zone=caelid  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Patches (First Location)
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Latenna
+       zone=liurnia  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Bloody Finger Hunter Yura (Murkwater Cave area)
+       zone=limgrave  tier=0  weapon_floor(somber)=+0
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+  loc: Blaidd (Mistwood Ruins / Ranni's Rise)
+       zone=caria_manor  tier=3  weapon_floor(somber)=+5
+       BOSS_HP match: NONE  ← no kill time, no death penalty
+       death prob: (skipped — no BOSS_HP entry)
+
+--------------------------------------------------------------------------------------------------------------
+[passive_runes]  Rune Level 60
+  type: non-boss  |  overhead_sec=?
+
+--------------------------------------------------------------------------------------------------------------
+[passive_stat]  30 Faith (no rebirth or buffs)
+  type: non-boss  |  overhead_sec=?
+
+--------------------------------------------------------------------------------------------------------------
+[passive_stat]  30 Arcane (no rebirth or buffs)
+  type: non-boss  |  overhead_sec=?
+
+--------------------------------------------------------------------------------------------------------------
+[passive_stat]  30 Int (no rebirth or buffs)
+  type: non-boss  |  overhead_sec=?
+
+--------------------------------------------------------------------------------------------------------------
+[restore_rune]  Restore Godrick's Great Rune
+  prereqs: ['Kill Godrick the Grafted']
+  type: non-boss  |  overhead_sec=?
+    loc: Divine Tower of Limgrave  zone=limgrave
+
+--------------------------------------------------------------------------------------------------------------
+[restore_rune]  Restore Radahn's Great Rune
+  prereqs: ['Kill Starscourge Radahn']
+  type: non-boss  |  overhead_sec=?
+    loc: Divine Tower of Caelid  zone=dragonbarrow
+
+--------------------------------------------------------------------------------------------------------------
+[restore_rune]  Restore Rykard's Great Rune
+  prereqs: ['Kill Rykard, Lord of Blasphemy', 'kill_onyx_lord_sealed_tunnel']
+  type: non-boss  |  overhead_sec=?
+    loc: Divine Tower of West Altus Gate  zone=altus_plateau
+
+--------------------------------------------------------------------------------------------------------------
+[restore_rune]  Restore Morgott's Great Rune
+  prereqs: ['capital_access', 'Kill Morgott, The Omen King', 'Kill Fell Twins']
+  type: non-boss  |  overhead_sec=?
+    loc: Divine Tower of East Altus  zone=leyndell
+
+==============================================================================================================
+SUMMARY
+==============================================================================================================
+Boss-type squares: 76
+Locations with no BOSS_HP match: 30
+
+Zone                  Location                                       Square
+--------------------------------------------------------------------------------------------------------------
+ainsel                Baleful Shadow                                 Kill 4 NPC invaders
+altus_plateau         Maleigh Marais, Shaded Castle Castellan        Kill 4 NPC invaders
+altus_plateau         Eleonora, Violet Bloody Finger                 Kill 4 NPC invaders
+caelid                Gowry                                          Kill 3 friendly NPCs (no hermit merchants)
+caria_manor           War Counselor Iji                              Kill 3 friendly NPCs (no hermit merchants)
+caria_manor           Blaidd (Mistwood Ruins / Ranni's Rise)         Kill 3 friendly NPCs (no hermit merchants)
+farum_azula           Recusant Bernahl                               Kill 4 NPC invaders
+leyndell              Dung Eater (Royal Capital Moat)                Kill 4 NPC invaders
+leyndell              Giant Golem                                    Kill the Sleeping Golem in Leyndell
+limgrave              Recusant Henricus                              Kill 4 NPC invaders
+limgrave              Bloody Finger Nerijus                          Kill 4 NPC invaders
+limgrave              Old Knight Istvan                              Kill 4 NPC invaders
+limgrave              White-Faced Varre (First Location)             Kill 3 friendly NPCs (no hermit merchants)
+limgrave              Boc the Seamster (First Location)              Kill 3 friendly NPCs (no hermit merchants)
+limgrave              Iron Fist Alexander (First Location)           Kill 3 friendly NPCs (no hermit merchants)
+limgrave              Bloody Finger Hunter Yura (Murkwater Cave area)  Kill 3 friendly NPCs (no hermit merchants)
+limgrave              Patches (Murkwater Cave)                       Kill 4 NPC Bosses
+limgrave              Bell-Bearing Hunter (Warmaster's Shack)        Kill 4 NPC Bosses
+liurnia               Edgar the Revenger                             Kill 4 NPC invaders
+liurnia               Moongrum, Carian Knight                        Kill 4 NPC invaders
+liurnia               Great Horned Tragoth                           Kill 4 NPC invaders
+liurnia               Preceptor Miriam                               Kill 4 NPC invaders
+liurnia               Miriel, Pastor of Vows                         Kill 3 friendly NPCs (no hermit merchants)
+liurnia               Thops                                          Kill 3 friendly NPCs (no hermit merchants)
+liurnia               Patches (First Location)                       Kill 3 friendly NPCs (no hermit merchants)
+liurnia               Latenna                                        Kill 3 friendly NPCs (no hermit merchants)
+mountaintops          Bloody Finger Okina                            Kill 4 NPC invaders
+mountaintops          Juno Hoslow, Knight of Blood                   Kill 4 NPC invaders
+mt_gelmir             Tanith                                         Kill 3 friendly NPCs (no hermit merchants)
+volcano_manor         Inquisitor Ghiza                               Kill 4 NPC invaders
